@@ -3,8 +3,9 @@ import { TREINO_CASA } from '../src/data/treinoCasa'
 import { NA_AREIA } from '../src/data/areia'
 
 describe('exercícios de casa', () => {
-  it('somam 200 com os da areia', () => {
-    expect(TREINO_CASA.length + NA_AREIA.length).toBe(200)
+  it('são 195 em casa e 240 na quadra', () => {
+    expect(TREINO_CASA.length).toBe(195)
+    expect(NA_AREIA.length).toBe(240)
   })
   it('têm números e nomes únicos', () => {
     expect(new Set(TREINO_CASA.map((e) => e.numero)).size).toBe(TREINO_CASA.length)

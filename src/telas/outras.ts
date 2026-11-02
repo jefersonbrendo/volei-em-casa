@@ -65,6 +65,12 @@ export function telaComoUsar(): DocumentFragment {
       'Não tem bola? Faça o "Treino sem bola e sem material".',
       'Toque em "Próximo exercício" para seguir a sequência até o fim.',
     ]],
+    ['Na quadra de areia', [
+      'Já joga e vai à quadra? Role a tela inicial até "Na quadra de areia" e escolha o fundamento do dia.',
+      'Cada exercício mostra o desenho da quadra com a montagem. Toque no play para ver a movimentação.',
+      'Use o filtro "Sozinho ou dupla" quando estiver só você ou com mais uma pessoa.',
+      'Uma boa ordem: 1 de aquecimento, 2 ou 3 do fundamento escolhido e termine com um jogo reduzido.',
+    ]],
     ['Quantas vezes por semana', [
       '3 a 4 treinos por semana, com um dia de descanso entre os treinos de salto.',
       'Comece pelo nível Iniciante. Quando conseguir fazer tudo com facilidade, passe para o Intermediário.',

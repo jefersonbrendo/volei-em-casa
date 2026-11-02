@@ -1,12 +1,23 @@
 import { estado } from '../app/estado'
-import { CATEGORIAS, COR_CATEGORIA, DESCRICAO_CATEGORIA, ITENS, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
+import { CATEGORIAS, COR_CATEGORIA, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
 import { ICONE_MATERIAL } from '../components/treinoCasa/IconesMaterial'
 import { cabecalho } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
 import { ICONES_APP, iconeDaCategoria, linhaDoItem, vazio } from './comum'
 import { ajudaDoNivel, chipsDeNivel, rotaDaCategoria } from './inicio'
 
-type Material = '' | 'corpo' | 'bola'
+export type Material = '' | 'corpo' | 'bola' | 'ate2' | '3mais'
+
+const ICONE_PESSOAS = '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
+const ICONE_PESSOA = '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'
+
+function passaFiltro(i: Item, f: Material): boolean {
+  if (f === 'corpo') return soCorpo(i)
+  if (f === 'bola') return usaBola(i)
+  if (f === 'ate2') return pessoasMinimas(i) <= 2
+  if (f === '3mais') return pessoasMinimas(i) >= 3
+  return true
+}
 
 /** Exercícios de uma categoria (ou de todas), com filtros de nível e de material. */
 export function telaLista(chave: string, materialInicial: Material): DocumentFragment {
@@ -14,7 +25,7 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
   let material: Material = materialInicial
 
   const base = ITENS.filter((i) => !categoria || i.categoria === categoria)
-  const passaMaterial = (i: Item): boolean => (material === 'corpo' ? soCorpo(i) : material === 'bola' ? usaBola(i) : true)
+  const passaMaterial = (i: Item): boolean => passaFiltro(i, material)
   const filtrados = (): Item[] => base.filter((i) => passaMaterial(i) && (!estado.nivel || i.nivel === estado.nivel))
 
   const frag = document.createDocumentFragment()
@@ -38,7 +49,7 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
     lista.replaceChildren()
     const rotaAtual = `${rotaDaCategoria(categoria)}${material ? `~${material}` : ''}`
     const itens = filtrados()
-    if (itens.length === 0) { lista.append(vazio('Nenhum exercício com esses filtros. Tente outro nível ou material.')); return }
+    if (itens.length === 0) { lista.append(vazio(naQuadra ? 'Nenhum exercício com esses filtros. Tente outro nível ou número de pessoas.' : 'Nenhum exercício com esses filtros. Tente outro nível ou material.')); return }
     const grupos = categoria ? [categoria] : CATEGORIAS
     for (const g of grupos) {
       const doGrupo = itens.filter((i) => i.categoria === g)
@@ -50,9 +61,12 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
 
   // Filtro de material
   const filtros = h('div', { cls: 'level-chips vac-filtro-material' })
-  const opcoes: Array<[Material, string, string]> = [['', 'Qualquer material', ''], ['corpo', 'Só o corpo', ICONE_MATERIAL.corpo], ['bola', 'Com bola', ICONES_APP.bola]]
+  const naQuadra = !!categoria && ehCategoriaAreia(categoria)
+  const opcoes: Array<[Material, string, string]> = naQuadra
+    ? [['', 'Qualquer nº de pessoas', ''], ['ate2', 'Sozinho ou dupla', ICONE_PESSOA], ['3mais', '3 pessoas ou mais', ICONE_PESSOAS]]
+    : [['', 'Qualquer material', ''], ['corpo', 'Só o corpo', ICONE_MATERIAL.corpo], ['bola', 'Com bola', ICONES_APP.bola]]
   for (const [valor, rotulo, icone] of opcoes) {
-    const qtd = base.filter((i) => (valor === 'corpo' ? soCorpo(i) : valor === 'bola' ? usaBola(i) : true)).length
+    const qtd = base.filter((i) => passaFiltro(i, valor)).length
     const chip = h('button', { cls: `chip chip-all${material === valor ? ' active' : ''}`, 'data-val': valor, html: `${icone ? svg(icone) : ''}${rotulo}<span class="chip-count">${qtd}</span>` })
     if (qtd === 0) chip.setAttribute('disabled', '')
     chip.addEventListener('click', () => {

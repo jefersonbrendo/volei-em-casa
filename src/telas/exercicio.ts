@@ -139,16 +139,17 @@ function blocoVisualAreia(item: Extract<Item, { tipo: 'areia' }>): HTMLElement {
   const num = String(ex.numero).padStart(3, '0')
   const wrap = h('div', null)
   wrap.innerHTML = `
-    <div class="ex-hero"><figure class="diag-hero"><img src="/gem/diagrams/${num}.png" alt=""><figcaption>${svg('<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>')} Montagem na quadra</figcaption></figure></div>
+    <div class="ex-hero"><figure class="diag-hero"><img src="/gem/diagrams/${num}.webp" alt=""><figcaption>${svg('<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>')} Montagem na quadra</figcaption></figure></div>
     <div class="info-grid">
       <div class="info-tile">${svg(ICONES.relogio)}<div><small>Tempo</small><strong></strong></div></div>
-      <div class="info-tile">${svg('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>')}<div><small>Jogadores</small><strong>Só você</strong></div></div>
+      <div class="info-tile">${svg('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>')}<div><small>Jogadores</small><strong></strong></div></div>
       <div class="info-tile full">${svg(ICONES.caixa)}<div><small>Material</small><strong></strong></div></div>
     </div>`
   wrap.querySelector('img')!.setAttribute('alt', `Diagrama da quadra: ${ex.nome}`)
   const fortes = wrap.querySelectorAll('.info-tile strong')
-  fortes[0]!.textContent = ex.tempo
-  fortes[2]!.textContent = ex.material
+  fortes[0]!.textContent = ex.tempo.split(' (')[0]
+  fortes[1]!.textContent = ex.jogadores.split(' (')[0] || '—'
+  fortes[2]!.textContent = ex.material || '—'
   return wrap
 }
 

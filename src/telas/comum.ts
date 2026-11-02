@@ -26,8 +26,27 @@ export const ICONES_APP = {
 
 export const QUADRA_SVG = '<svg class="quadra-bg" viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="20" y="20" width="280" height="120" rx="2"/><line x1="160" y1="10" x2="160" y2="150"/><circle cx="160" cy="10" r="3"/><circle cx="160" cy="150" r="3"/></svg>'
 
+/** Ícones das seções da quadra (os mesmos do Código da Areia). */
+const ICONES_SECAO: Record<string, string> = {
+  'Aquecimento': '<path d="M12 22c4 0 7-2.7 7-7 0-3.5-2.3-5.6-3.6-7.6-.4 2-1.4 3.2-2.6 3.6.4-3.4-1.2-6.5-4-8 .3 3.2-1.3 5.2-2.8 7C4.8 11.6 5 13 5 15c0 4.3 3 7 7 7z"/><path d="M12 22c-1.7 0-3-1.3-3-3.2 0-1.8 1.4-2.8 2.2-4 .3 1 .9 1.6 1.6 1.8.8-1.2 2.2-.2 2.2 2.2 0 1.9-1.3 3.2-3 3.2z"/>',
+  'Deslocamento': '<path d="M5 18c-1.7 0-2.5-1.6-2-3.6l1-4C4.5 8.6 6 8 7 8.5s1.3 1.7 1 3.2l-1 4.3c-.3 1.3-1 2-2 2z"/><path d="M15 12c-1 0-1.7-.7-2-2l-1-4.3c-.3-1.5 0-2.7 1-3.2s2.5.1 3 1.9l1 4c.5 2-.3 3.6-2 3.6z"/><path d="M18 21h4m-2-2 2 2-2 2"/>',
+  'Saque': '<circle cx="12" cy="12" r="10"/><path d="M11.1 7.1a16.55 16.55 0 0 1 10.9 4"/><path d="M12 12a12.6 12.6 0 0 1-8.7 5"/><path d="M16.8 13.6a16.55 16.55 0 0 1-9 7.5"/><path d="M20.7 17a12.8 12.8 0 0 0-8.7-5 13.3 13.3 0 0 1 0-10"/><path d="M6.3 3.8a16.55 16.55 0 0 0 1.9 11.5"/>',
+  'Recepção': '<path d="M4 14l8 6 8-6"/><path d="M4 9l8 6 8-6"/><circle cx="12" cy="4" r="2"/>',
+  'Levantamento de manchete': '<path d="M3 17h18"/><path d="M6 17l3-4h6l3 4"/><circle cx="12" cy="6" r="3"/><path d="M12 9v2"/>',
+  'Levantamento de toque': '<circle cx="12" cy="5" r="3"/><path d="M6 21v-5c0-1 .5-2 1.5-2.5L10 12"/><path d="M18 21v-5c0-1-.5-2-1.5-2.5L14 12"/><path d="M9 11l3-2 3 2"/>',
+  'Ataque': '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
+  'Bloqueio': '<path d="M2 20h20"/><path d="M12 20V4"/><path d="M7 4v6a2 2 0 0 0 2 2"/><path d="M17 4v6a2 2 0 0 1-2 2"/><path d="M5 6h4M15 6h4"/>',
+  'Defesa': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+  'Side-out': '<path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/>',
+  'Comunicação': '<path d="M3 11v2a1 1 0 0 0 1 1h3l6 5V5L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 8.5a5 5 0 0 1 0 7"/><path d="M19.5 6a8.5 8.5 0 0 1 0 12"/>',
+  'Tática': '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8l3 3m0-3-3 3"/><circle cx="15.5" cy="15.5" r="2"/><path d="M11 14c1-3 2-4 4-5"/>',
+  'Jogos reduzidos': '<rect x="2" y="5" width="20" height="14" rx="1.5"/><path d="M12 5v14"/><path d="M2 12h20"/>',
+  'Condicionamento': '<path d="M6.5 6.5v11M17.5 6.5v11"/><path d="M3 9v6M21 9v6"/><path d="M6.5 12h11"/>',
+  'Sozinho ou em dupla': '<circle cx="9" cy="7" r="3.5"/><path d="M2.5 21v-1.5A5.5 5.5 0 0 1 8 14h2a5.5 5.5 0 0 1 5.5 5.5V21"/><circle cx="18" cy="9" r="2.5"/><path d="M17 14.2a4.5 4.5 0 0 1 4.5 4.5V21"/>',
+}
+
 export function iconeDaCategoria(categoria: string): string {
-  return categoria === 'Na areia' ? ICONES_APP.areia : (ICONES_CATEGORIA[categoria] ?? ICONES_APP.bola)
+  return ICONES_SECAO[categoria] ?? ICONES_CATEGORIA[categoria] ?? ICONES_APP.bola
 }
 
 /* ---------- TEMA ---------- */
@@ -81,12 +100,12 @@ function miniaturaCasa(numero: number, categoria: string, regioes: Regiao[]): HT
 /** Linha de exercício (mesmo visual do Código da Areia). */
 export function linhaDoItem(item: Item, rotulo: string, voltar?: string): HTMLElement {
   const miniatura = item.tipo === 'areia'
-    ? h('figure', { cls: 'foto r-1x1 mini thumb-diag' }, h('img', { src: `/gem/diagrams/${String(item.ex.numero).padStart(3, '0')}.png`, alt: '', loading: 'lazy' }))
+    ? h('figure', { cls: 'foto r-1x1 mini thumb-diag' }, h('img', { src: `/gem/thumbs/${String(item.ex.numero).padStart(3, '0')}.webp`, alt: '', loading: 'lazy' }))
     : miniaturaCasa(item.ex.numero, item.categoria, item.ex.regioes)
 
   const visual = item.tipo === 'casa'
     ? h('div', { cls: 'cda-card-visual' }, IconesMaterial(item.ex.material, { comNome: false }), ChipVolume(item.ex.volume), SilhuetaRegioes(item.ex.regioes, { altura: 32 }))
-    : h('div', { cls: 'ex-row-mat' }, `${item.ex.tempo} · ${item.ex.material}`)
+    : h('div', { cls: 'ex-row-mat' }, `${item.ex.jogadores.split(' (')[0]} · ${item.ex.tempo.split(' (')[0].replace(/minutos?/, 'min')}`)
 
   const corpo = h('div', { cls: 'ex-row-body' },
     h('div', { cls: 'ex-ordem' }, rotulo),

@@ -6,7 +6,7 @@ import './estilos/app.css'
 import { aplicarTema } from './telas/comum'
 import { atualizarSeloSalvos, telaExercicio } from './telas/exercicio'
 import { telaInicio } from './telas/inicio'
-import { telaLista } from './telas/lista'
+import { telaLista, type Material } from './telas/lista'
 import { telaBuscar, telaComoUsar, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
 import { telaComparar, telaDemo, telaRevisao } from './telas/demo'
@@ -29,7 +29,7 @@ function desenhar(): void {
 
   pararBonecos()
   let tela: DocumentFragment
-  if (rota.startsWith('cat-')) tela = telaLista(rota.slice(4), extra === 'corpo' || extra === 'bola' ? extra : '')
+  if (rota.startsWith('cat-')) tela = telaLista(rota.slice(4), (['corpo', 'bola', 'ate2', '3mais'].includes(extra) ? extra : '') as Material)
   else if (rota.startsWith('ex-')) tela = telaExercicio(rota.slice(3), extra)
   else if (rota === 'treinos') tela = telaTreinos()
   else if (rota.startsWith('treino-')) tela = telaTreino(rota.slice(7))
