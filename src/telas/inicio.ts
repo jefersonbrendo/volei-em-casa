@@ -53,7 +53,7 @@ function tileDaCategoria(c: Categoria): HTMLElement {
   tile.innerHTML = `
     <div class="sec-tile-top">${QUADRA_SVG}<svg class="sec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconeDaCategoria(c)}</svg><span class="sec-abrev">${ABREV_CATEGORIA[c]}</span></div>
     <div class="sec-tile-body"><span class="sec-tile-nome"></span>${barraDeNiveis(c)}</div>`
-  tile.querySelector('.sec-tile-nome')!.textContent = `${c} · ${qtd}`
+  tile.querySelector(".sec-tile-nome")!.textContent = c
   tile.addEventListener('click', () => { window.location.hash = `#${rotaDaCategoria(c)}` })
   return tile
 }
