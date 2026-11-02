@@ -1,0 +1,49 @@
+/* Treino em Casa: ícones de material, chip de volume e silhueta das regiões trabalhadas. */
+
+/* Silhueta: partes trabalhadas em laranja; o resto, cinza apagado do tema (claro e escuro) */
+.cda-silhueta { display: inline-flex; align-items: center; flex-shrink: 0; line-height: 0; }
+.cda-silhueta svg { display: block; height: auto; max-width: none; }
+.cda-silhueta .sil-neutro { fill: var(--text-muted); fill-opacity: 0.22; }
+.cda-silhueta .sil-parte { stroke: var(--bg-card); stroke-width: 1.5; }
+.cda-silhueta .sil-inativa { fill: var(--text-muted); fill-opacity: 0.28; }
+.cda-silhueta .sil-ativa { fill: var(--laranja); fill-opacity: 1; }
+
+/* Ícones de material */
+.cda-materiais { display: inline-flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.cda-mat { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; min-width: 52px; color: var(--accent); }
+.cda-mat-ico svg { width: 28px; height: 28px; display: block; }
+.cda-mat-nome { font-size: 11px; font-weight: 600; line-height: 1.1; color: var(--text-sec); text-align: center; }
+.cda-materiais-so-icone { flex-wrap: nowrap; gap: 5px; }
+.cda-materiais-so-icone .cda-mat { min-width: 0; }
+.cda-materiais-so-icone .cda-mat-ico svg { width: 20px; height: 20px; }
+
+/* Chip de volume: mesmo estilo dos chips de tempo e de jogadores do app */
+.cda-chip-volume {
+  display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; white-space: nowrap;
+  padding: 4px 10px; border-radius: 999px; background: var(--bg-chip); color: var(--text-sec);
+  font-size: 12px; font-weight: 700;
+}
+.cda-chip-ico { display: inline-flex; color: var(--ceu); }
+.cda-chip-ico svg { width: 14px; height: 14px; }
+
+/* Linha compacta no card da lista: nunca quebra em duas linhas */
+.cda-card-visual { display: flex; align-items: center; flex-wrap: nowrap; gap: 8px; margin-top: 6px; min-width: 0; overflow: hidden; }
+.cda-card-visual .cda-silhueta { margin-left: auto; }
+
+/* Bloco de detalhe: Material, Volume, Trabalha */
+.cda-visual { margin: 14px 0 4px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 4px 14px; }
+.cda-visual-parte { padding: 12px 0; }
+.cda-visual-parte + .cda-visual-parte { border-top: 1px solid var(--border); }
+.cda-visual-rotulo { margin: 0 0 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.cda-visual-nota { margin: 8px 0 0; font-size: 12px; line-height: 1.4; color: var(--text-muted); }
+.cda-trabalha { display: flex; align-items: center; gap: 18px; }
+.cda-regioes-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.cda-regioes-lista li { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; font-weight: 600; color: var(--text); }
+.cda-regioes-lista li::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--laranja); flex-shrink: 0; }
+
+/* Filtro "Só o corpo" */
+.cda-linha-filtro-corpo { display: flex; align-items: center; gap: 10px; margin: 10px 0 6px; flex-wrap: wrap; }
+.chip.cda-filtro-corpo { display: inline-flex; align-items: center; gap: 6px; }
+.chip.cda-filtro-corpo svg { width: 16px; height: 16px; }
+.chip.cda-filtro-corpo.active { background: var(--laranja); border-color: var(--laranja); color: #0F172A; }
+.cda-dica-filtro { font-size: 12px; color: var(--text-muted); }

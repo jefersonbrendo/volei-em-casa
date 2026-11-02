@@ -1,0 +1,81 @@
+/* Telas novas do acesso por senha e do Treino em Casa. Usa só os tokens do app (--bg-card, --coral...). */
+
+/* Aba de bônus liberado na barra de baixo (ex.: Compet.), em destaque */
+.nav-item.cda-destaque { color: var(--coral); font-weight: 800; }
+.nav-item.cda-destaque svg {
+  width: 40px; height: 40px; padding: 9px; margin-top: -16px; border-radius: 14px; color: #fff;
+  background: linear-gradient(135deg, var(--coral), var(--laranja));
+  border: 3px solid var(--bg-nav);
+  box-shadow: 0 6px 14px rgba(255, 74, 63, 0.38);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.nav-item.cda-destaque:active svg { transform: scale(0.94); }
+.nav-item.cda-destaque.active svg { transform: translateY(-2px); box-shadow: 0 0 0 3px rgba(255, 74, 63, 0.28), 0 8px 18px rgba(255, 74, 63, 0.45); }
+
+/* Cartões de bônus na tela inicial */
+.cda-bonus { margin-top: 16px; }
+.cda-bonus .bloco-titulo { margin-top: 0; }
+.cda-bonus + .hero { margin-top: 20px; }
+.cda-bonus .sec-tile { position: relative; }
+.cda-bonus .sec-tile-top { height: 88px; }
+.cda-lock-badge {
+  position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, 0.55); color: #fff;
+}
+.cda-lock-badge svg { width: 15px; height: 15px; }
+.cda-preco { font-size: 12px; font-weight: 700; color: var(--coral); display: inline-flex; align-items: center; gap: 5px; }
+.cda-preco svg { width: 13px; height: 13px; }
+.cda-liberado { font-size: 12px; font-weight: 700; color: var(--c-ini); display: inline-flex; align-items: center; gap: 5px; }
+.cda-liberado svg { width: 13px; height: 13px; }
+.sec-tile.cda-bloqueado .sec-tile-top { filter: saturate(0.7); }
+
+/* Botões e formulários */
+.cda-acoes { display: flex; flex-direction: column; gap: 10px; margin: 18px 0 8px; }
+.cda-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; min-height: 50px; padding: 0 16px; border-radius: 14px;
+  font-size: 0.92rem; font-weight: 700; text-decoration: none; text-align: center;
+}
+.cda-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.cda-btn.pri { background: var(--coral); color: #fff; box-shadow: 0 6px 16px rgba(255, 74, 63, 0.28); }
+.cda-btn.sec { background: var(--bg-card); color: var(--text); border: 1.5px solid var(--border); }
+.cda-btn.zap { background: #1FA855; color: #fff; }
+.cda-btn:active { transform: scale(0.98); }
+.cda-form { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; padding: 14px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border); }
+.cda-form label { font-size: 12px; font-weight: 700; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.06em; }
+.cda-input {
+  width: 100%; box-sizing: border-box; height: 50px; padding: 0 14px; border-radius: 12px;
+  font-size: 1.05rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--bg); color: var(--text); border: 2px solid var(--border);
+}
+.cda-input:focus { outline: none; border-color: var(--accent); }
+.cda-input::placeholder { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--text-muted); }
+.cda-msg { font-size: 0.86rem; line-height: 1.45; padding: 10px 12px; border-radius: 10px; }
+.cda-msg.erro { background: rgba(255, 74, 63, 0.08); border: 1px solid rgba(255, 74, 63, 0.25); color: var(--text); }
+.cda-msg.ok { background: rgba(30, 158, 90, 0.1); border: 1px solid rgba(30, 158, 90, 0.3); color: var(--text); }
+.cda-oculto { display: none !important; }
+
+/* Aviso */
+.cda-aviso {
+  position: fixed; left: 16px; right: 16px; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 400;
+  max-width: 420px; margin: 0 auto; padding: 12px 16px; border-radius: 12px;
+  background: var(--accent); color: #fff; font-size: 0.88rem; font-weight: 600; text-align: center;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+}
+
+/* Configurações */
+.cda-lista { display: flex; flex-direction: column; gap: 8px; }
+.cda-linha {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; text-align: left;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; color: var(--text);
+}
+.cda-linha-ico { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; background: linear-gradient(150deg, var(--g1), var(--g2)); flex-shrink: 0; }
+.cda-linha-ico svg { width: 22px; height: 22px; }
+.cda-linha-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cda-linha-nome { font-size: 0.92rem; font-weight: 700; line-height: 1.25; }
+
+/* Treino em Casa: miniatura de categoria nos cards (no lugar do diagrama) */
+.ex-row .foto.cda-thumb { display: flex; align-items: center; justify-content: center; color: var(--accent); }
+.ex-row .foto.cda-thumb svg { width: 60%; height: 60%; }
+.cda-exemplo { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: rgba(255, 159, 28, 0.18); color: var(--text); border: 1px dashed var(--laranja); }
