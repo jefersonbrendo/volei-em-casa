@@ -1,4 +1,4 @@
-const CACHE_NAME = 'volei-casa-v1';
+const CACHE_NAME = 'volei-casa-v2';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',

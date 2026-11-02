@@ -9,6 +9,8 @@ import { telaInicio } from './telas/inicio'
 import { telaLista } from './telas/lista'
 import { telaBuscar, telaComoUsar, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
+import { telaDemo, telaRevisao } from './telas/demo'
+import { pararBonecos } from './animacao/registro'
 import { animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
 
 /** Endereços: #home, #cat-N[~corpo|~bola], #ex-ID[~voltar], #treinos, #treino-ID, #buscar[~termo], #salvos, #como-usar */
@@ -25,6 +27,7 @@ function desenhar(): void {
   const rota = corte >= 0 ? bruto.slice(0, corte) : bruto
   const extra = corte >= 0 ? bruto.slice(corte + 1) : ''
 
+  pararBonecos()
   let tela: DocumentFragment
   if (rota.startsWith('cat-')) tela = telaLista(rota.slice(4), extra === 'corpo' || extra === 'bola' ? extra : '')
   else if (rota.startsWith('ex-')) tela = telaExercicio(rota.slice(3), extra)
@@ -33,6 +36,8 @@ function desenhar(): void {
   else if (rota === 'buscar') tela = telaBuscar(extra)
   else if (rota === 'salvos') tela = telaSalvos()
   else if (rota === 'como-usar') tela = telaComoUsar()
+  else if (rota === 'demo') tela = telaDemo()
+  else if (rota === 'revisao') tela = telaRevisao(extra)
   else tela = telaInicio()
 
   pararAnimacao()

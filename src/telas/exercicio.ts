@@ -6,6 +6,9 @@ import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { TREINOS } from '../data/treinos'
 import { ROTULO_REGIAO } from '../lib/treinoCasaTextos'
 import { mostrarAviso } from '../ui/aviso'
+import { criarBoneco } from '../animacao/boneco'
+import { movimentoDoExercicio } from '../animacao/movimentos'
+import { registrarAnimacao } from '../animacao/registro'
 import { cabecalho } from '../ui/cabecalho'
 import { h, svg, ICONES } from '../ui/dom'
 import { ICONES_APP } from './comum'
@@ -61,11 +64,18 @@ export function atualizarSeloSalvos(): void {
 function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): HTMLElement {
   const ex = item.ex
   const parte = (rotulo: string, ...filhos: Array<HTMLElement | null>) => h('div', { cls: 'cda-visual-parte' }, h('p', { cls: 'cda-visual-rotulo' }, rotulo), ...filhos)
-  return h('div', { cls: 'cda-visual' },
+  const mov = movimentoDoExercicio(ex.numero)
+  let demo: HTMLElement | null = null
+  if (mov) {
+    const a = criarBoneco(mov)
+    registrarAnimacao(a.destruir)
+    demo = h('div', { cls: 'vac-demo' }, h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'), a.el as unknown as HTMLElement)
+  }
+  return h('div', null, demo, h('div', { cls: 'cda-visual' },
     parte('Material', IconesMaterial(ex.material, { comNome: true }), ex.materialNota ? h('p', { cls: 'cda-visual-nota' }, ex.materialNota) : null),
     parte('Volume', ChipVolume(ex.volume), ex.volumeNota ? h('p', { cls: 'cda-visual-nota' }, ex.volumeNota) : null),
     parte('Trabalha', h('div', { cls: 'cda-trabalha' }, SilhuetaRegioes(ex.regioes, { altura: 120 }), h('ul', { cls: 'cda-regioes-lista' }, ...ex.regioes.map((r) => h('li', null, ROTULO_REGIAO[r]))))),
-  )
+  ))
 }
 
 function blocoVisualAreia(item: Extract<Item, { tipo: 'areia' }>): HTMLElement {

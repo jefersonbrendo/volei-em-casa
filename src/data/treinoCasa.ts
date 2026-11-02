@@ -6,7 +6,7 @@
  *
  * COMO ADICIONAR EXERCÍCIOS
  * 1. Copie um objeto do array TREINO_CASA e cole no fim da lista (antes do `]`).
- * 2. Dê um `numero` novo e único (continue de 113 em diante). O número vira o endereço do
+ * 2. Dê um `numero` novo e único (continue de 196 em diante). O número vira o endereço do
  *    exercício (#casa-113), então não reaproveite nem mude números já publicados.
  * 3. Rode `npm test`: o teste confere números repetidos, valores inválidos e campos vazios.
  *
@@ -39,6 +39,9 @@
  * Os valores de categoria, nivel, material e regioes são tipos fechados: se escrever um valor que
  * não existe, o TypeScript acusa erro (npm run typecheck) e o build não passa.
  */
+
+import { NOVOS_BOLA_IMPULSAO } from './treinoCasaNovosBola'
+import { NOVOS_CORPO } from './treinoCasaNovosCorpo'
 
 export const CATEGORIAS_CASA = ['Com bola', 'Impulsão', 'Força', 'Agilidade', 'Coordenação', 'Mobilidade'] as const
 export type CategoriaCasa = (typeof CATEGORIAS_CASA)[number]
@@ -81,7 +84,7 @@ export interface ExercicioCasa {
   variacaoDificil: string
 }
 
-export const TREINO_CASA: ExercicioCasa[] = [
+const TREINO_CASA_BASE: ExercicioCasa[] = [
   {
     numero: 1,
     categoria: 'Com bola',
@@ -2138,3 +2141,6 @@ export const TREINO_CASA: ExercicioCasa[] = [
     variacaoDificil: 'Aumente cada parte para 90 segundos.',
   },
 ]
+
+/** Todos os exercícios: os 112 originais + os novos (113–195). */
+export const TREINO_CASA: ExercicioCasa[] = [...TREINO_CASA_BASE, ...NOVOS_BOLA_IMPULSAO, ...NOVOS_CORPO]

@@ -36,3 +36,40 @@
 .vac-uso { padding-top: 6px; }
 .vac-card h3 { margin-bottom: 8px; }
 .top-bar-secao .hdr-ctx-box { padding: 10px 0; }
+
+/* ---------- Boneco animado (demonstração do movimento) ---------- */
+.vac-demo { margin: 14px 0 6px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); box-shadow: var(--shadow); }
+.vac-demo-rotulo { display: flex; align-items: center; gap: 6px; padding: 10px 12px 0; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: var(--laranja); text-transform: uppercase; }
+.vac-demo-rotulo::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--coral); animation: vac-pisca 1.2s ease-in-out infinite; }
+@keyframes vac-pisca { 50% { opacity: 0.25; } }
+.boneco { display: block; width: 100%; height: auto; }
+.bn-fundo { fill: transparent; }
+.bn-chao { stroke: var(--text-muted); stroke-width: 2; stroke-linecap: round; opacity: 0.5; }
+.bn-parede { fill: color-mix(in srgb, var(--text-muted) 22%, transparent); stroke: var(--text-muted); stroke-width: 1.5; }
+.bn-cadeira path { fill: none; stroke: var(--text-muted); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.bn-cone { fill: var(--laranja); }
+.bn-sombra { fill: var(--text); opacity: 0.12; }
+.bn-membro, .bn-tronco { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.bn-frente .bn-membro, .bn-frente .bn-tronco { stroke: var(--text); stroke-width: 9; }
+.bn-tras .bn-membro { stroke: color-mix(in srgb, var(--text) 45%, transparent); stroke-width: 8; }
+.bn-cabeca { fill: var(--text); }
+.bn-bola circle { fill: #f6c344; stroke: #b9781a; stroke-width: 1.5; }
+.bn-bola path { fill: none; stroke: #b9781a; stroke-width: 1.2; }
+.vac-demo-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vac-demo-grade .vac-demo { margin: 0; }
+.vac-demo-nome { padding: 0 12px 10px; font-size: 13px; font-weight: 700; color: var(--text); }
+.bn-tapete { fill: color-mix(in srgb, var(--laranja) 30%, transparent); }
+.bn-linha { stroke: var(--laranja); stroke-width: 3; stroke-linecap: round; }
+.bn-degrau { fill: color-mix(in srgb, var(--text-muted) 30%, transparent); stroke: var(--text-muted); stroke-width: 1.5; }
+.bn-marca { fill: var(--laranja); }
+.bn-toalha { fill: none; stroke: #4aa3df; stroke-width: 5; stroke-linecap: round; }
+.bn-garrafa { fill: #4aa3df; stroke: color-mix(in srgb, #4aa3df 60%, #000); stroke-width: 1; }
+.bn-elastico { stroke: #e2554a; stroke-width: 2.5; stroke-linecap: round; }
+.bn-olhos { stroke: var(--bg-card); stroke-width: 1.6; stroke-linecap: round; }
+.vac-rev { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+.vac-rev-item h4 { font-size: 12px; margin: 0 0 4px; color: var(--text); }
+.vac-rev-tira { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+.vac-rev-tira .boneco { border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); }
+.foto.vac-thumb-boneco { background: var(--bg-card); border: 1px solid var(--border); display: grid; place-items: center; overflow: hidden; }
+.foto.mini.vac-thumb-boneco svg.boneco { width: 100%; height: 100%; }
+.vac-thumb-boneco .bn-frente .bn-membro, .vac-thumb-boneco .bn-frente .bn-tronco { stroke-width: 7; }

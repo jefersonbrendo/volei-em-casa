@@ -2,6 +2,8 @@ import { ChipVolume } from '../components/treinoCasa/ChipVolume'
 import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { estado } from '../app/estado'
+import { criarBoneco } from '../animacao/boneco'
+import { movimentoDoExercicio } from '../animacao/movimentos'
 import type { Item } from '../app/itens'
 import { h, svg, ICONES, ICONES_CATEGORIA } from '../ui/dom'
 
@@ -67,11 +69,20 @@ export function selo(nivel: string): HTMLElement {
   return h('span', { cls: `nivel-badge nivel-${nivel}` }, nivel)
 }
 
+/** Miniatura do exercício de casa: o boneco parado no meio do movimento. */
+function miniaturaCasa(numero: number, categoria: string): HTMLElement {
+  const m = movimentoDoExercicio(numero)
+  if (!m) return h('figure', { cls: 'foto r-1x1 mini thumb-diag sem-img cda-thumb', html: svg(iconeDaCategoria(categoria)) })
+  const fig = h('figure', { cls: 'foto r-1x1 mini thumb-diag vac-thumb-boneco' })
+  fig.append(criarBoneco(m, { parado: true, t: 0.45, recorte: true }).el as unknown as Node)
+  return fig
+}
+
 /** Linha de exercício (mesmo visual do Código da Areia). */
 export function linhaDoItem(item: Item, rotulo: string, voltar?: string): HTMLElement {
   const miniatura = item.tipo === 'areia'
     ? h('figure', { cls: 'foto r-1x1 mini thumb-diag' }, h('img', { src: `/gem/diagrams/${String(item.ex.numero).padStart(3, '0')}.png`, alt: '', loading: 'lazy' }))
-    : h('figure', { cls: 'foto r-1x1 mini thumb-diag sem-img cda-thumb', html: svg(iconeDaCategoria(item.categoria)) })
+    : miniaturaCasa(item.ex.numero, item.categoria)
 
   const visual = item.tipo === 'casa'
     ? h('div', { cls: 'cda-card-visual' }, IconesMaterial(item.ex.material, { comNome: false }), ChipVolume(item.ex.volume), SilhuetaRegioes(item.ex.regioes, { altura: 32 }))
