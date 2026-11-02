@@ -2,7 +2,7 @@ import { ChipVolume } from '../components/treinoCasa/ChipVolume'
 import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { estado } from '../app/estado'
-import { criarBoneco } from '../animacao/boneco'
+import { criarBonecoV2, type Regiao } from '../animacao/bonecoV2'
 import { movimentoDoExercicio } from '../animacao/movimentos'
 import type { Item } from '../app/itens'
 import { h, svg, ICONES, ICONES_CATEGORIA } from '../ui/dom'
@@ -70,11 +70,11 @@ export function selo(nivel: string): HTMLElement {
 }
 
 /** Miniatura do exercício de casa: o boneco parado no meio do movimento. */
-function miniaturaCasa(numero: number, categoria: string): HTMLElement {
+function miniaturaCasa(numero: number, categoria: string, regioes: Regiao[]): HTMLElement {
   const m = movimentoDoExercicio(numero)
   if (!m) return h('figure', { cls: 'foto r-1x1 mini thumb-diag sem-img cda-thumb', html: svg(iconeDaCategoria(categoria)) })
   const fig = h('figure', { cls: 'foto r-1x1 mini thumb-diag vac-thumb-boneco' })
-  fig.append(criarBoneco(m, { parado: true, t: 0.45, recorte: true }).el as unknown as Node)
+  fig.append(criarBonecoV2(m, { parado: true, t: 0.45, recorte: true, regioes }).el as unknown as Node)
   return fig
 }
 
@@ -82,7 +82,7 @@ function miniaturaCasa(numero: number, categoria: string): HTMLElement {
 export function linhaDoItem(item: Item, rotulo: string, voltar?: string): HTMLElement {
   const miniatura = item.tipo === 'areia'
     ? h('figure', { cls: 'foto r-1x1 mini thumb-diag' }, h('img', { src: `/gem/diagrams/${String(item.ex.numero).padStart(3, '0')}.png`, alt: '', loading: 'lazy' }))
-    : miniaturaCasa(item.ex.numero, item.categoria)
+    : miniaturaCasa(item.ex.numero, item.categoria, item.ex.regioes)
 
   const visual = item.tipo === 'casa'
     ? h('div', { cls: 'cda-card-visual' }, IconesMaterial(item.ex.material, { comNome: false }), ChipVolume(item.ex.volume), SilhuetaRegioes(item.ex.regioes, { altura: 32 }))

@@ -180,7 +180,7 @@ export function esqueletoEm(m: Movimento, t: number): Esqueleto {
 }
 
 /* ------------------------------ DESENHO ------------------------------ */
-const NS = 'http://www.w3.org/2000/svg'
+export const NS = 'http://www.w3.org/2000/svg'
 function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, string | number> = {}): SVGElementTagNameMap[K] {
   const e = document.createElementNS(NS, tag)
   for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, String(v))
@@ -189,7 +189,7 @@ function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, 
 const f = (n: number): string => n.toFixed(1)
 const pontos = (...ps: Ponto[]): string => ps.map((p) => `${f(p.x)},${f(p.y)}`).join(' ')
 
-function cenario(svg: SVGSVGElement, m: Movimento): void {
+export function cenario(svg: SVGSVGElement, m: Movimento): void {
   if (m.tapete) svg.append(el('rect', { x: 30, y: CHAO - 2, width: 180, height: 5, rx: 2.5, class: 'bn-tapete' }))
   svg.append(el('line', { x1: 12, y1: CHAO, x2: LARGURA - 12, y2: CHAO, class: 'bn-chao' }))
   if (m.linha) svg.append(el('line', { x1: CENTRO_X, y1: CHAO - 2, x2: CENTRO_X, y2: CHAO + 7, class: 'bn-linha' }))

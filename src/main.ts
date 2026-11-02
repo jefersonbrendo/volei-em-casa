@@ -9,7 +9,7 @@ import { telaInicio } from './telas/inicio'
 import { telaLista } from './telas/lista'
 import { telaBuscar, telaComoUsar, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
-import { telaDemo, telaRevisao } from './telas/demo'
+import { telaComparar, telaDemo, telaRevisao } from './telas/demo'
 import { pararBonecos } from './animacao/registro'
 import { animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
 
@@ -37,6 +37,7 @@ function desenhar(): void {
   else if (rota === 'salvos') tela = telaSalvos()
   else if (rota === 'como-usar') tela = telaComoUsar()
   else if (rota === 'demo') tela = telaDemo()
+  else if (rota === 'comparar') tela = telaComparar(extra)
   else if (rota === 'revisao') tela = telaRevisao(extra)
   else tela = telaInicio()
 

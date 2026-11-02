@@ -6,7 +6,7 @@ import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { TREINOS } from '../data/treinos'
 import { ROTULO_REGIAO } from '../lib/treinoCasaTextos'
 import { mostrarAviso } from '../ui/aviso'
-import { criarBoneco } from '../animacao/boneco'
+import { criarBonecoV2 } from '../animacao/bonecoV2'
 import { movimentoDoExercicio } from '../animacao/movimentos'
 import { registrarAnimacao } from '../animacao/registro'
 import { cabecalho } from '../ui/cabecalho'
@@ -67,9 +67,23 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): HTMLElement {
   const mov = movimentoDoExercicio(ex.numero)
   let demo: HTMLElement | null = null
   if (mov) {
-    const a = criarBoneco(mov)
+    const total = ex.volume.repeticoes ?? 0
+    const contador = h('b', null, '1')
+    const reps = total ? h('span', { cls: 'vac-demo-reps' }, 'Repetição ', contador, ` de ${total}`) : h('span', { cls: 'vac-demo-reps' }, ex.volume.tempo ? `${ex.volume.series ? `${ex.volume.series} × ` : ''}${ex.volume.tempo}` : 'Em loop')
+    const a = criarBonecoV2(mov, { regioes: ex.regioes, aoRepetir: (r) => { if (total) contador.textContent = String((r % total) + 1) } })
     registrarAnimacao(a.destruir)
-    demo = h('div', { cls: 'vac-demo' }, h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'), a.el as unknown as HTMLElement)
+    const lento = h('button', { cls: 'vac-lento', 'aria-pressed': 'false', type: 'button' }, '🐢 Câmera lenta')
+    lento.addEventListener('click', () => {
+      const on = lento.getAttribute('aria-pressed') !== 'true'
+      lento.setAttribute('aria-pressed', String(on))
+      a.velocidade(on ? 0.4 : 1)
+    })
+    demo = h('div', { cls: 'vac-demo' },
+      h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'),
+      a.el as unknown as HTMLElement,
+      h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
+      h('div', { cls: 'vac-demo-ctrl' }, reps, lento),
+    )
   }
   return h('div', null, demo, h('div', { cls: 'cda-visual' },
     parte('Material', IconesMaterial(ex.material, { comNome: true }), ex.materialNota ? h('p', { cls: 'cda-visual-nota' }, ex.materialNota) : null),
