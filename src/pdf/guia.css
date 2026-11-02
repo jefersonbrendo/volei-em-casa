@@ -1,0 +1,86 @@
+@page { size: A4; margin: 12mm 12mm 14mm; }
+:root {
+  --text: #0f172a; --text-sec: #334155; --text-muted: #64748b; --bg-card: #ffffff; --border: #e2e8f0;
+  --laranja: #f28a24; --coral: #ef4444; --navy: #0e2f4f; --navy2: #0e4b75; --areia: #f6e7c4;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: var(--text); font-family: 'Inter', system-ui, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.pagina { break-after: page; }
+.pagina:last-child { break-after: auto; }
+
+/* Capa */
+.capa { position: relative; height: 271mm; border-radius: 6mm; overflow: hidden; color: #fff; background: radial-gradient(circle at 80% 85%, #c9822e 0%, transparent 45%), linear-gradient(160deg, #0b2a47 0%, #0e4b75 60%, #0b2a47 100%); padding: 18mm 16mm; display: flex; flex-direction: column; }
+.capa .quadra { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .14; }
+.capa .quadra rect, .capa .quadra line { stroke: #fff; stroke-width: 2; fill: none; }
+.capa-selo { position: relative; align-self: flex-start; padding: 2mm 4mm; border-radius: 99px; background: var(--laranja); color: #fff; font-weight: 800; font-size: 9pt; letter-spacing: .12em; }
+.capa h1 { position: relative; font-family: 'Bebas Neue', 'Inter', sans-serif; font-weight: 400; font-size: 78pt; line-height: .9; margin: 10mm 0 4mm; letter-spacing: .01em; }
+.capa h1 span { color: #f7b267; }
+.capa-sub { position: relative; font-size: 14pt; line-height: 1.4; max-width: 125mm; color: #dbe7f3; margin: 0; }
+.capa-bonecos { position: relative; margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+.capa-bonecos figure:nth-child(2) { transform: translateY(-10mm); }
+.capa-bonecos figure { margin: 0; background: rgba(255,255,255,.95); border-radius: 5mm; overflow: hidden; aspect-ratio: 1; }
+.capa-bonecos svg { width: 100%; height: 100%; display: block; }
+.capa-rodape { position: relative; display: flex; justify-content: space-between; margin-top: 8mm; font-size: 10pt; color: #b9cde0; }
+.capa-rodape b { color: #fff; }
+
+/* Textos de abertura */
+.abertura h2 { font-size: 20pt; margin: 0 0 4mm; }
+.abertura p { font-size: 10.5pt; line-height: 1.55; color: var(--text-sec); margin: 0 0 3mm; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 5mm 0; }
+.card { border: 1px solid var(--border); border-radius: 4mm; padding: 4mm 5mm; break-inside: avoid; }
+.card h3 { margin: 0 0 2mm; font-size: 11pt; color: var(--navy2); }
+.card ul { margin: 0; padding-left: 4.5mm; font-size: 9.5pt; line-height: 1.5; color: var(--text-sec); }
+.niveis { display: flex; gap: 3mm; flex-wrap: wrap; margin: 2mm 0 4mm; }
+.pill { display: inline-block; padding: .8mm 3mm; border-radius: 99px; font-size: 8pt; font-weight: 700; color: #fff; }
+.pill-ini { background: #16a34a; } .pill-int { background: #d97706; } .pill-ava { background: #dc2626; }
+.sumario { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin-top: 4mm; }
+.sumario div { border-radius: 3mm; padding: 3mm 4mm; color: #fff; font-weight: 700; font-size: 10pt; }
+.sumario small { display: block; font-weight: 500; opacity: .85; margin-top: .5mm; }
+
+/* Abertura de categoria */
+.cat { height: 271mm; border-radius: 6mm; padding: 16mm 14mm; color: #fff; display: flex; flex-direction: column; }
+.cat-ico svg { width: 22mm; height: 22mm; }
+.cat h2 { font-family: 'Bebas Neue', 'Inter', sans-serif; font-weight: 400; font-size: 54pt; line-height: .95; margin: 6mm 0 3mm; }
+.cat-desc { font-size: 13pt; line-height: 1.45; max-width: 140mm; margin: 0 0 8mm; opacity: .92; }
+.cat-lista { columns: 2; column-gap: 8mm; font-size: 9.5pt; line-height: 1.75; margin: 0; padding: 0; list-style: none; }
+.cat-lista li { break-inside: avoid; }
+.cat-lista b { display: inline-block; min-width: 9mm; opacity: .7; font-weight: 600; }
+.c-bola { background: linear-gradient(160deg, #0e4b75, #0a3757); }
+.c-impulsao { background: linear-gradient(160deg, #0b84c6, #0a5f8f); }
+.c-forca { background: linear-gradient(160deg, #f59f1c, #e0700c); }
+.c-agilidade { background: linear-gradient(160deg, #0b84c6, #0a5f8f); }
+.c-coordenacao { background: linear-gradient(160deg, #0e4b75, #0a3757); }
+.c-mobilidade { background: linear-gradient(160deg, #f59f1c, #e0700c); }
+
+/* Exercício */
+.ex { break-inside: avoid; border: 1px solid var(--border); border-radius: 4mm; padding: 3.5mm 4.5mm 3.5mm 5.5mm; margin-bottom: 4mm; position: relative; overflow: hidden; }
+.ex::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1.6mm; background: var(--faixa, var(--navy2)); }
+.ex-topo { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+.ex-num { font-size: 8pt; font-weight: 800; letter-spacing: .1em; color: var(--text-muted); text-transform: uppercase; }
+.ex h3 { margin: .5mm 0 1mm; font-size: 13pt; line-height: 1.2; }
+.ex-obj { margin: 0 0 2mm; font-size: 9.5pt; color: var(--text-sec); font-style: italic; line-height: 1.45; }
+.ex-info { display: flex; flex-wrap: wrap; gap: 1.5mm; margin-bottom: 2.5mm; }
+.ex-info span { font-size: 8pt; padding: .8mm 2.5mm; border-radius: 99px; background: #f1f5f9; color: var(--text-sec); }
+.ex-info b { color: var(--text); font-weight: 700; }
+.etapas { display: grid; gap: 2.5mm; }
+.etapa { border-radius: 3mm; background: #fafaf7; border: 1px solid #efece4; padding: 2mm; display: flex; flex-direction: column; gap: 1.5mm; }
+.etapa figure { margin: 0; height: 27mm; background: #fff; border-radius: 2mm; border: 1px solid #f0ece2; overflow: hidden; }
+.etapa svg { width: 100%; height: 100%; display: block; }
+.etapa h4 { margin: 0; font-size: 7.5pt; letter-spacing: .06em; text-transform: uppercase; color: var(--laranja); }
+.etapa h4 b { color: var(--navy2); margin-right: 1mm; }
+.etapa p { margin: 0; font-size: 8pt; line-height: 1.4; color: var(--text); }
+.ex-rodape { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; margin-top: 2.5mm; }
+.box { border-radius: 2.5mm; padding: 2mm 3mm; font-size: 8pt; line-height: 1.4; color: var(--text-sec); }
+.box b { display: block; font-size: 7pt; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .6mm; }
+.box-ritmo { background: #fff4e6; } .box-ritmo b { color: #c2610c; }
+.box-erro { background: #fef2f2; } .box-erro b { color: #b91c1c; }
+.box-facil { background: #f0fdf4; } .box-facil b { color: #15803d; }
+.box-dificil { background: #eff6ff; } .box-dificil b { color: #1d4ed8; }
+.box.largo { grid-column: 1 / -1; }
+
+/* Página final */
+.final { height: 271mm; border-radius: 6mm; padding: 18mm 16mm; background: linear-gradient(160deg, #0b2a47, #0e4b75); color: #fff; display: flex; flex-direction: column; justify-content: center; }
+.final h2 { font-family: 'Bebas Neue', 'Inter', sans-serif; font-weight: 400; font-size: 46pt; line-height: .95; margin: 0 0 5mm; }
+.final p { font-size: 12pt; line-height: 1.5; color: #dbe7f3; max-width: 150mm; }
+.final ul { font-size: 11.5pt; line-height: 1.8; padding-left: 5mm; }
+.final .aviso { margin-top: 10mm; font-size: 9pt; color: #9fb6cc; }
