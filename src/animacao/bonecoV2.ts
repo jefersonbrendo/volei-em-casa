@@ -20,12 +20,18 @@ export interface OpcoesV2 {
   recorte?: boolean
   /** Chamado a cada repetição completa (fim de um ciclo). */
   aoRepetir?: (n: number) => void
+  /** Chamado a cada quadro com o instante do ciclo (0 a 1). */
+  aoAtualizar?: (t: number) => void
 }
 
 export interface AnimacaoV2 {
   el: SVGSVGElement
   destruir: () => void
   velocidade: (v: number) => void
+  /** Para a animação no instante t (0 a 1). */
+  pausarEm: (t: number) => void
+  /** Continua a animação de onde parou. */
+  continuar: () => void
   /** Se o desenho mostra a linha de trajetória. */
   temRastro: boolean
 }
@@ -223,7 +229,7 @@ export function criarBonecoV2(m: Movimento, opcoes: OpcoesV2 = {}): AnimacaoV2 {
       const ladoQ = Math.max(x1 - x0, y1 - y0), cx = (x0 + x1) / 2
       svg.setAttribute('viewBox', `${f(cx - ladoQ / 2)} ${f(y1 - ladoQ)} ${f(ladoQ)} ${f(ladoQ)}`)
     }
-    return { el: svg, destruir: () => undefined, velocidade: () => undefined, temRastro: rastro.hasAttribute('d') }
+    return { el: svg, destruir: () => undefined, velocidade: () => undefined, pausarEm: (t) => desenhar(t), continuar: () => undefined, temRastro: rastro.hasAttribute('d') }
   }
   desenhar(0)
   let anterior = 0, reps = 0
@@ -233,7 +239,20 @@ export function criarBonecoV2(m: Movimento, opcoes: OpcoesV2 = {}): AnimacaoV2 {
       if (t < anterior - 0.5) { reps++; opcoes.aoRepetir?.(reps) }
       anterior = t
       desenhar(t)
+      opcoes.aoAtualizar?.(t)
     },
   })
-  return { el: svg, destruir: () => controle.stop(), velocidade: (v) => { controle.speed = v }, temRastro: rastro.hasAttribute('d') }
+  return {
+    el: svg,
+    destruir: () => controle.stop(),
+    velocidade: (v) => { controle.speed = v },
+    pausarEm: (t) => {
+      controle.pause()
+      controle.time = t * m.duracao
+      anterior = t
+      desenhar(t)
+    },
+    continuar: () => controle.play(),
+    temRastro: rastro.hasAttribute('d'),
+  }
 }

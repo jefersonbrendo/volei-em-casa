@@ -104,3 +104,28 @@
 .vac-demo-legenda .lg-rastro { height: 0; border-top: 2px dashed #f28a24; border-radius: 0; vertical-align: 3px; }
 .vac-comp { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .vac-comp h5 { margin: 0 0 4px; font-size: 12px; color: var(--text-sec); text-transform: uppercase; letter-spacing: .06em; }
+
+/* ---------- Passo a passo ligado à animação ---------- */
+.vac-demo-palco { position: relative; }
+.vac-pausa { position: absolute; left: 10px; right: 10px; bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-radius: 12px; background: color-mix(in srgb, var(--bg-card) 88%, transparent); border: 1px solid var(--laranja); color: var(--text); font-size: 12.5px; font-weight: 600; text-align: left; backdrop-filter: blur(4px); }
+.vac-pausa b { color: var(--laranja); white-space: nowrap; font-size: 13px; }
+.vac-pausa span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vac-demo.pausado { border-color: var(--laranja); }
+.vac-etapas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.vac-etapa { display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 14px; border: 1px solid transparent; transition: background .2s, border-color .2s; }
+.vac-etapa.clicavel { cursor: pointer; }
+.vac-etapa.clicavel:active { transform: scale(0.99); }
+.vac-etapa .step-num { flex-shrink: 0; transition: background .2s; }
+.vac-etapa.ativa { background: color-mix(in srgb, var(--laranja) 12%, var(--bg-card)); border-color: color-mix(in srgb, var(--laranja) 45%, transparent); }
+.vac-etapa.ativa .step-num { background: var(--laranja); color: #fff; }
+.vac-etapa-corpo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.vac-etapa-titulo { font-size: 12px; letter-spacing: .07em; text-transform: uppercase; color: var(--laranja); font-weight: 800; }
+.vac-etapa-texto { font-size: 0.98rem; line-height: 1.5; color: var(--text); }
+.vac-etapa-dica { margin: 8px 2px 0; font-size: 12.5px; color: var(--text-muted); }
+.vac-ritmo { display: flex; gap: 12px; align-items: flex-start; margin: 14px 0 6px; padding: 12px 14px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border); }
+.vac-ritmo-ico svg { width: 20px; height: 20px; color: var(--laranja); }
+.vac-ritmo div { display: flex; flex-direction: column; gap: 2px; font-size: 0.95rem; line-height: 1.45; color: var(--text-sec); }
+.vac-ritmo strong { color: var(--text); font-size: 12px; text-transform: uppercase; letter-spacing: .07em; }
+.vac-etapa-pose { flex-shrink: 0; width: 76px; height: 76px; margin: 0; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); }
+.vac-etapa-pose svg { width: 100%; height: 100%; display: block; }
+.vac-etapa.ativa .vac-etapa-pose { border-color: var(--laranja); }

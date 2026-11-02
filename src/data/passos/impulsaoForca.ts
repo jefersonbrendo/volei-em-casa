@@ -1,0 +1,341 @@
+import { e, type PassoDetalhado } from './tipos'
+
+export const PASSOS_IMPULSAO_FORCA: Record<number, PassoDetalhado> = {
+  // ---------- IMPULSÃO ----------
+  2: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés na largura dos ombros e as pontas levemente para fora.', 0),
+    e('Agachar', 'Empurre o quadril para trás e desça até onde for confortável, com o peito aberto e os braços indo para trás.', 0.35),
+    e('Saltar', 'Estenda pernas e quadril com força e leve os braços para cima, saindo do chão.', 0.5),
+    e('Aterrissar', 'Caia na ponta dos pés e dobre os joelhos para amortecer, voltando à posição de agachamento.', 0.75),
+  ], ritmo: 'Um salto por vez, com 1 a 2 segundos entre eles. Solte o ar ao saltar.' },
+  27: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés na largura dos ombros e os braços levemente dobrados.', 0),
+    e('Carregar', 'Dobre um pouco os joelhos e leve os braços para baixo.', 0.25),
+    e('Saltar', 'Balance os braços para cima e salte, sem precisar ir muito alto.', 0.55),
+    e('Cair e continuar', 'Aterrisse com os joelhos flexionados e use essa descida para o próximo salto.', 0.9),
+  ], ritmo: 'Saltos seguidos, em ritmo constante, como uma mola.' },
+  28: { etapas: [
+    e('Posição inicial', 'Fique com os pés na largura dos ombros e os braços esticados à frente.', 0),
+    e('Descer', 'Desça rápido até a metade do agachamento, com o peito aberto.', 0.5),
+    e('Subir', 'Suba rápido, esticando as pernas, sem tirar os pés do chão.', 1),
+  ], ritmo: 'Descida e subida rápidas, mas controladas. Respire em ritmo, sem prender o ar.' },
+  29: { etapas: [
+    e('Posição inicial', 'Fique em pé, pés na largura dos ombros, atrás de uma marca no chão.', 0),
+    e('Preparar', 'Agache e leve os braços para trás.', 0.2),
+    e('Saltar à frente', 'Balance os braços para a frente e salte, buscando uma distância curta.', 0.35),
+    e('Aterrissar parado', 'Caia com os dois pés ao mesmo tempo, joelhos flexionados, e fique parado 2 segundos antes de voltar.', 0.5),
+  ], ritmo: 'Volte andando ao ponto de partida entre os saltos.' },
+  30: { etapas: [
+    e('Posição inicial', 'Fique em pé, com os pés na largura do quadril e o tronco reto.', 0.25),
+    e('Joelho direito', 'Suba o joelho até a altura do quadril, balançando o braço oposto à frente.', 0),
+    e('Joelho esquerdo', 'Desça e suba o outro joelho, trocando também o braço.', 0.5),
+  ], ritmo: 'Ritmo constante, como uma corrida no lugar. Respire solto.' },
+  31: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés na largura dos ombros.', 0),
+    e('Carregar', 'Dobre os joelhos e leve os braços para trás, inclinando um pouco o tronco.', 0.3),
+    e('Saltar', 'Balance os braços para cima com força e salte o mais alto que conseguir.', 0.45),
+    e('Aterrissar', 'Caia com os dois pés e os joelhos flexionados, sem barulho.', 0.75),
+  ], ritmo: 'Um salto por vez, com pausa curta para se reposicionar.' },
+  32: { etapas: [
+    e('Posição inicial', 'Fique ao lado da linha, com os pés juntos e os joelhos levemente flexionados.', 0),
+    e('Saltar para o lado', 'Salte por cima da linha usando os braços para ganhar impulso.', 0.25),
+    e('Aterrissar', 'Caia com os dois pés juntos do outro lado, joelhos flexionados.', 0.5),
+    e('Voltar', 'Salte de volta para o lado inicial.', 0.75),
+  ], ritmo: 'Conte cada ida e volta como uma repetição.' },
+  33: { etapas: [
+    e('Posição de afundo', 'Fique com uma perna à frente e a de trás dobrada, tronco reto.', 0),
+    e('Saltar', 'Empurre o chão com força e salte para cima.', 0.25),
+    e('Trocar no ar', 'Troque a posição das pernas enquanto está no ar.', 0.5),
+    e('Aterrissar', 'Caia em novo afundo, com controle, e repita.', 0.75),
+  ], ritmo: 'Pare 1 segundo em cada afundo antes do próximo salto.' },
+  34: { etapas: [
+    e('Posição inicial', 'Fique em pé, com os joelhos levemente flexionados e os braços dobrados.', 0),
+    e('Saltinho', 'Dê saltinhos curtos usando só os tornozelos, quase sem dobrar os joelhos.', 0.5),
+    e('Cair na ponta', 'Aterrisse sempre na ponta dos pés e suba de novo logo em seguida.', 1),
+  ], ritmo: 'Rápido e leve, durante todo o tempo da série.' },
+  35: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés na largura dos ombros.', 0),
+    e('Carregar', 'Agache rapidamente, levando os braços para trás.', 0.3),
+    e('Agrupar', 'Salte com força e puxe os joelhos em direção ao peito.', 0.45),
+    e('Aterrissar', 'Estique as pernas antes de tocar o chão e caia com os joelhos flexionados.', 0.7),
+  ], ritmo: 'Um salto por vez, com 2 a 3 segundos de pausa.' },
+  36: { etapas: [
+    e('Posição inicial', 'Fique em pé, com os pés na largura dos ombros.', 0),
+    e('Carregar', 'Agache levando os braços para trás.', 0.18),
+    e('Girar no ar', 'Salte e gire meia-volta no ar, usando os braços e os ombros para virar.', 0.3),
+    e('Aterrissar', 'Caia equilibrado, olhando para o lado oposto. No próximo salto, gire para o outro lado.', 0.4),
+  ], ritmo: 'Pare equilibrado antes de cada novo salto.' },
+  37: { etapas: [
+    e('Posição inicial', 'Fique de frente para a parede, a cerca de um palmo dela, com as mãos na altura dos ombros.', 0),
+    e('Carregar', 'Flexione os joelhos sem baixar as mãos.', 0.3),
+    e('Bloquear', 'Salte com as mãos para o alto e os braços junto às orelhas, sem encostar na parede.', 0.45),
+    e('Aterrissar', 'Desça com as mãos ainda altas e caia com os joelhos flexionados.', 0.7),
+  ], ritmo: 'Um bloqueio por vez. As mãos nunca descem abaixo dos ombros.' },
+  38: { etapas: [
+    e('Posição inicial', 'Comece a 3 passos de distância do ponto de salto.', 0),
+    e('Passos', 'Dê 3 passos com ritmo lento, rápido, rápido, levando os braços para trás no último.', 0.3),
+    e('Freada e salto', 'Plante os dois pés, agache e salte balançando os braços para o alto.', 0.42),
+    e('No ar', 'Arme o braço como no ataque e faça o movimento de bater.', 0.55),
+    e('Aterrissar', 'Caia com os dois pés e os joelhos flexionados, e volte andando.', 0.75),
+  ], ritmo: 'Uma aproximação por vez. Solte o ar no salto.' },
+  39: { etapas: [
+    e('Posição inicial', 'Fique em pé, com espaço livre à frente.', 0),
+    e('Três passos', 'Dê 3 passos curtos para a frente, acelerando a cada passo.', 0.3),
+    e('Plantar e saltar', 'No último passo, plante os dois pés e salte na vertical.', 0.42),
+    e('Aterrissar parado', 'Caia parado, com os joelhos flexionados.', 0.75),
+  ], ritmo: 'Volte andando entre as repetições.' },
+  40: { etapas: [
+    e('Posição inicial', 'Apoie-se em uma perna só, com o joelho levemente flexionado.', 0),
+    e('Carregar', 'Agache um pouco nessa perna e leve os braços para trás.', 0.3),
+    e('Saltar', 'Salte para cima com essa perna, usando os braços.', 0.5),
+    e('Aterrissar parado', 'Caia na mesma perna, dobrando o joelho, e fique parado 2 segundos.', 0.7),
+  ], ritmo: 'Faça todas as repetições de uma perna e depois troque.' },
+  41: { etapas: [
+    e('Posição inicial', 'Fique em pé, perto da parede, com uma mão apoiada nela.', 0),
+    e('Subir', 'Suba na ponta dos pés o máximo que conseguir.', 0.5),
+    e('Descer', 'Desça devagar até os calcanhares encostarem no chão.', 1),
+  ], ritmo: 'Suba em 1 segundo e desça em 2 segundos.' },
+  42: { etapas: [
+    e('Agachar', 'Agache com os braços à frente.', 0.2),
+    e('Pausa', 'Fique parado embaixo por 2 segundos.', 0.5),
+    e('Saltar', 'Salte para cima com a maior força possível, levando os braços para o alto.', 0.6),
+    e('Aterrissar', 'Caia com os joelhos flexionados e volte a agachar.', 0.8),
+  ], ritmo: 'Conte "1, 2" na pausa antes de cada salto.' },
+  43: { etapas: [
+    e('Saltos no lugar', 'Faça 1 minuto de saltos no lugar.', 0.5),
+    e('Saltinhos', 'Faça 1 minuto de saltinhos de tornozelo.', 0),
+    e('Saltos laterais', 'Faça 1 minuto de saltos laterais sobre uma linha.', 0.35),
+    e('Agachamento com salto', 'Descanse 1 minuto e termine com 2 minutos de agachamento com salto, com pausas.', 0.75),
+  ], ritmo: 'Descanse quando precisar. Beba água no fim.' },
+  140: { etapas: [
+    e('Posição inicial', 'Fique com os pés na largura dos ombros.', 0),
+    e('Primeiro salto', 'Agache um pouco e salte, usando os braços.', 0.22),
+    e('Segundo e terceiro', 'Ao cair, já salte de novo, com o mínimo de tempo no chão.', 0.42),
+    e('Terminar', 'No terceiro salto, aterrisse parado com os joelhos flexionados.', 0.75),
+  ], ritmo: 'Descanse alguns segundos entre cada grupo de 3 saltos.' },
+  141: { etapas: [
+    e('Salto baixo', 'Faça um salto baixo no lugar.', 0.28),
+    e('Aterrissar', 'Caia com os dois pés ao mesmo tempo, flexionando joelhos e quadril.', 0.4),
+    e('Segurar', 'Fique parado na posição por 2 segundos, com os joelhos apontando para a frente.', 0.6),
+    e('Voltar', 'Volte a ficar em pé e repita.', 1),
+  ], ritmo: 'A aterrissagem deve ser silenciosa.' },
+  142: { etapas: [
+    e('Posição inicial', 'Fique de lado para a parede, a um palmo dela.', 0),
+    e('Carregar', 'Agache e leve os braços para trás.', 0.3),
+    e('Saltar e tocar', 'Salte o mais alto que conseguir e toque a parede com a mão no ponto mais alto.', 0.45),
+    e('Aterrissar', 'Caia com os joelhos flexionados. Marque o ponto com fita e tente alcançar de novo.', 0.72),
+  ], ritmo: 'Um salto por vez, com pausa entre eles.' },
+  143: { etapas: [
+    e('Em cima do degrau', 'Fique em cima de um degrau baixo e firme.', 0),
+    e('Descer', 'Desça do degrau com os dois pés juntos.', 0.2),
+    e('Contato curto', 'Assim que tocar o chão, salte para cima o mais rápido possível.', 0.35),
+    e('Aterrissar', 'Caia com os joelhos flexionados e volte para o degrau.', 0.65),
+  ], ritmo: 'Pausa de alguns segundos entre as repetições. Pare se sentir dor nos joelhos.' },
+  144: { etapas: [
+    e('Posição inicial', 'Fique de frente para o degrau.', 0),
+    e('Subir', 'Coloque o pé direito no degrau e suba, levando depois o esquerdo.', 0.25),
+    e('Em cima', 'Fique em pé em cima do degrau, com os dois pés.', 0.5),
+    e('Descer', 'Desça com o direito, depois o esquerdo. Na próxima, comece com a outra perna.', 0.75),
+  ], ritmo: 'Ritmo constante, sem pressa.' },
+  145: { etapas: [
+    e('Posição inicial', 'Fique em uma perna só ao lado de uma linha no chão.', 0),
+    e('Saltar', 'Salte por cima da linha para o outro lado, na mesma perna.', 0.25),
+    e('Aterrissar', 'Caia com o joelho flexionado e alinhado com o pé.', 0.5),
+    e('Voltar', 'Salte de volta para o lado inicial. Troque de perna ao fim da série.', 0.75),
+  ], ritmo: 'Pare equilibrado em cada aterrissagem.' },
+  146: { etapas: [
+    e('Posição inicial', 'Fique com os pés juntos atrás de uma linha.', 0),
+    e('Para a frente', 'Salte para a frente da linha, baixo e rápido.', 0.25),
+    e('Para trás', 'Salte de volta para trás da linha, sem parar.', 0.75),
+  ], ritmo: 'Saltos na ponta dos pés durante todo o tempo. Descanse 30 segundos entre as séries.' },
+  147: { etapas: [
+    e('Posição inicial', 'Agache com os braços cruzados à frente do corpo.', 0),
+    e('Estrela', 'Salte abrindo braços e pernas, como uma estrela.', 0.35),
+    e('Fechar', 'Feche as pernas antes de aterrissar.', 0.5),
+    e('Aterrissar', 'Caia com os joelhos flexionados e volte a agachar.', 0.65),
+  ], ritmo: 'Um salto por vez no começo. Solte o ar ao abrir.' },
+  148: { etapas: [
+    e('Posição inicial', 'Fique com as mãos na altura dos ombros, como na rede.', 0),
+    e('Passos laterais', 'Dê dois passos laterais rápidos para a direita.', 0.1),
+    e('Parar e agachar', 'Pare os pés e agache, sem baixar as mãos.', 0.28),
+    e('Bloquear', 'Salte com os braços estendidos para cima.', 0.38),
+    e('Outro lado', 'Aterrisse, volte e faça para a esquerda.', 0.7),
+  ], ritmo: 'Um bloqueio para cada lado conta como uma repetição.' },
+  149: { etapas: [
+    e('Posição inicial', 'Fique com os pés juntos ao lado de uma linha.', 0),
+    e('Diagonal', 'Salte em diagonal para o outro lado da linha, avançando.', 0.12),
+    e('Continuar', 'Continue saltando de um lado para o outro até o fim do percurso.', 0.37),
+    e('Voltar', 'Volte andando e repita.', 0.87),
+  ], ritmo: 'Saltos curtos e rápidos, na ponta dos pés.' },
+  150: { etapas: [
+    e('Posição de afundo', 'Fique com uma perna à frente e outra atrás, joelhos dobrados.', 0),
+    e('Saltar', 'Salte para cima.', 0.25),
+    e('Trocar as pernas', 'Troque as pernas no ar e caia em afundo com a outra perna à frente.', 0.5),
+    e('Repetir', 'Salte de novo e volte à primeira posição.', 0.75),
+  ], ritmo: 'Ritmo contínuo. Não deixe o joelho de trás bater no chão.' },
+
+  // ---------- FORÇA ----------
+  44: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés na largura dos ombros e os braços esticados à frente.', 0),
+    e('Descer', 'Empurre o quadril para trás e desça como se fosse sentar, com o peito aberto e os joelhos na direção dos pés.', 0.45),
+    e('Embaixo', 'Desça até as coxas ficarem perto de paralelas ao chão, com os calcanhares apoiados.', 0.6),
+    e('Subir', 'Suba empurrando o chão com os pés inteiros.', 1),
+  ], ritmo: 'Desça em 2 segundos e suba em 1. Solte o ar ao subir.' },
+  45: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés juntos e o tronco reto.', 0),
+    e('Passo à frente', 'Dê um passo largo para a frente e dobre os dois joelhos até quase tocar o de trás no chão.', 0.25),
+    e('Voltar', 'Empurre com a perna da frente para voltar à posição inicial.', 0.5),
+    e('Outra perna', 'Repita dando o passo com a outra perna.', 0.75),
+  ], ritmo: 'Alterne as pernas. Solte o ar ao voltar.' },
+  46: { etapas: [
+    e('Posição inicial', 'Fique de frente para a parede, com as mãos apoiadas na altura dos ombros e os pés um pouco afastados dela.', 0),
+    e('Descer', 'Dobre os cotovelos e aproxime o peito da parede, com o corpo reto da cabeça aos pés.', 0.5),
+    e('Empurrar', 'Empurre a parede para voltar, esticando os braços.', 1),
+  ], ritmo: 'Desça em 2 segundos e suba em 1. Solte o ar ao empurrar.' },
+  47: { etapas: [
+    e('Posição inicial', 'Apoie as mãos e os joelhos no chão, com as mãos um pouco mais largas que os ombros e o corpo alinhado dos joelhos à cabeça.', 0),
+    e('Descer', 'Dobre os cotovelos e desça o peito em direção ao chão.', 0.5),
+    e('Subir', 'Empurre o chão para subir, sem arquear as costas.', 1),
+  ], ritmo: 'Desça em 2 segundos e suba em 1. Solte o ar ao subir.' },
+  48: { etapas: [
+    e('Posição inicial', 'Apoie as mãos e a ponta dos pés, com o corpo em linha reta e a barriga firme.', 0),
+    e('Descer', 'Dobre os cotovelos e desça o peito perto do chão, com os cotovelos apontando um pouco para trás.', 0.5),
+    e('Subir', 'Empurre o chão e volte, sem deixar o quadril cair.', 1),
+  ], ritmo: 'Desça em 2 segundos e suba em 1. Solte o ar ao subir.' },
+  49: { etapas: [
+    e('Apoio', 'Apoie os antebraços e a ponta dos pés no chão, com os cotovelos embaixo dos ombros.', 0),
+    e('Corpo reto', 'Contraia a barriga e os glúteos para manter o corpo em linha reta, do pescoço aos calcanhares.', 0.5),
+    e('Segurar', 'Fique parado pelo tempo combinado, olhando para o chão.', 1),
+  ], ritmo: 'Respire normalmente durante todo o tempo, sem prender o ar.' },
+  50: { etapas: [
+    e('Apoio', 'Deite de lado, apoiado no antebraço, com o cotovelo embaixo do ombro e as pernas esticadas.', 0),
+    e('Subir o quadril', 'Levante o quadril, formando uma linha reta da cabeça aos pés.', 0.5),
+    e('Segurar', 'Fique parado pelo tempo combinado e troque de lado.', 1),
+  ], ritmo: 'Respire normalmente. Se o quadril cair, desça e recomece.' },
+  51: { etapas: [
+    e('Posição inicial', 'Deite de barriga para cima, joelhos flexionados, pés no chão e braços cruzados no peito.', 0),
+    e('Subir', 'Contraia a barriga e levante só os ombros do chão, olhando para os joelhos.', 0.45),
+    e('Descer', 'Desça devagar até os ombros encostarem no chão.', 1),
+  ], ritmo: 'Solte o ar ao subir e puxe ao descer.' },
+  52: { etapas: [
+    e('Posição inicial', 'Deite de barriga para cima, com as mãos embaixo do quadril e as pernas esticadas.', 0),
+    e('Subir as pernas', 'Levante as duas pernas juntas até a vertical, com a lombar encostada no chão.', 0.5),
+    e('Descer devagar', 'Desça devagar, sem deixar as costas saírem do chão.', 1),
+  ], ritmo: 'Desça em 3 segundos. Solte o ar ao subir as pernas.' },
+  53: { etapas: [
+    e('Posição inicial', 'Deite de barriga para cima, joelhos flexionados e pés no chão, na largura do quadril.', 0),
+    e('Subir', 'Empurre o chão com os pés e suba o quadril até formar uma linha dos ombros aos joelhos.', 0.45),
+    e('Segurar', 'Aperte os glúteos no alto por 1 segundo.', 0.6),
+    e('Descer', 'Desça devagar até o quadril encostar no chão.', 1),
+  ], ritmo: 'Solte o ar ao subir.' },
+  54: { etapas: [
+    e('Encostar', 'Encoste as costas na parede e afaste os pés um passo à frente.', 0),
+    e('Descer', 'Deslize para baixo até os joelhos ficarem dobrados, perto de 90 graus.', 0.5),
+    e('Segurar', 'Fique parado pelo tempo combinado, com as costas apoiadas e os pés à frente dos joelhos. Depois, suba devagar.', 1),
+  ], ritmo: 'Respire normalmente durante todo o tempo.' },
+  55: { etapas: [
+    e('Posição inicial', 'Fique em pé na frente da cadeira, braços à frente.', 0),
+    e('Sentar', 'Sente devagar, controlando a descida, sem se jogar.', 0.4),
+    e('Levantar', 'Levante sem usar as mãos, empurrando o chão com os pés.', 1),
+  ], ritmo: 'Sente em 2 segundos e levante em 1. Solte o ar ao levantar.' },
+  56: { etapas: [
+    e('Posição inicial', 'Fique de costas para a cadeira, com o peito do pé de trás apoiado no assento e o pé da frente afastado.', 0),
+    e('Descer', 'Dobre o joelho da frente e desça com o tronco ereto.', 0.5),
+    e('Subir', 'Empurre o chão com o pé da frente e suba. Faça todas as repetições antes de trocar de perna.', 1),
+  ], ritmo: 'Desça em 2 segundos. Use uma parede para apoio se precisar.' },
+  57: { etapas: [
+    e('Posição inicial', 'Segure uma garrafa grande com água junto ao peito, com os braços dobrados.', 0),
+    e('Descer', 'Desça no agachamento com o peito aberto e as costas retas.', 0.45),
+    e('Subir', 'Suba empurrando o chão com os pés, mantendo a garrafa junto ao peito.', 1),
+  ], ritmo: 'Desça em 2 segundos e suba em 1. Solte o ar ao subir.' },
+  58: { etapas: [
+    e('Posição inicial', 'Incline o tronco à frente, joelhos levemente flexionados e costas retas, com uma garrafa em cada mão e os braços esticados.', 0),
+    e('Puxar', 'Puxe as garrafas em direção à barriga, juntando as escápulas.', 0.5),
+    e('Descer', 'Estique os braços devagar.', 1),
+  ], ritmo: 'Solte o ar ao puxar.' },
+  59: { etapas: [
+    e('Posição inicial', 'Deite de barriga para baixo, com os braços esticados à frente.', 0),
+    e('Subir', 'Levante ao mesmo tempo os braços e as pernas, poucos centímetros do chão.', 0.45),
+    e('Segurar e descer', 'Segure 2 segundos e desça devagar.', 1),
+  ], ritmo: 'Olhe para o chão durante todo o movimento, sem forçar o pescoço.' },
+  60: { etapas: [
+    e('Posição inicial', 'Apoie as mãos no chão embaixo dos ombros, com o corpo em posição de flexão.', 0),
+    e('Joelho ao peito', 'Leve um joelho em direção ao peito.', 0),
+    e('Trocar', 'Volte essa perna e leve a outra, trocando rápido, com o quadril baixo.', 0.5),
+  ], ritmo: 'Rápido durante o tempo da série. Respire em ritmo.' },
+  61: { etapas: [
+    e('Prancha alta', 'Fique em posição de flexão, com o corpo reto.', 0),
+    e('Flexão', 'Faça uma flexão completa.', 0.5),
+    e('Toque no ombro', 'Na subida, toque o ombro oposto com uma mão, sem girar o quadril.', 0.25),
+    e('Outro lado', 'Faça a próxima flexão e toque com a outra mão.', 0.75),
+  ], ritmo: 'Afaste mais os pés se o quadril girar.' },
+  62: { etapas: [
+    e('Posição inicial', 'Fique em pé de costas para a cadeira, equilibrado em uma perna, com a outra à frente.', 0),
+    e('Descer', 'Desça devagar até encostar o quadril no assento, com os braços à frente.', 0.45),
+    e('Subir', 'Suba empurrando o chão com o pé de apoio, sem impulso.', 1),
+  ], ritmo: 'Desça em 3 segundos. Faça todas de uma perna e troque.' },
+  63: { etapas: [
+    e('Agachamentos', 'Faça 10 agachamentos.', 0.45),
+    e('Flexões', 'Faça 8 flexões, com os joelhos apoiados se precisar.', 0),
+    e('Prancha', 'Faça 20 segundos de prancha.', 0),
+    e('Afundos e pontes', 'Faça 10 afundos alternados e 10 pontes de glúteos. Descanse 1 minuto e repita.', 1),
+  ], ritmo: '3 rodadas. Beba água no fim.' },
+  151: { etapas: [
+    e('Posição inicial', 'Deite de barriga para cima, joelhos flexionados e pés no chão.', 0),
+    e('Perna no ar', 'Estique uma perna no ar, na linha da outra coxa.', 0),
+    e('Subir', 'Suba o quadril empurrando o chão com o pé apoiado, sem deixar o quadril cair para o lado.', 0.45),
+    e('Descer', 'Desça devagar. Troque de perna ao fim da série.', 1),
+  ], ritmo: 'Solte o ar ao subir.' },
+  152: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés juntos.', 0),
+    e('Passo para trás', 'Dê um passo largo para trás e desça até os dois joelhos ficarem dobrados.', 0.45),
+    e('Voltar', 'Empurre o chão com o pé da frente para voltar. Alterne as pernas.', 1),
+  ], ritmo: 'Solte o ar ao voltar.' },
+  153: { etapas: [
+    e('Posição inicial', 'Fique em pé com os pés juntos e as mãos à frente do peito.', 0),
+    e('Passo lateral', 'Dê um passo largo para o lado e agache sobre essa perna, com a outra esticada.', 0.25),
+    e('Voltar', 'Empurre o chão para voltar ao centro.', 0.5),
+    e('Outro lado', 'Faça para o outro lado.', 0.75),
+  ], ritmo: 'Leve o quadril para trás ao agachar. Solte o ar ao voltar.' },
+  154: { etapas: [
+    e('Posição inicial', 'Afaste bem os pés, com as pontas viradas para fora e as mãos à frente do peito.', 0),
+    e('Descer', 'Agache levando o quadril para baixo, com o tronco reto, até as coxas ficarem quase paralelas ao chão.', 0.5),
+    e('Subir', 'Suba empurrando o chão, com os joelhos na direção dos pés.', 1),
+  ], ritmo: 'Desça em 2 segundos e suba em 1.' },
+  155: { etapas: [
+    e('Posição inicial', 'Fique em pé com uma garrafa em cada mão, na altura dos ombros.', 0),
+    e('Empurrar', 'Empurre as garrafas para cima até esticar os braços, com a barriga firme.', 0.5),
+    e('Descer', 'Desça devagar até a altura dos ombros.', 1),
+  ], ritmo: 'Solte o ar ao empurrar.' },
+  156: { etapas: [
+    e('Posição inicial', 'Fique em pé com uma garrafa em cada mão, braços ao lado do corpo.', 0),
+    e('Subir', 'Levante os braços para os lados até a altura dos ombros, com os cotovelos levemente dobrados.', 0.5),
+    e('Descer', 'Desça devagar, sem balançar o corpo.', 1),
+  ], ritmo: 'Suba em 1 segundo e desça em 2.' },
+  157: { etapas: [
+    e('Posição inicial', 'Sente-se na beira da cadeira, apoie as mãos ao lado do quadril e leve o quadril para a frente, fora do assento.', 0),
+    e('Descer', 'Dobre os cotovelos para descer o quadril, com os cotovelos apontando para trás.', 0.5),
+    e('Subir', 'Estique os braços para subir, mantendo o quadril perto da cadeira.', 1),
+  ], ritmo: 'Solte o ar ao subir. A cadeira precisa estar encostada na parede.' },
+  158: { etapas: [
+    e('Posição inicial', 'Fique de lado para onde o elástico está preso e segure-o com a mão de fora, cotovelo dobrado e colado ao corpo.', 0),
+    e('Girar para fora', 'Gire o antebraço para fora, afastando a mão da barriga, sem desgrudar o cotovelo.', 0.5),
+    e('Voltar', 'Volte devagar até a mão ficar à frente da barriga.', 1),
+  ], ritmo: 'Devagar e com controle. Faça todas de um braço e troque.' },
+  159: { etapas: [
+    e('Posição inicial', 'Deite de barriga para cima, mãos atrás da cabeça, e tire os ombros e os pés do chão.', 0),
+    e('Primeiro lado', 'Leve o cotovelo direito em direção ao joelho esquerdo, esticando a perna direita.', 0),
+    e('Outro lado', 'Troque: cotovelo esquerdo para o joelho direito, como se pedalasse.', 0.5),
+  ], ritmo: 'Solte o ar a cada giro. As mãos só apoiam a cabeça.' },
+  160: { etapas: [
+    e('Posição inicial', 'Sente-se com os joelhos dobrados, incline o tronco um pouco para trás e segure a bola à frente do peito.', 0),
+    e('Girar', 'Gire o tronco e encoste a bola no chão ao lado do quadril.', 0),
+    e('Outro lado', 'Gire para o outro lado, levando a bola junto com o peito.', 0.5),
+  ], ritmo: 'Solte o ar a cada giro.' },
+  161: { etapas: [
+    e('Prancha alta', 'Fique em prancha alta, com as mãos embaixo dos ombros e os pés um pouco afastados.', 0),
+    e('Alcance', 'Estique um braço à frente, na altura da cabeça, sem girar o quadril.', 0.25),
+    e('Voltar', 'Volte a mão para o chão.', 0.5),
+    e('Outro braço', 'Estique o outro braço.', 0.75),
+  ], ritmo: 'Devagar, com o quadril parado.' },
+}

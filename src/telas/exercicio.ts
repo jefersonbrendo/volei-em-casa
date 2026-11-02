@@ -8,6 +8,7 @@ import { ROTULO_REGIAO } from '../lib/treinoCasaTextos'
 import { mostrarAviso } from '../ui/aviso'
 import { criarBonecoV2 } from '../animacao/bonecoV2'
 import { movimentoDoExercicio } from '../animacao/movimentos'
+import { PASSOS, type Etapa } from '../data/passos'
 import { registrarAnimacao } from '../animacao/registro'
 import { cabecalho } from '../ui/cabecalho'
 import { h, svg, ICONES } from '../ui/dom'
@@ -61,16 +62,35 @@ export function atualizarSeloSalvos(): void {
   selo.textContent = String(total)
 }
 
-function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): HTMLElement {
+/** Liga a animação ao passo a passo: tocar numa etapa para o boneco naquele momento. */
+interface ControleDemo {
+  irPara: (t: number) => void
+  continuar: () => void
+  /** Chamado a cada quadro com o instante do ciclo. */
+  aoAtualizar: ((t: number) => void) | null
+  /** Mostra/esconde o aviso de pausa. */
+  marcarPausa: (rotulo: string | null) => void
+  /** Chamado quando a animação volta a rodar. */
+  aoContinuar: (() => void) | null
+  el: HTMLElement
+}
+
+function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLElement; controle: ControleDemo | null } {
   const ex = item.ex
   const parte = (rotulo: string, ...filhos: Array<HTMLElement | null>) => h('div', { cls: 'cda-visual-parte' }, h('p', { cls: 'cda-visual-rotulo' }, rotulo), ...filhos)
   const mov = movimentoDoExercicio(ex.numero)
   let demo: HTMLElement | null = null
+  let controle: ControleDemo | null = null
   if (mov) {
     const total = ex.volume.repeticoes ?? 0
     const contador = h('b', null, '1')
     const reps = total ? h('span', { cls: 'vac-demo-reps' }, 'Repetição ', contador, ` de ${total}`) : h('span', { cls: 'vac-demo-reps' }, ex.volume.tempo ? `${ex.volume.series ? `${ex.volume.series} × ` : ''}${ex.volume.tempo}` : 'Em loop')
-    const a = criarBonecoV2(mov, { regioes: ex.regioes, aoRepetir: (r) => { if (total) contador.textContent = String((r % total) + 1) } })
+    const ctrl: ControleDemo = { irPara: () => undefined, continuar: () => undefined, aoAtualizar: null, marcarPausa: () => undefined, aoContinuar: null, el: h('div') }
+    const a = criarBonecoV2(mov, {
+      regioes: ex.regioes,
+      aoRepetir: (r) => { if (total) contador.textContent = String((r % total) + 1) },
+      aoAtualizar: (t) => ctrl.aoAtualizar?.(t),
+    })
     registrarAnimacao(a.destruir)
     const lento = h('button', { cls: 'vac-lento', 'aria-pressed': 'false', type: 'button' }, '🐢 Câmera lenta')
     lento.addEventListener('click', () => {
@@ -78,18 +98,40 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): HTMLElement {
       lento.setAttribute('aria-pressed', String(on))
       a.velocidade(on ? 0.4 : 1)
     })
+    const aviso = h('button', { cls: 'vac-pausa', type: 'button', hidden: '' })
+    aviso.addEventListener('click', () => ctrl.continuar())
     demo = h('div', { cls: 'vac-demo' },
       h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'),
-      a.el as unknown as HTMLElement,
+      h('div', { cls: 'vac-demo-palco' }, a.el as unknown as HTMLElement, aviso),
       h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
       h('div', { cls: 'vac-demo-ctrl' }, reps, lento),
     )
+    ctrl.el = demo
+    ctrl.irPara = (t) => a.pausarEm(t)
+    ctrl.continuar = () => { a.continuar(); ctrl.marcarPausa(null); ctrl.aoContinuar?.() }
+    ctrl.marcarPausa = (rotulo) => {
+      if (rotulo) { aviso.innerHTML = ''; aviso.append(h('span', null, rotulo), h('b', null, '▶ Continuar')); aviso.hidden = false }
+      else aviso.hidden = true
+      demo!.classList.toggle('pausado', !!rotulo)
+    }
+    controle = ctrl
   }
-  return h('div', null, demo, h('div', { cls: 'cda-visual' },
+  const el = h('div', null, demo, h('div', { cls: 'cda-visual' },
     parte('Material', IconesMaterial(ex.material, { comNome: true }), ex.materialNota ? h('p', { cls: 'cda-visual-nota' }, ex.materialNota) : null),
     parte('Volume', ChipVolume(ex.volume), ex.volumeNota ? h('p', { cls: 'cda-visual-nota' }, ex.volumeNota) : null),
     parte('Trabalha', h('div', { cls: 'cda-trabalha' }, SilhuetaRegioes(ex.regioes, { altura: 120 }), h('ul', { cls: 'cda-regioes-lista' }, ...ex.regioes.map((r) => h('li', null, ROTULO_REGIAO[r]))))),
   ))
+  return { el, controle }
+}
+
+/** Índice da etapa que corresponde ao instante t (a última que já começou; no início do ciclo, a última). */
+function etapaNoInstante(etapas: Etapa[], t: number): number {
+  let melhor = -1, melhorT = -1
+  etapas.forEach((e, i) => { if (e.t <= t + 0.001 && e.t > melhorT) { melhor = i; melhorT = e.t } })
+  if (melhor >= 0) return melhor
+  let maior = 0
+  etapas.forEach((e, i) => { if (e.t > etapas[maior]!.t) maior = i })
+  return maior
 }
 
 function blocoVisualAreia(item: Extract<Item, { tipo: 'areia' }>): HTMLElement {
@@ -131,8 +173,11 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   page.append(
     h('h2', { cls: 'ex-titulo' }, item.nome),
     h('div', { cls: 'ex-sub' }, h('span', { cls: `pill pill-${CLASSE_NIVEL[item.nivel]}` }, item.nivel)),
-    item.tipo === 'casa' ? blocoVisualCasa(item) : blocoVisualAreia(item),
   )
+  const visualCasa = item.tipo === 'casa' ? blocoVisualCasa(item) : null
+  page.append(visualCasa ? visualCasa.el : blocoVisualAreia(item as Extract<Item, { tipo: 'areia' }>))
+  const demo = visualCasa?.controle ?? null
+  const detalhado = item.tipo === 'casa' ? PASSOS[item.ex.numero] : undefined
 
   type Aba = 'fazer' | 'corrigir' | 'variar'
   const ex = item.ex
@@ -147,6 +192,47 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   const caixa = (cls: string, texto: string, rotulo?: string) => h('div', { cls: `caixa ${cls}` }, rotulo ? h('strong', null, rotulo) : null, texto)
   const passos = (lista: string[]) => h('ul', { cls: 'step-list' }, ...lista.map((p, i) => h('li', { cls: 'step-item' }, h('span', { cls: 'step-num' }, String(i + 1)), h('span', { cls: 'step-text' }, p))))
 
+  // Etapas ligadas à animação (cada etapa mostra a pose daquele momento)
+  const movEtapas = item.tipo === 'casa' ? movimentoDoExercicio(item.ex.numero) : undefined
+  let itensEtapa: HTMLElement[] = []
+  let fixada: number | null = null
+  let atual = -1
+  const marcar = (i: number): void => {
+    if (i === atual) return
+    atual = i
+    itensEtapa.forEach((li, k) => li.classList.toggle('ativa', k === i))
+  }
+  const listaEtapas = (etapas: Etapa[]): HTMLElement => {
+    itensEtapa = etapas.map((et, i) => {
+      const li = h('li', { cls: 'vac-etapa' + (demo ? ' clicavel' : '') },
+        h('span', { cls: 'step-num' }, String(i + 1)),
+        h('div', { cls: 'vac-etapa-corpo' }, h('strong', { cls: 'vac-etapa-titulo' }, et.titulo), h('span', { cls: 'vac-etapa-texto' }, et.texto)),
+        movEtapas ? h('figure', { cls: 'vac-etapa-pose' }, criarBonecoV2(movEtapas, { parado: true, t: et.t, recorte: true, regioes: item.tipo === 'casa' ? item.ex.regioes : [] }).el as unknown as HTMLElement) : null,
+      )
+      if (demo) {
+        li.setAttribute('role', 'button'); li.setAttribute('tabindex', '0')
+        const acionar = (): void => {
+          if (fixada === i) { demo.continuar(); return }
+          fixada = i
+          demo.irPara(et.t)
+          marcar(i)
+          demo.marcarPausa(`Etapa ${i + 1}: ${et.titulo}`)
+          const r = demo.el.getBoundingClientRect()
+          if (r.top < 60 || r.top > window.innerHeight * 0.5) window.scrollTo({ top: window.scrollY + r.top - 70, behavior: 'smooth' })
+        }
+        li.addEventListener('click', acionar)
+        li.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); acionar() } })
+      }
+      return li
+    })
+    atual = -1
+    return h('ol', { cls: 'vac-etapas' }, ...itensEtapa)
+  }
+  if (demo && detalhado) {
+    demo.aoAtualizar = (t) => { if (fixada === null) marcar(etapaNoInstante(detalhado.etapas, t)) }
+    demo.aoContinuar = () => { fixada = null }
+  }
+
   const pintar = (): void => {
     seg.querySelectorAll<HTMLElement>('button').forEach((b) => {
       const ativa = b.dataset.k === aba
@@ -157,7 +243,11 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
     if (aba === 'fazer') {
       conteudo.append(bloco(ICONES.alvo, 'Objetivo', caixa('caixa-objetivo', ex.objetivo)))
       if (item.tipo === 'areia' && item.ex.comoMontar) conteudo.append(bloco(ICONES.ferramenta, 'Como montar', h('p', null, item.ex.comoMontar)))
-      conteudo.append(bloco(ICONES.lista, 'Passo a passo', passos(ex.passoAPasso)))
+      if (detalhado) {
+        conteudo.append(bloco(ICONES.lista, 'Passo a passo', listaEtapas(detalhado.etapas)))
+        if (demo) conteudo.append(h('p', { cls: 'vac-etapa-dica' }, 'Toque em uma etapa para ver o boneco parado naquele momento.'))
+        if (detalhado.ritmo) conteudo.append(h('div', { cls: 'vac-ritmo' }, h('span', { cls: 'vac-ritmo-ico', html: svg(ICONES.relogio) }), h('div', null, h('strong', null, 'Ritmo'), h('span', null, detalhado.ritmo))))
+      } else conteudo.append(bloco(ICONES.lista, 'Passo a passo', passos(ex.passoAPasso)))
       if (item.tipo === 'areia' && item.ex.meta) conteudo.append(bloco(ICONES.alvo, 'Meta para avançar', caixa('caixa-objetivo', item.ex.meta)))
     } else if (aba === 'corrigir') {
       if (ex.pontosAtencao?.length) {

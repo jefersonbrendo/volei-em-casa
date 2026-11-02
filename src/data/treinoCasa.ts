@@ -1196,7 +1196,7 @@ const TREINO_CASA_BASE: ExercicioCasa[] = [
     regioes: ['pernas', 'gluteos'],
     objetivo: 'Fortalecer cada perna com controle total do movimento.',
     passoAPasso: [
-      'Fique em pé de frente para a cadeira, equilibrado em uma perna.',
+      'Fique em pé de costas para a cadeira, equilibrado em uma perna.',
       'Desça devagar até encostar o quadril na cadeira, com a outra perna à frente.',
       'Suba empurrando o chão com o pé de apoio.',
     ],
