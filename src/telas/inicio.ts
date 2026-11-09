@@ -1,9 +1,9 @@
 import { estado } from '../app/estado'
-import { ABREV_CATEGORIA, CATEGORIAS, COR_CATEGORIA, GRUPOS_AREIA, ITENS, NIVEIS, SECOES_AREIA, type Categoria } from '../app/itens'
+import { CATEGORIAS, GRUPOS_AREIA, ITENS, NIVEIS, SECOES_AREIA, type Categoria } from '../app/itens'
 import { CATEGORIAS_CASA } from '../data/treinoCasa'
 import { TREINOS } from '../data/treinos'
-import { h, svg, ICONES } from '../ui/dom'
-import { ICONES_APP, QUADRA_SVG, iconeDaCategoria, topoDaMarca } from './comum'
+import { h, svg } from '../ui/dom'
+import { ICONES_APP, iconeDaCategoria, topoDaMarca } from './comum'
 import { cartaoDoTreino } from './treinos'
 
 const CLASSE_CHIP: Record<string, string> = { '': 'chip-all', Iniciante: 'chip-ini', 'Intermediário': 'chip-int', 'Avançado': 'chip-ava' }
@@ -23,7 +23,7 @@ export function chipsDeNivel(contar: (nivel: string) => number, aoMudar: () => v
   const wrap = h('div', { cls: 'level-chips' })
   for (const nivel of ['', ...NIVEIS]) {
     const qtd = contar(nivel)
-    const chip = h('button', { cls: `chip ${CLASSE_CHIP[nivel]}${estado.nivel === nivel ? ' active' : ''}`, 'data-val': nivel, html: `${nivel || 'Todos'}<span class="chip-count">${qtd}</span>` })
+    const chip = h('button', { cls: `chip ${CLASSE_CHIP[nivel]}${estado.nivel === nivel ? ' active' : ''}`, 'data-val': nivel, html: nivel || 'Todos' })
     if (nivel && qtd === 0) chip.setAttribute('disabled', '')
     chip.addEventListener('click', () => {
       estado.definirNivel(nivel)
@@ -49,10 +49,10 @@ function barraDeNiveis(categoria: Categoria): string {
 
 function tileDaCategoria(c: Categoria): HTMLElement {
   const qtd = ITENS.filter((i) => i.categoria === c && (!estado.nivel || i.nivel === estado.nivel)).length
-  const tile = h('button', { cls: `sec-tile ${COR_CATEGORIA[c]}${qtd ? '' : ' vazio'}` })
+  const tile = h('button', { cls: `sec-tile${qtd ? '' : ' vazio'}` })
   tile.innerHTML = `
-    <div class="sec-tile-top">${QUADRA_SVG}<svg class="sec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconeDaCategoria(c)}</svg><span class="sec-abrev">${ABREV_CATEGORIA[c]}</span></div>
-    <div class="sec-tile-body"><span class="sec-tile-nome"></span>${barraDeNiveis(c)}</div>`
+    <span class="at-ico">${svg(iconeDaCategoria(c))}</span>
+    <span class="sec-tile-nome"></span>${barraDeNiveis(c)}`
   tile.querySelector(".sec-tile-nome")!.textContent = c
   tile.addEventListener('click', () => { window.location.hash = `#${rotaDaCategoria(c)}` })
   return tile
@@ -61,21 +61,15 @@ function tileDaCategoria(c: Categoria): HTMLElement {
 /** Categorias de casa (6 blocos) e, abaixo, a quadra de areia agrupada como no Código da Areia. */
 function blocoCategorias(): HTMLElement {
   const wrap = h('div', null)
-  const totalCasa = ITENS.filter((i) => i.tipo === 'casa').length
-  const totalAreia = ITENS.filter((i) => i.tipo === 'areia').length
   wrap.append(
     h('h2', { cls: 'bloco-titulo' }, 'Em casa'),
-    h('p', { cls: 'bloco-sub' }, `${totalCasa} exercícios para fazer sozinho, com ou sem bola.`),
+    h('p', { cls: 'bloco-sub' }, 'Para fazer sozinho, com ou sem bola.'),
     h('div', { cls: 'sec-tiles' }, ...CATEGORIAS_CASA.map(tileDaCategoria)),
   )
-  const intro = h('div', { cls: 'vac-areia-intro', id: 'na-quadra' })
-  intro.innerHTML = `
-    ${QUADRA_SVG}
-    <span class="vac-areia-selo">NA QUADRA DE AREIA</span>
-    <h2 class="vac-areia-titulo">Para quem já joga</h2>
-    <p class="vac-areia-txt"></p>`
-  intro.querySelector('.vac-areia-txt')!.textContent = `${totalAreia} exercícios do Código da Areia com o desenho da quadra, para treinar sozinho, em dupla ou com os amigos.`
-  wrap.append(intro)
+  wrap.append(
+    h('h2', { cls: 'bloco-titulo vac-na-quadra' }, 'Na quadra de areia'),
+    h('p', { cls: 'bloco-sub' }, 'Com o desenho da quadra, para treinar sozinho, em dupla ou com os amigos.'),
+  )
   for (const g of GRUPOS_AREIA) {
     wrap.append(
       h('h3', { cls: 'bloco-titulo vac-grupo-titulo' }, g.titulo),
@@ -91,24 +85,6 @@ export function telaInicio(): DocumentFragment {
   frag.append(topoDaMarca())
   const page = h('div', { cls: 'page page-home' })
 
-  const hero = h('div', { cls: 'hero' })
-  hero.innerHTML = `
-    <div class="banner">
-      ${QUADRA_SVG}
-      <div class="banner-txt">
-        <h2 class="banner-title">Treine vôlei de areia sozinho</h2>
-        <p>${ITENS.filter((i) => i.tipo === 'casa').length} exercícios para fazer em casa e ${ITENS.filter((i) => i.tipo === 'areia').length} para a quadra de areia, com passo a passo, correção e variações.</p>
-        <button class="banner-cta" data-go="treino-parede-1">Começar o primeiro treino ${svg(ICONES.avancar)}</button>
-      </div>
-    </div>
-    <ol class="passos">
-      <li><b>1</b>Escolha um treino pronto ou o que quer treinar</li>
-      <li><b>2</b>Filtre pelo seu nível e pelo que tem em casa</li>
-      <li><b>3</b>Siga o passo a passo e aumente a dificuldade</li>
-    </ol>`
-  hero.querySelector<HTMLElement>('[data-go]')!.addEventListener('click', () => { window.location.hash = '#treino-parede-1' })
-  page.append(hero)
-
   // Busca
   const busca = h('div', { cls: 'search-wrap', html: svg(ICONES_APP.busca) })
   const campo = h('input', { type: 'search', cls: 'search-input', placeholder: 'Buscar exercício, material, objetivo...', 'aria-label': 'Buscar exercício' })
@@ -119,23 +95,13 @@ export function telaInicio(): DocumentFragment {
   busca.append(campo)
   page.append(busca)
 
-  // Atalhos
-  const atalhos = h('div', { cls: 'atalhos' })
-  const lista: Array<[string, string, string, string]> = [
-    ['treinos', 'at-azul', ICONES_APP.calendario, 'Treinos prontos'],
-    ['cat-todos~corpo', 'at-ceu', ICONES_APP.corpo, 'Sem material nenhum'],
-    ['na-quadra', 'at-coral', ICONES_APP.areia, 'Na quadra de areia'],
-  ]
-  for (const [rota, cor, icone, rotulo] of lista) {
-    const b = h('button', { cls: 'atalho', html: `<span class="at-ico ${cor}">${svg(icone)}</span><span class="at-label"></span>` })
-    b.querySelector('.at-label')!.textContent = rotulo
-    b.addEventListener('click', () => {
-      if (rota === 'na-quadra') { document.getElementById('na-quadra')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return }
-      window.location.hash = `#${rota}`
-    })
-    atalhos.append(b)
-  }
-  page.append(atalhos)
+  // Treinos prontos
+  const verTodos = h('button', { cls: 'bloco-link' }, 'Ver todos')
+  verTodos.addEventListener('click', () => { window.location.hash = '#treinos' })
+  page.append(
+    h('div', { cls: 'bloco-topo' }, h('h2', { cls: 'bloco-titulo' }, 'Treinos prontos'), verTodos),
+    h('div', { cls: 'vac-treinos carrossel' }, ...TREINOS.slice(0, 3).map(cartaoDoTreino)),
+  )
 
   // Nível + categorias
   page.append(h('h2', { cls: 'bloco-titulo' }, 'Qual é o seu nível?'))
@@ -150,16 +116,6 @@ export function telaInicio(): DocumentFragment {
   )
   page.append(chips, ajuda)
   page.append(categorias)
-
-  // Treinos prontos
-  page.append(
-    h('h2', { cls: 'bloco-titulo' }, 'Treinos prontos'),
-    h('p', { cls: 'bloco-sub' }, 'Sequências de exercícios para fazer do começo ao fim.'),
-    h('div', { cls: 'vac-treinos' }, ...TREINOS.slice(0, 3).map(cartaoDoTreino)),
-  )
-  const verTodos = h('button', { cls: 'vac-ver-todos' }, `Ver os ${TREINOS.length} treinos prontos`)
-  verTodos.addEventListener('click', () => { window.location.hash = '#treinos' })
-  page.append(verTodos)
 
   frag.append(page)
   return frag

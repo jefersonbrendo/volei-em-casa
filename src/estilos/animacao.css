@@ -16,18 +16,18 @@
 }
 .cda-anim-btn svg { width: 18px; height: 18px; }
 .cda-anim-btn:active { transform: scale(0.96); }
-.cda-anim-btn[aria-pressed="true"] { background: var(--laranja); color: #0F172A; }
+.cda-anim-btn[aria-pressed="true"] { background: var(--laranja); color: #14110B; }
 .cda-anim-btn[data-acao="tocar"] { background: var(--coral); color: #fff; }
 .cda-anim-passo { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
 
 /* Item do "Passo a passo" que está acontecendo no diagrama */
 .step-item.cda-passo-ativo {
-  background: rgba(255, 159, 28, 0.16);
+  background: rgba(255,198,11, 0.16);
   box-shadow: -4px 0 0 0 var(--laranja);
   border-radius: 8px;
   transition: background 0.2s, box-shadow 0.2s;
 }
-.step-item.cda-passo-ativo .step-num { background: var(--laranja); color: #0F172A; }
+.step-item.cda-passo-ativo .step-num { background: var(--laranja); color: #14110B; }
 
 @media (prefers-reduced-motion: reduce) {
   .step-item.cda-passo-ativo { transition: none; }

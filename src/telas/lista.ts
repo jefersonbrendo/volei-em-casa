@@ -29,7 +29,7 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
   const filtrados = (): Item[] => base.filter((i) => passaMaterial(i) && (!estado.nivel || i.nivel === estado.nivel))
 
   const frag = document.createDocumentFragment()
-  frag.append(cabecalho({ titulo: categoria || 'Todos os exercícios', etiqueta: categoria ? 'CATEGORIA' : 'EXERCÍCIOS', detalhe: `• ${base.length} exercícios`, voltarPara: 'home' }))
+  frag.append(cabecalho({ titulo: categoria || 'Todos os exercícios', etiqueta: categoria ? 'CATEGORIA' : 'EXERCÍCIOS', voltarPara: 'home' }))
 
   const page = h('div', { cls: 'page' })
   if (categoria) {
@@ -37,7 +37,7 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
       h('div', { cls: `secao-band ${COR_CATEGORIA[categoria]}` },
         h('div', { cls: 'secao-band-row' },
           h('span', { cls: 'secao-band-ico', html: svg(iconeDaCategoria(categoria)) }),
-          h('div', null, h('h2', { cls: 'secao-band-nome' }, categoria), h('p', { cls: 'secao-band-resumo' }, `${base.length} exercícios`)),
+          h('h2', { cls: 'secao-band-nome' }, categoria),
         ),
       ),
       h('p', { cls: 'secao-desc' }, DESCRICAO_CATEGORIA[categoria]),
@@ -54,8 +54,8 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
     for (const g of grupos) {
       const doGrupo = itens.filter((i) => i.categoria === g)
       if (!doGrupo.length) continue
-      if (!categoria) lista.append(h('div', { cls: 'grupo-nivel' }, `${g} `, h('small', null, String(doGrupo.length))))
-      lista.append(h('div', { cls: 'ex-list' }, ...doGrupo.map((i, n) => linhaDoItem(i, `${n + 1}º exercício`, rotaAtual))))
+      if (!categoria) lista.append(h('div', { cls: 'grupo-nivel' }, g))
+      lista.append(h('div', { cls: 'ex-list' }, ...doGrupo.map((i) => linhaDoItem(i, '', rotaAtual))))
     }
   }
 
@@ -67,7 +67,7 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
     : [['', 'Qualquer material', ''], ['corpo', 'Só o corpo', ICONE_MATERIAL.corpo], ['bola', 'Com bola', ICONES_APP.bola]]
   for (const [valor, rotulo, icone] of opcoes) {
     const qtd = base.filter((i) => passaFiltro(i, valor)).length
-    const chip = h('button', { cls: `chip chip-all${material === valor ? ' active' : ''}`, 'data-val': valor, html: `${icone ? svg(icone) : ''}${rotulo}<span class="chip-count">${qtd}</span>` })
+    const chip = h('button', { cls: `chip chip-all${material === valor ? ' active' : ''}`, 'data-val': valor, html: `${icone ? svg(icone) : ''}${rotulo}` })
     if (qtd === 0) chip.setAttribute('disabled', '')
     chip.addEventListener('click', () => {
       material = valor

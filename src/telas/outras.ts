@@ -6,7 +6,7 @@ import { ICONES_APP, linhaDoItem, topoSimples, vazio } from './comum'
 
 export function telaBuscar(consulta: string): DocumentFragment {
   const frag = document.createDocumentFragment()
-  frag.append(topoSimples('Buscar', `${ITENS.length} exercícios`))
+  frag.append(topoSimples('Buscar', 'Encontre o que quer treinar'))
   const page = h('div', { cls: 'page' })
   const busca = h('div', { cls: 'search-wrap', html: svg(ICONES_APP.busca) })
   const campo = h('input', { type: 'search', cls: 'search-input', placeholder: 'Ex.: manchete, salto, parede, sem bola', 'aria-label': 'Buscar exercício' })
@@ -21,7 +21,7 @@ export function telaBuscar(consulta: string): DocumentFragment {
     if (!termos.length) { resultado.append(vazio('Digite o que quer treinar: manchete, toque, saque, salto, agilidade...')); return }
     const achados = indice.filter(([, texto]) => termos.every((t) => texto.includes(t))).map(([i]) => i)
     if (!achados.length) { resultado.append(vazio('Nenhum exercício encontrado. Tente outra palavra.')); return }
-    resultado.append(h('div', { cls: 'grupo-nivel' }, 'Resultados ', h('small', null, String(achados.length))),
+    resultado.append(h('div', { cls: 'grupo-nivel' }, 'Resultados'),
       h('div', { cls: 'ex-list' }, ...achados.map((i) => linhaDoItem(i, i.categoria, 'buscar'))))
   }
   campo.addEventListener('input', () => {
@@ -49,7 +49,7 @@ export function telaSalvos(): DocumentFragment {
       if (!confirmar) { confirmar = true; limpar.textContent = 'Toque de novo para confirmar'; return }
       estado.limparSalvos(); atualizarSeloSalvos(); window.dispatchEvent(new HashChangeEvent('hashchange'))
     })
-    page.append(h('div', { cls: 'fav-clear' }, limpar), h('div', { cls: 'ex-list' }, ...itens.map((i, n) => linhaDoItem(i, `${n + 1}º salvo`, 'salvos'))))
+    page.append(h('div', { cls: 'fav-clear' }, limpar), h('div', { cls: 'ex-list' }, ...itens.map((i) => linhaDoItem(i, '', 'salvos'))))
   }
   frag.append(page)
   return frag

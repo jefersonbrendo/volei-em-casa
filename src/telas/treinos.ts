@@ -15,7 +15,7 @@ export function cartaoDoTreino(t: TreinoPronto): HTMLElement {
     h('span', { cls: 'vac-treino-ico', html: svg(ICONES_APP.calendario) }),
     h('span', { cls: 'vac-treino-corpo' },
       h('span', { cls: 'vac-treino-nome' }, t.nome),
-      h('span', { cls: 'vac-treino-meta' }, selo(t.nivel), h('span', null, `${itens.length} exercícios · cerca de ${minutosDoTreino(itens)} min`)),
+      h('span', { cls: 'vac-treino-meta' }, selo(t.nivel), h('span', null, `Cerca de ${minutosDoTreino(itens)} min`)),
       h('span', { cls: 'vac-treino-onde' }, t.onde),
     ),
     h('span', { cls: 'chev', html: svg(ICONES.avancar) }),
@@ -26,7 +26,7 @@ export function cartaoDoTreino(t: TreinoPronto): HTMLElement {
 
 export function telaTreinos(): DocumentFragment {
   const frag = document.createDocumentFragment()
-  frag.append(topoSimples('Treinos prontos', `${TREINOS.length} sequências para fazer do começo ao fim`))
+  frag.append(topoSimples('Treinos prontos', 'Sequências para fazer do começo ao fim'))
   const page = h('div', { cls: 'page' })
   page.append(
     h('p', { cls: 'secao-desc' }, 'Escolha um treino, abra o primeiro exercício e vá tocando em "Próximo exercício" até o fim. O tempo é uma estimativa com descanso entre as séries.'),
@@ -42,7 +42,7 @@ export function telaTreino(id: string): DocumentFragment {
   if (!t) { window.location.hash = '#treinos'; return frag }
   const itens = itensDo(t)
 
-  frag.append(cabecalho({ titulo: t.nome, etiqueta: 'TREINO PRONTO', detalhe: `• ${itens.length} exercícios`, voltarPara: 'treinos' }))
+  frag.append(cabecalho({ titulo: t.nome, etiqueta: 'TREINO PRONTO', voltarPara: 'treinos' }))
   const page = h('div', { cls: 'page' })
   page.append(
     h('div', { cls: 'vac-treino-topo' },
@@ -53,7 +53,7 @@ export function telaTreino(id: string): DocumentFragment {
   )
   const comecar = h('button', { cls: 'btn-pri vac-comecar', html: `${svg(ICONES_APP.play)} Começar o treino` })
   comecar.addEventListener('click', () => { if (itens[0]) window.location.hash = `#ex-${itens[0].id}~treino-${t.id}` })
-  page.append(comecar, h('div', { cls: 'ex-list' }, ...itens.map((i, n) => linhaDoItem(i, `${n + 1}º exercício`, `treino-${t.id}`))))
+  page.append(comecar, h('div', { cls: 'ex-list' }, ...itens.map((i) => linhaDoItem(i, '', `treino-${t.id}`))))
   frag.append(page)
   return frag
 }

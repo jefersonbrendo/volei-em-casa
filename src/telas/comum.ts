@@ -2,13 +2,9 @@ import { ChipVolume } from '../components/treinoCasa/ChipVolume'
 import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { estado } from '../app/estado'
-import { criarBonecoV2, type Regiao } from '../animacao/bonecoV2'
-import { movimentoDoExercicio } from '../animacao/movimentos'
 import type { Item } from '../app/itens'
 import { h, svg, ICONES, ICONES_CATEGORIA } from '../ui/dom'
-
-export const NOME_APP = 'VÔLEI DE AREIA'
-export const SUB_APP = 'EM CASA · TREINE SOZINHO'
+import { miniaturaDoItem } from './miniatura'
 
 /** Ícones extras das telas deste app. */
 export const ICONES_APP = {
@@ -63,17 +59,17 @@ function alternarTema(): void {
   aplicarTema()
 }
 
-/** Barra de topo da tela inicial: marca + botão de tema. */
+/** Barra de topo da tela inicial: logo à esquerda, marca no centro e botão de tema à direita. */
 export function topoDaMarca(): HTMLElement {
   const marca = h('div', { cls: 'hdr-brand-box' },
-    h('div', { cls: 'hdr-brand-logo', html: svg(ICONES_APP.bola) }),
-    h('div', { cls: 'hdr-brand-text' }, h('span', { cls: 'hdr-brand-title' }, NOME_APP), h('span', { cls: 'hdr-brand-sub' }, SUB_APP)),
+    h('div', { cls: 'hdr-brand-text' }, h('span', { cls: 'hdr-brand-title' }, 'Código da ', h('span', { cls: 'hdr-brand-destaque' }, 'Areia'))),
   )
   const btnTema = h('button', { cls: 'hdr-btn theme-btn', title: 'Alternar tema', 'aria-label': 'Alternar tema' })
   const pintar = (): void => { btnTema.innerHTML = svg(temaEscuro() ? ICONES_APP.sol : ICONES_APP.lua) }
   pintar()
   btnTema.addEventListener('click', () => { alternarTema(); pintar() })
-  return h('header', { cls: 'top-bar top-bar-home' }, marca, h('div', { cls: 'hdr-actions-group' }, btnTema))
+  const logo = h('img', { cls: 'hdr-brand-logo', src: '/logo.webp', alt: '' })
+  return h('header', { cls: 'top-bar top-bar-home' }, logo, marca, h('div', { cls: 'hdr-actions-group' }, btnTema))
 }
 
 /** Barra de topo simples das abas (Buscar, Treinos, Salvos, Como usar). */
@@ -88,27 +84,16 @@ export function selo(nivel: string): HTMLElement {
   return h('span', { cls: `nivel-badge nivel-${nivel}` }, nivel)
 }
 
-/** Miniatura do exercício de casa: o boneco parado no meio do movimento. */
-function miniaturaCasa(numero: number, categoria: string, regioes: Regiao[]): HTMLElement {
-  const m = movimentoDoExercicio(numero)
-  if (!m) return h('figure', { cls: 'foto r-1x1 mini thumb-diag sem-img cda-thumb', html: svg(iconeDaCategoria(categoria)) })
-  const fig = h('figure', { cls: 'foto r-1x1 mini thumb-diag vac-thumb-boneco' })
-  fig.append(criarBonecoV2(m, { parado: true, t: 0.45, recorte: true, regioes }).el as unknown as Node)
-  return fig
-}
-
 /** Linha de exercício (mesmo visual do Código da Areia). */
 export function linhaDoItem(item: Item, rotulo: string, voltar?: string): HTMLElement {
-  const miniatura = item.tipo === 'areia'
-    ? h('figure', { cls: 'foto r-1x1 mini thumb-diag' }, h('img', { src: `/gem/thumbs/${String(item.ex.numero).padStart(3, '0')}.webp`, alt: '', loading: 'lazy' }))
-    : miniaturaCasa(item.ex.numero, item.categoria, item.ex.regioes)
+  const miniatura = miniaturaDoItem(item)
 
   const visual = item.tipo === 'casa'
     ? h('div', { cls: 'cda-card-visual' }, IconesMaterial(item.ex.material, { comNome: false }), ChipVolume(item.ex.volume), SilhuetaRegioes(item.ex.regioes, { altura: 32 }))
     : h('div', { cls: 'ex-row-mat' }, `${item.ex.jogadores.split(' (')[0]} · ${item.ex.tempo.split(' (')[0].replace(/minutos?/, 'min')}`)
 
   const corpo = h('div', { cls: 'ex-row-body' },
-    h('div', { cls: 'ex-ordem' }, rotulo),
+    rotulo ? h('div', { cls: 'ex-ordem' }, rotulo) : null,
     h('div', { cls: 'ex-row-nome' }, item.nome),
     h('div', { cls: 'ex-row-meta' }, selo(item.nivel), estado.ehSalvo(item.id) ? h('span', { cls: 'ex-row-salvo', html: svg(ICONES_APP.coracao) }) : null),
     visual,

@@ -25,7 +25,7 @@
 .vac-treino-topo .vac-treino-meta span + span::before { content: '·'; margin-right: 8px; color: var(--text-muted); }
 .vac-comecar {
   display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center; margin: 4px 0 16px;
-  padding: 14px; font-size: 1rem; font-weight: 800; border-radius: 14px; background: var(--cta); color: #fff;
+  padding: 14px; font-size: 1rem; font-weight: 800; border-radius: 14px; background: var(--cta); color: var(--on-cta);
   box-shadow: 0 6px 16px color-mix(in srgb, var(--cta) 35%, transparent);
 }
 .vac-comecar svg { width: 16px; height: 16px; fill: currentColor; }
@@ -36,6 +36,7 @@
 .vac-uso { padding-top: 6px; }
 .vac-card h3 { margin-bottom: 8px; }
 .top-bar-secao .hdr-ctx-box { padding: 10px 0; }
+
 
 /* ---------- Boneco animado (demonstração do movimento) ---------- */
 .vac-demo { margin: 14px 0 6px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); box-shadow: var(--shadow); }
@@ -75,7 +76,7 @@
 .vac-thumb-boneco .bn-frente .bn-membro, .vac-thumb-boneco .bn-frente .bn-tronco { stroke-width: 7; }
 
 /* ---------- Boneco v2 ---------- */
-:root { --b2-pele: #d39a6a; --b2-pele-tras: #b27b50; --b2-borda: #22303f; --b2-regata: #f28a24; --b2-bermuda: #12406b; --b2-bermuda-tras: #0d2f50; --b2-cabelo: #2b1d14; --b2-halo: #ff7a1a; --b2-rastro: #f28a24; }
+:root { --b2-pele: #d39a6a; --b2-pele-tras: #b27b50; --b2-borda: #22303f; --b2-regata: #f28a24; --b2-bermuda: #8A5A12; --b2-bermuda-tras: #6E470C; --b2-cabelo: #2b1d14; --b2-halo: #ff7a1a; --b2-rastro: #f28a24; }
 .boneco-v2 polyline { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .b2-borda { stroke: var(--b2-borda); }
 .b2-pele { stroke: var(--b2-pele); }
@@ -130,12 +131,4 @@
 .vac-etapa-pose svg { width: 100%; height: 100%; display: block; }
 .vac-etapa.ativa .vac-etapa-pose { border-color: var(--laranja); }
 
-/* ---------- Área da quadra de areia na tela inicial ---------- */
-.vac-areia-intro { position: relative; overflow: hidden; margin: 28px 0 4px; padding: 20px 18px 18px; border-radius: 18px; color: #3b2a12; background: linear-gradient(135deg, #f7d78b 0%, #efc169 55%, #e2a94e 100%); box-shadow: var(--shadow); scroll-margin-top: 80px; }
-.vac-areia-intro .quadra-bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .35; }
-.vac-areia-intro .quadra-bg rect, .vac-areia-intro .quadra-bg line { stroke: #fff; stroke-width: 2.5; fill: none; }
-.vac-areia-intro .quadra-bg circle { fill: #fff; }
-.vac-areia-selo { position: relative; display: inline-block; padding: 4px 10px; border-radius: 999px; background: #0e4b75; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
-.vac-areia-titulo { position: relative; margin: 10px 0 4px; font-size: 1.5rem; font-weight: 800; line-height: 1.15; color: #2a1d0a; }
-.vac-areia-txt { position: relative; margin: 0; font-size: .95rem; line-height: 1.45; color: #4a3615; max-width: 34ch; }
 .vac-grupo-titulo { font-size: 1.05rem; margin-top: 18px; }

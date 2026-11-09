@@ -1,0 +1,151 @@
+/* Identidade do Código da Areia: header, abas e tela inicial. A paleta fica nos tokens de base.css. */
+
+/* ---------- Header ---------- */
+.top-bar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  height: 56px; padding: 0 max(12px, env(safe-area-inset-left, 0px));
+  background: var(--tinta); color: #fff;
+}
+.top-bar-home { justify-content: center; }
+.hdr-brand-logo { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
+.top-bar-home .hdr-brand-logo { position: absolute; top: 50%; left: max(14px, env(safe-area-inset-left, 0px)); transform: translateY(-50%); }
+.hdr-brand-box { display: flex; align-items: center; min-width: 0; }
+.top-bar-home .hdr-brand-box { max-width: calc(100% - 116px); }
+.hdr-brand-text { min-width: 0; }
+.hdr-brand-title {
+  display: block; font-family: 'Bebas Neue', 'Inter', sans-serif; font-weight: 400;
+  font-size: 1.4rem; line-height: 1.3; letter-spacing: 0.03em; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.hdr-brand-destaque { color: var(--sol); }
+.top-bar-home .hdr-actions-group { position: absolute; top: 50%; right: max(12px, env(safe-area-inset-right, 0px)); transform: translateY(-50%); }
+.hdr-btn { width: 36px; height: 36px; border-radius: 10px; background: transparent; border-color: transparent; }
+.theme-btn svg { width: 20px; height: 20px; }
+.top-bar-secao .hdr-ctx-box { padding: 0; }
+.hdr-ctx-title { font-size: 1rem; font-weight: 700; line-height: 1.25; }
+
+/* ---------- Abas ---------- */
+.bottom-nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 200; display: flex;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--bg-nav); border-top: 1px solid rgba(255,255,255,0.08);
+}
+.nav-item {
+  position: relative; flex: 1; min-width: 0; min-height: 58px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; padding: 6px 2px; color: #A89E89; font-size: 10.5px; font-weight: 600;
+  transition: color 0.15s;
+}
+.nav-item svg { width: 23px; height: 23px; }
+.nav-item.active { color: var(--sol); }
+.nav-item.active svg { stroke-width: 2.4; }
+
+/* ---------- Busca e chips ---------- */
+.search-wrap { margin: 14px 0 12px; }
+.search-input { height: 44px; border-radius: 12px; }
+.search-input:focus { border-color: var(--sol); }
+.level-chips { gap: 6px; margin: 10px 0 8px; }
+.chip { height: 34px; padding: 0 13px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--bg-card); }
+.chip-all.active { background: var(--accent); border-color: var(--accent); }
+
+/* ---------- Categorias ---------- */
+.at-ico { width: 36px; height: 36px; flex-shrink: 0; display: grid; place-items: center; border-radius: 10px; background: var(--sol); color: var(--tinta); }
+.at-ico svg { width: 20px; height: 20px; }
+.sec-tile:active { transform: scale(0.97); }
+
+.sec-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 520px) { .sec-tiles { grid-template-columns: repeat(3, 1fr); } }
+.sec-tile {
+  display: flex; flex-direction: column; gap: 10px; padding: 12px; text-align: left; color: var(--text);
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; transition: transform 0.12s;
+}
+.sec-tile.vazio { opacity: 0.45; }
+.sec-tile-nome { flex: 1; font-size: 0.9rem; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.nivel-barra { display: flex; gap: 2px; height: 4px; border-radius: 2px; overflow: hidden; background: var(--bg-chip); }
+.nivel-barra i { display: block; height: 100%; }
+.nb-ini { background: var(--c-ini); }
+.nb-int { background: var(--c-int); }
+.nb-ava { background: var(--c-ava); }
+
+/* ---------- Seções ---------- */
+.bloco-titulo { font-size: 1.1rem; font-weight: 800; line-height: 1.25; color: var(--text); margin: 24px 0 2px; }
+.bloco-sub { font-size: 0.82rem; line-height: 1.4; color: var(--text-muted); margin: 2px 0 10px; }
+.bloco-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 24px 0 10px; }
+.bloco-topo .bloco-titulo { margin: 0; }
+.bloco-link { font-size: 0.85rem; font-weight: 700; color: var(--link); padding: 4px 0 4px 8px; }
+.vac-grupo-titulo { font-size: 0.95rem; font-weight: 700; margin-top: 18px; }
+.vac-na-quadra { margin-top: 30px; }
+
+.carrossel {
+  flex-direction: row; gap: 10px; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: 0 max(16px, env(safe-area-inset-left, 0px)) 2px;
+  overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; scrollbar-width: none;
+}
+.carrossel::-webkit-scrollbar { display: none; }
+.carrossel .vac-treino { flex: 0 0 82%; scroll-snap-align: start; }
+
+/* ---------- Listas e treinos ---------- */
+.vac-treino-ico { background: var(--sol); color: var(--tinta); }
+.vac-treino { border-radius: 14px; }
+.ex-row-nome { font-weight: 700; }
+
+/* ---------- Prévia do exercício ---------- */
+.ex-row .foto.cena { width: 108px; aspect-ratio: 4 / 3; }
+.cena {
+  --ceu-a: #F2602A; --ceu-b: #FFB52E; --chao: #F4C25B; --linha: #FFFFFF; --sol-cena: #FFE08A;
+  background: linear-gradient(180deg, var(--ceu-a), var(--ceu-b));
+}
+.cena { --at-pele: #C98A5E; --at-regata: #FFFFFF; }
+.cena-1 { --at-pele: #8D5A3A; --at-regata: var(--sol); }
+.cena-2 { --at-pele: #E0AC7E; --at-regata: var(--sol); }
+.cena-casa.cena-2 { --at-regata: #E23D2E; }
+.at-pele { fill: var(--at-pele); }
+.at-tras { fill: color-mix(in srgb, var(--at-pele) 78%, #14110B); }
+.at-roupa { fill: var(--at-regata); }
+.at-bermuda { fill: #14110B; }
+.at-bermuda-tras { fill: #38301F; }
+.at-cabelo { fill: #2B1D14; }
+.at-boca { fill: none; stroke: #5A2E1C; stroke-width: 1; stroke-linecap: round; }
+.cena-1 { --ceu-a: #0B7F86; --ceu-b: #35BFA9; --chao: #0E9A92; --sol-cena: #BFF2E4; }
+.cena-2 { --ceu-a: #E8452B; --ceu-b: #FF9A2E; --chao: #129B90; --sol-cena: #FFD36B; }
+.cena-fundo { position: absolute; inset: 0; width: 100%; height: 100%; }
+.foto.mini .cena-fundo { width: 100%; height: 100%; }
+.cena-sol { fill: var(--sol-cena); opacity: 0.9; }
+.cena-chao { fill: var(--chao); }
+.cena-linha { fill: none; stroke: var(--linha); stroke-width: 1.4; opacity: 0.85; }
+.cena-rede line { stroke: #fff; stroke-width: 0.6; opacity: 0.75; }
+.cena-poste { stroke: #14110B; stroke-width: 1.6; stroke-linecap: round; }
+.foto.mini.cena svg.boneco { position: absolute; left: 50%; bottom: 5%; width: auto; height: 92%; aspect-ratio: 1; transform: translateX(-50%); }
+.cena .bn-chao, .cena .bn-parede, .cena .bn-sombra, .cena .bn-linha, .cena .bn-marca, .cena .bn-tapete { display: none; }
+.cena .bn-cadeira path { stroke: #14110B; }
+.cena .bn-degrau, .cena .bn-cone { fill: #14110B; stroke: none; }
+.cena .bn-bola circle { fill: #FFFFFF; stroke: #14110B; stroke-width: 2; }
+.cena .bn-bola path { stroke: #14110B; stroke-width: 1.6; }
+
+/* ---------- Telas internas ---------- */
+.secao-band { padding: 14px; border-radius: 14px; color: var(--text); background: var(--bg-card); border: 1px solid var(--border); }
+.secao-band-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--sol); color: var(--tinta); }
+.secao-band-ico svg { width: 24px; height: 24px; }
+.secao-band-nome { font-family: inherit; font-size: 1.15rem; font-weight: 800; line-height: 1.2; }
+.ex-titulo { font-family: inherit; font-size: 1.45rem; font-weight: 800; line-height: 1.2; letter-spacing: 0; }
+.seg { top: 56px; }
+.seg button.active { background: var(--accent); color: var(--on-accent); }
+.step-num { font-weight: 800; }
+.caixa-objetivo { background: rgba(255,198,11,0.14); border-color: rgba(255,198,11,0.45); }
+
+/* ---------- Botões principais ---------- */
+.acao-bar .btn-pri, .cda-btn.pri, .cda-anim-btn[data-acao="tocar"] { background: var(--cta); color: var(--on-cta); box-shadow: none; }
+.vac-lento[aria-pressed="true"], .chip.cda-filtro-corpo.active, .vac-etapa.ativa .step-num { background: var(--sol); border-color: var(--sol); color: var(--tinta); }
+
+/* ---------- Cenário de casa nas prévias ---------- */
+.cena-casa { --ceu-a: #E9784A; --ceu-b: #F2A25C; --piso: #8A5A32; --movel: #B8452C; }
+.cena-casa.cena-1 { --ceu-a: #1F8F88; --ceu-b: #55BDAC; --piso: #A8743F; --movel: #F2A25C; }
+.cena-casa.cena-2 { --ceu-a: #F2AE3D; --ceu-b: #F9D27E; --piso: #9A6236; --movel: #1F8F88; }
+.cena-piso { fill: var(--piso); }
+.cena-rodape { stroke: #FFF3DC; stroke-width: 1.6; }
+.cena-tabua { fill: none; stroke: #14110B; stroke-width: 0.5; opacity: 0.28; }
+.cena-janela { fill: #FFF1C9; stroke: #FFFFFF; stroke-width: 1.4; }
+.cena-caixilho { fill: none; stroke: #FFFFFF; stroke-width: 1.2; }
+.cena-cortina { fill: #FFFFFF; opacity: 0.55; }
+.cena-quadro { fill: #FFF3DC; stroke: #14110B; stroke-width: 1; opacity: 0.8; }
+.cena-movel { fill: var(--movel); }
+.cena-planta { fill: #2F7D4F; stroke: #1E5E39; stroke-width: 1; stroke-linejoin: round; }

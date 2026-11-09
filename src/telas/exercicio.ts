@@ -169,7 +169,7 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   const page = h('div', { cls: 'page ex-page' })
   if (pos >= 0) {
     page.insertAdjacentHTML('beforeend', `<div class="progresso"><div class="progresso-txt"><span></span></div><div class="progresso-barra"><i style="width:${((pos + 1) / seq.itens.length) * 100}%"></i></div></div>`)
-    page.querySelector('.progresso-txt span')!.textContent = `Exercício ${pos + 1} de ${seq.itens.length} em ${seq.nome}`
+    page.querySelector('.progresso-txt span')!.textContent = seq.nome
   }
   page.append(
     h('h2', { cls: 'ex-titulo' }, item.nome),

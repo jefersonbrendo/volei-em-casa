@@ -23,7 +23,7 @@
   padding: 4px 10px; border-radius: 999px; background: var(--bg-chip); color: var(--text-sec);
   font-size: 12px; font-weight: 700;
 }
-.cda-chip-ico { display: inline-flex; color: var(--ceu); }
+.cda-chip-ico { display: inline-flex; color: var(--laranja); }
 .cda-chip-ico svg { width: 14px; height: 14px; }
 
 /* Linha compacta no card da lista: nunca quebra em duas linhas */
@@ -45,5 +45,5 @@
 .cda-linha-filtro-corpo { display: flex; align-items: center; gap: 10px; margin: 10px 0 6px; flex-wrap: wrap; }
 .chip.cda-filtro-corpo { display: inline-flex; align-items: center; gap: 6px; }
 .chip.cda-filtro-corpo svg { width: 16px; height: 16px; }
-.chip.cda-filtro-corpo.active { background: var(--laranja); border-color: var(--laranja); color: #0F172A; }
+.chip.cda-filtro-corpo.active { background: var(--laranja); border-color: var(--laranja); color: #14110B; }
 .cda-dica-filtro { font-size: 12px; color: var(--text-muted); }
