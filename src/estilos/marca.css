@@ -89,37 +89,7 @@
 .ex-row-nome { font-weight: 700; }
 
 /* ---------- Prévia do exercício ---------- */
-.ex-row .foto.cena { width: 108px; aspect-ratio: 4 / 3; }
-.cena {
-  --ceu-a: #F2602A; --ceu-b: #FFB52E; --chao: #F4C25B; --linha: #FFFFFF; --sol-cena: #FFE08A;
-  background: linear-gradient(180deg, var(--ceu-a), var(--ceu-b));
-}
-.cena { --at-pele: #C98A5E; --at-regata: #FFFFFF; }
-.cena-1 { --at-pele: #8D5A3A; --at-regata: var(--sol); }
-.cena-2 { --at-pele: #E0AC7E; --at-regata: var(--sol); }
-.cena-casa.cena-2 { --at-regata: #E23D2E; }
-.at-pele { fill: var(--at-pele); }
-.at-tras { fill: color-mix(in srgb, var(--at-pele) 78%, #14110B); }
-.at-roupa { fill: var(--at-regata); }
-.at-bermuda { fill: #14110B; }
-.at-bermuda-tras { fill: #38301F; }
-.at-cabelo { fill: #2B1D14; }
-.at-boca { fill: none; stroke: #5A2E1C; stroke-width: 1; stroke-linecap: round; }
-.cena-1 { --ceu-a: #0B7F86; --ceu-b: #35BFA9; --chao: #0E9A92; --sol-cena: #BFF2E4; }
-.cena-2 { --ceu-a: #E8452B; --ceu-b: #FF9A2E; --chao: #129B90; --sol-cena: #FFD36B; }
-.cena-fundo { position: absolute; inset: 0; width: 100%; height: 100%; }
-.foto.mini .cena-fundo { width: 100%; height: 100%; }
-.cena-sol { fill: var(--sol-cena); opacity: 0.9; }
-.cena-chao { fill: var(--chao); }
-.cena-linha { fill: none; stroke: var(--linha); stroke-width: 1.4; opacity: 0.85; }
-.cena-rede line { stroke: #fff; stroke-width: 0.6; opacity: 0.75; }
-.cena-poste { stroke: #14110B; stroke-width: 1.6; stroke-linecap: round; }
-.foto.mini.cena svg.boneco { position: absolute; left: 50%; bottom: 5%; width: auto; height: 92%; aspect-ratio: 1; transform: translateX(-50%); }
-.cena .bn-chao, .cena .bn-parede, .cena .bn-sombra, .cena .bn-linha, .cena .bn-marca, .cena .bn-tapete { display: none; }
-.cena .bn-cadeira path { stroke: #14110B; }
-.cena .bn-degrau, .cena .bn-cone { fill: #14110B; stroke: none; }
-.cena .bn-bola circle { fill: #FFFFFF; stroke: #14110B; stroke-width: 2; }
-.cena .bn-bola path { stroke: #14110B; stroke-width: 1.6; }
+.ex-row .foto.previa { width: 108px; aspect-ratio: 4 / 3; }
 
 /* ---------- Telas internas ---------- */
 .secao-band { padding: 14px; border-radius: 14px; color: var(--text); background: var(--bg-card); border: 1px solid var(--border); }
@@ -135,17 +105,3 @@
 /* ---------- Botões principais ---------- */
 .acao-bar .btn-pri, .cda-btn.pri, .cda-anim-btn[data-acao="tocar"] { background: var(--cta); color: var(--on-cta); box-shadow: none; }
 .vac-lento[aria-pressed="true"], .chip.cda-filtro-corpo.active, .vac-etapa.ativa .step-num { background: var(--sol); border-color: var(--sol); color: var(--tinta); }
-
-/* ---------- Cenário de casa nas prévias ---------- */
-.cena-casa { --ceu-a: #E9784A; --ceu-b: #F2A25C; --piso: #8A5A32; --movel: #B8452C; }
-.cena-casa.cena-1 { --ceu-a: #1F8F88; --ceu-b: #55BDAC; --piso: #A8743F; --movel: #F2A25C; }
-.cena-casa.cena-2 { --ceu-a: #F2AE3D; --ceu-b: #F9D27E; --piso: #9A6236; --movel: #1F8F88; }
-.cena-piso { fill: var(--piso); }
-.cena-rodape { stroke: #FFF3DC; stroke-width: 1.6; }
-.cena-tabua { fill: none; stroke: #14110B; stroke-width: 0.5; opacity: 0.28; }
-.cena-janela { fill: #FFF1C9; stroke: #FFFFFF; stroke-width: 1.4; }
-.cena-caixilho { fill: none; stroke: #FFFFFF; stroke-width: 1.2; }
-.cena-cortina { fill: #FFFFFF; opacity: 0.55; }
-.cena-quadro { fill: #FFF3DC; stroke: #14110B; stroke-width: 1; opacity: 0.8; }
-.cena-movel { fill: var(--movel); }
-.cena-planta { fill: #2F7D4F; stroke: #1E5E39; stroke-width: 1; stroke-linejoin: round; }
