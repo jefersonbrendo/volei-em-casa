@@ -1,2 +1,7 @@
 node_modules/
 dist/
+
+# Gerador de imagens: programa e modelos ficam só no PC que gera
+scripts/gerar-imagens/sd/
+scripts/gerar-imagens/modelos/
+__pycache__/
