@@ -29,7 +29,6 @@ export function telaTreinos(): DocumentFragment {
   frag.append(topoSimples('Treinos prontos', 'Sequências para fazer do começo ao fim'))
   const page = h('div', { cls: 'page' })
   page.append(
-    h('p', { cls: 'secao-desc' }, 'Escolha um treino, abra o primeiro exercício e vá tocando em "Próximo exercício" até o fim. O tempo é uma estimativa com descanso entre as séries.'),
     h('div', { cls: 'vac-treinos' }, ...TREINOS.map(cartaoDoTreino)),
   )
   frag.append(page)

@@ -15,14 +15,16 @@ export function telaBuscar(consulta: string): DocumentFragment {
   const resultado = h('div', null)
 
   const indice = ITENS.map((i) => [i, textoDeBusca(i)] as const)
+  const sugestoes = ITENS.filter((i, n) => ITENS.findIndex((x) => x.categoria === i.categoria) === n)
+  const linha = (i: Item): HTMLElement => linhaDoItem(i, i.categoria, 'buscar')
   const desenhar = (): void => {
     resultado.replaceChildren()
     const termos = normalizar(campo.value).split(/\s+/).filter(Boolean)
-    if (!termos.length) { resultado.append(vazio('Digite o que quer treinar: manchete, toque, saque, salto, agilidade...')); return }
+    if (!termos.length) { resultado.append(h('div', { cls: 'grupo-nivel' }, 'Sugestões'), h('div', { cls: 'ex-list' }, ...sugestoes.map(linha))); return }
     const achados = indice.filter(([, texto]) => termos.every((t) => texto.includes(t))).map(([i]) => i)
     if (!achados.length) { resultado.append(vazio('Nenhum exercício encontrado. Tente outra palavra.')); return }
     resultado.append(h('div', { cls: 'grupo-nivel' }, 'Resultados'),
-      h('div', { cls: 'ex-list' }, ...achados.map((i) => linhaDoItem(i, i.categoria, 'buscar'))))
+      h('div', { cls: 'ex-list' }, ...achados.map(linha)))
   }
   campo.addEventListener('input', () => {
     history.replaceState(null, '', `#buscar~${encodeURIComponent(campo.value)}`)
@@ -31,7 +33,7 @@ export function telaBuscar(consulta: string): DocumentFragment {
   desenhar()
   page.append(busca, resultado)
   frag.append(page)
-  setTimeout(() => { campo.focus(); campo.setSelectionRange(campo.value.length, campo.value.length) }, 50)
+  if (consulta) setTimeout(() => { campo.focus(); campo.setSelectionRange(campo.value.length, campo.value.length) }, 50)
   return frag
 }
 
