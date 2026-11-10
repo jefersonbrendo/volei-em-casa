@@ -19,7 +19,20 @@
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .hdr-brand-destaque { color: var(--sol); }
-.top-bar-home .hdr-actions-group { position: absolute; top: 50%; right: max(12px, env(safe-area-inset-right, 0px)); transform: translateY(-50%); }
+.hdr-brand-logo-mini { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; margin-right: 8px; }
+.top-bar-home .hdr-voltar, .top-bar-home .hdr-voltar:hover { position: absolute; top: 50%; left: max(10px, env(safe-area-inset-left, 0px)); transform: translateY(-50%); color: #fff; }
+
+/* ---------- Título grande das páginas ---------- */
+.pagina-topo { position: relative; overflow: hidden; padding-top: 22px; padding-bottom: 2px; }
+.pagina-rede { position: absolute; top: 0; right: 0; width: 170px; height: 128px; pointer-events: none; }
+.pagina-rede .rede-fita { fill: var(--coral); }
+.pagina-rede .rede-malha { fill: none; stroke: var(--sol); stroke-width: 1.4; opacity: 0.7; }
+.pagina-titulo {
+  position: relative; max-width: 80%; margin: 0; color: var(--text);
+  font-family: 'Bebas Neue', 'Inter', sans-serif; font-weight: 400; font-size: clamp(2.1rem, 9vw, 2.6rem); line-height: 1; letter-spacing: 0.02em;
+}
+.pagina-sub { position: relative; max-width: 80%; margin: 6px 0 0; font-size: 0.9rem; line-height: 1.4; color: var(--text-muted); }
+.pagina-traco { display: block; width: 40px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--coral); }.top-bar-home .hdr-actions-group { position: absolute; top: 50%; right: max(12px, env(safe-area-inset-right, 0px)); transform: translateY(-50%); }
 .hdr-btn { width: 36px; height: 36px; border-radius: 10px; background: transparent; border-color: transparent; }
 .theme-btn svg { width: 20px; height: 20px; }
 .top-bar-secao .hdr-ctx-box { padding: 0; }
@@ -96,7 +109,7 @@
 .secao-band-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--sol); color: var(--tinta); }
 .secao-band-ico svg { width: 24px; height: 24px; }
 .secao-band-nome { font-family: inherit; font-size: 1.15rem; font-weight: 800; line-height: 1.2; }
-.ex-titulo { font-family: inherit; font-size: 1.45rem; font-weight: 800; line-height: 1.2; letter-spacing: 0; }
+.ex-titulo { font-family: 'Bebas Neue', 'Inter', sans-serif; font-size: 2.1rem; font-weight: 400; line-height: 1.05; letter-spacing: 0.02em; }
 .seg { top: 56px; }
 .seg button.active { background: var(--accent); color: var(--on-accent); }
 .step-num { font-weight: 800; }

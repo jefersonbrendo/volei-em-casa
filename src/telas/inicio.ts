@@ -2,6 +2,7 @@ import { estado } from '../app/estado'
 import { CATEGORIAS, GRUPOS_AREIA, ITENS, NIVEIS, SECOES_AREIA, type Categoria } from '../app/itens'
 import { CATEGORIAS_CASA } from '../data/treinoCasa'
 import { TREINOS } from '../data/treinos'
+import { tituloDaPagina } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
 import { ICONES_APP, iconeDaCategoria, topoDaMarca } from './comum'
 import { cartaoDoTreino } from './treinos'
@@ -82,7 +83,7 @@ function blocoCategorias(): HTMLElement {
 
 export function telaInicio(): DocumentFragment {
   const frag = document.createDocumentFragment()
-  frag.append(topoDaMarca())
+  frag.append(topoDaMarca(), tituloDaPagina('Bora treinar', 'Escolha um treino, um nível ou uma categoria'))
   const page = h('div', { cls: 'page page-home' })
 
   // Busca

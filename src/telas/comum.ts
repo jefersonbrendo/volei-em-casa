@@ -3,6 +3,7 @@ import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { estado } from '../app/estado'
 import type { Item } from '../app/itens'
+import { tituloDaPagina } from '../ui/cabecalho'
 import { h, svg, ICONES, ICONES_CATEGORIA } from '../ui/dom'
 import { miniaturaDoItem } from './miniatura'
 
@@ -72,11 +73,11 @@ export function topoDaMarca(): HTMLElement {
   return h('header', { cls: 'top-bar top-bar-home' }, logo, marca, h('div', { cls: 'hdr-actions-group' }, btnTema))
 }
 
-/** Barra de topo simples das abas (Buscar, Treinos, Salvos, Como usar). */
-export function topoSimples(titulo: string, sub?: string): HTMLElement {
-  return h('header', { cls: 'top-bar top-bar-secao' },
-    h('div', { cls: 'hdr-ctx-box' }, h('span', { cls: 'hdr-ctx-title' }, titulo), sub ? h('span', { cls: 'hdr-ctx-sub' }, h('span', null, sub)) : null),
-  )
+/** Topo das abas (Buscar, Treinos, Salvos, Como usar): header da marca e o título grande da página. */
+export function topoSimples(titulo: string, sub?: string): DocumentFragment {
+  const frag = document.createDocumentFragment()
+  frag.append(topoDaMarca(), tituloDaPagina(titulo, sub))
+  return frag
 }
 
 /* ---------- LISTAS ---------- */

@@ -1,9 +1,9 @@
 import { estado } from '../app/estado'
-import { CATEGORIAS, COR_CATEGORIA, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
+import { CATEGORIAS, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
 import { ICONE_MATERIAL } from '../components/treinoCasa/IconesMaterial'
-import { cabecalho } from '../ui/cabecalho'
+import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
-import { ICONES_APP, iconeDaCategoria, linhaDoItem, vazio } from './comum'
+import { ICONES_APP, linhaDoItem, vazio } from './comum'
 import { ajudaDoNivel, chipsDeNivel, rotaDaCategoria } from './inicio'
 
 export type Material = '' | 'corpo' | 'bola' | 'ate2' | '3mais'
@@ -29,20 +29,9 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
   const filtrados = (): Item[] => base.filter((i) => passaMaterial(i) && (!estado.nivel || i.nivel === estado.nivel))
 
   const frag = document.createDocumentFragment()
-  frag.append(cabecalho({ titulo: categoria || 'Todos os exercícios', etiqueta: categoria ? 'CATEGORIA' : 'EXERCÍCIOS', voltarPara: 'home' }))
+  frag.append(cabecalho('home'), tituloDaPagina(categoria || 'Todos os exercícios', categoria ? DESCRICAO_CATEGORIA[categoria] : undefined))
 
   const page = h('div', { cls: 'page' })
-  if (categoria) {
-    page.append(h('div', { cls: 'secao-intro' },
-      h('div', { cls: `secao-band ${COR_CATEGORIA[categoria]}` },
-        h('div', { cls: 'secao-band-row' },
-          h('span', { cls: 'secao-band-ico', html: svg(iconeDaCategoria(categoria)) }),
-          h('h2', { cls: 'secao-band-nome' }, categoria),
-        ),
-      ),
-      h('p', { cls: 'secao-desc' }, DESCRICAO_CATEGORIA[categoria]),
-    ))
-  }
 
   const lista = h('div', null)
   const desenhar = (): void => {

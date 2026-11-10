@@ -14,7 +14,6 @@ import { cabecalho } from '../ui/cabecalho'
 import { h, svg, ICONES } from '../ui/dom'
 import { ICONES_APP } from './comum'
 
-const COR_NIVEL: Record<string, string> = { Iniciante: '#1E9E5A', 'Intermediário': '#E08A00', 'Avançado': '#E5352B' }
 const CLASSE_NIVEL: Record<string, string> = { Iniciante: 'ini', 'Intermediário': 'int', 'Avançado': 'ava' }
 
 interface Sequencia { itens: Item[]; nome: string }
@@ -162,7 +161,7 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   const seq = sequenciaDe(item, destinoVoltar)
   const pos = seq.itens.findIndex((i) => i.id === item.id)
 
-  const topo = cabecalho({ titulo: item.nome, etiqueta: item.categoria.toUpperCase(), corEtiqueta: COR_NIVEL[item.nivel], detalhe: `• ${item.nivel}`, voltarPara: destinoVoltar })
+  const topo = cabecalho(destinoVoltar)
   topo.append(h('div', { cls: 'hdr-actions-group' }, botaoSalvar(item)))
   frag.append(topo)
 

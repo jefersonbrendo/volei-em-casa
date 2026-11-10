@@ -1,7 +1,7 @@
 import { itemPorId, type Item } from '../app/itens'
 import { minutosDoTreino } from '../app/tempo'
 import { TREINOS, type TreinoPronto } from '../data/treinos'
-import { cabecalho } from '../ui/cabecalho'
+import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg, ICONES } from '../ui/dom'
 import { ICONES_APP, linhaDoItem, selo, topoSimples } from './comum'
 
@@ -41,7 +41,7 @@ export function telaTreino(id: string): DocumentFragment {
   if (!t) { window.location.hash = '#treinos'; return frag }
   const itens = itensDo(t)
 
-  frag.append(cabecalho({ titulo: t.nome, etiqueta: 'TREINO PRONTO', voltarPara: 'treinos' }))
+  frag.append(cabecalho('treinos'), tituloDaPagina(t.nome))
   const page = h('div', { cls: 'page' })
   page.append(
     h('div', { cls: 'vac-treino-topo' },
