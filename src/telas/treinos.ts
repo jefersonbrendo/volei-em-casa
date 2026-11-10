@@ -5,7 +5,7 @@ import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg, ICONES } from '../ui/dom'
 import { ICONES_APP, linhaDoItem, selo, topoSimples } from './comum'
 
-function itensDo(t: TreinoPronto): Item[] {
+export function itensDo(t: TreinoPronto): Item[] {
   return t.itens.map(itemPorId).filter((i): i is Item => !!i)
 }
 

@@ -4,6 +4,14 @@ import { h, svg } from '../ui/dom'
 import { atualizarSeloSalvos } from './exercicio'
 import { ICONES_APP, linhaDoItem, topoSimples, vazio } from './comum'
 
+let focarAoAbrir = false
+
+/** Abre a aba Buscar já com o cursor no campo (atalho da tela inicial). */
+export function abrirBuscaComFoco(): void {
+  focarAoAbrir = true
+  window.location.hash = '#buscar'
+}
+
 export function telaBuscar(consulta: string): DocumentFragment {
   const frag = document.createDocumentFragment()
   frag.append(topoSimples('Buscar', 'Encontre o que quer treinar'))
@@ -33,7 +41,9 @@ export function telaBuscar(consulta: string): DocumentFragment {
   desenhar()
   page.append(busca, resultado)
   frag.append(page)
-  if (consulta) setTimeout(() => { campo.focus(); campo.setSelectionRange(campo.value.length, campo.value.length) }, 50)
+  const focar = consulta || focarAoAbrir
+  focarAoAbrir = false
+  if (focar) setTimeout(() => { campo.focus(); campo.setSelectionRange(campo.value.length, campo.value.length) }, 50)
   return frag
 }
 

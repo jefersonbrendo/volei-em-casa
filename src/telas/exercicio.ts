@@ -275,7 +275,10 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   const bAnt = h('button', { cls: 'btn-sec', 'aria-label': 'Exercício anterior', html: svg(ICONES.voltar) })
   const bProx = h('button', { cls: 'btn-pri', 'aria-label': 'Próximo exercício', html: proximo ? `Próximo exercício ${svg(ICONES.avancar)}` : 'Fim da sequência' })
   if (anterior) bAnt.addEventListener('click', () => ir(anterior)); else bAnt.setAttribute('disabled', '')
-  if (proximo) bProx.addEventListener('click', () => ir(proximo)); else bProx.addEventListener('click', () => { window.location.hash = `#${destinoVoltar}` })
+  bProx.addEventListener('click', () => {
+    estado.registrarTreino()
+    if (proximo) ir(proximo); else window.location.hash = `#${destinoVoltar}`
+  })
   frag.append(h('div', { cls: 'acao-bar' }, h('div', { cls: 'acao-bar-inner' }, bAnt, bProx)))
   return frag
 }
