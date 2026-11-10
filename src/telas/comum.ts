@@ -18,6 +18,7 @@ export const ICONES_APP = {
   lua: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
   bola: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20M2 12h20"/><path d="M4.5 4.5c4 4 11 4 15 0M4.5 19.5c4-4 11-4 15 0"/>',
   play: '<polygon points="6 4 20 12 6 20 6 4"/>',
+  check: '<polyline points="20 6 9 17 4 12"/>',
   relogio: ICONES.relogio,
 } as const
 
@@ -96,7 +97,9 @@ export function linhaDoItem(item: Item, rotulo: string, voltar?: string): HTMLEl
   const corpo = h('div', { cls: 'ex-row-body' },
     rotulo ? h('div', { cls: 'ex-ordem' }, rotulo) : null,
     h('div', { cls: 'ex-row-nome' }, item.nome),
-    h('div', { cls: 'ex-row-meta' }, selo(item.nivel), estado.ehSalvo(item.id) ? h('span', { cls: 'ex-row-salvo', html: svg(ICONES_APP.coracao) }) : null),
+    h('div', { cls: 'ex-row-meta' }, selo(item.nivel),
+      estado.ehFeitoHoje(item.id) ? h('span', { cls: 'ex-row-feito', html: `${svg(ICONES_APP.check)} Feito hoje` }) : null,
+      estado.ehSalvo(item.id) ? h('span', { cls: 'ex-row-salvo', html: svg(ICONES_APP.coracao) }) : null),
     visual,
   )
   const botao = h('button', { cls: 'ex-row', 'data-id': item.id }, miniatura, corpo, h('span', { cls: 'chev', html: svg(ICONES.avancar) }))

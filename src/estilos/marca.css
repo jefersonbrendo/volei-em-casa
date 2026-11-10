@@ -208,5 +208,11 @@
 .caixa-objetivo { background: rgba(255,198,11,0.14); border-color: rgba(255,198,11,0.45); }
 
 /* ---------- Botões principais ---------- */
+.acao-bar .btn-feito { flex: 1; padding: 0 10px; background: var(--bg-card); color: var(--text); border: 1.5px solid var(--border); transition: background 0.15s, color 0.15s; }
+.acao-bar .btn-feito svg { stroke-width: 3; color: var(--c-ini); }
+.acao-bar .btn-feito.feito { background: var(--c-ini); border-color: var(--c-ini); color: #fff; }
+.acao-bar .btn-feito.feito svg { color: #fff; }
+.ex-row-feito { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 800; color: var(--c-ini); }
+.ex-row-feito svg { width: 12px; height: 12px; stroke-width: 3; }
 .acao-bar .btn-pri, .cda-btn.pri, .cda-anim-btn[data-acao="tocar"] { background: var(--cta); color: var(--on-cta); box-shadow: none; }
 .vac-lento[aria-pressed="true"], .chip.cda-filtro-corpo.active, .vac-etapa.ativa .step-num { background: var(--sol); border-color: var(--sol); color: var(--tinta); }

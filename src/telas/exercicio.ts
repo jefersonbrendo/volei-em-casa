@@ -273,12 +273,24 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   const proximo = pos >= 0 && pos < seq.itens.length - 1 ? seq.itens[pos + 1] : undefined
   const ir = (alvo: Item): void => { window.location.hash = `#ex-${alvo.id}~${destinoVoltar}` }
   const bAnt = h('button', { cls: 'btn-sec', 'aria-label': 'Exercício anterior', html: svg(ICONES.voltar) })
-  const bProx = h('button', { cls: 'btn-pri', 'aria-label': 'Próximo exercício', html: proximo ? `Próximo exercício ${svg(ICONES.avancar)}` : 'Fim da sequência' })
+  const bProx = h('button', { cls: 'btn-pri', 'aria-label': proximo ? 'Próximo exercício' : 'Fim da sequência', html: proximo ? `Próximo ${svg(ICONES.avancar)}` : 'Fim' })
   if (anterior) bAnt.addEventListener('click', () => ir(anterior)); else bAnt.setAttribute('disabled', '')
-  bProx.addEventListener('click', () => {
-    estado.registrarTreino()
-    if (proximo) ir(proximo); else window.location.hash = `#${destinoVoltar}`
+  if (proximo) bProx.addEventListener('click', () => ir(proximo)); else bProx.addEventListener('click', () => { window.location.hash = `#${destinoVoltar}` })
+
+  // Feito hoje: marca o dia no calendário da tela inicial e volta desmarcado amanhã.
+  const bFeito = h('button', { cls: 'btn-feito' })
+  const pintarFeito = (): void => {
+    const feito = estado.ehFeitoHoje(item.id)
+    bFeito.classList.toggle('feito', feito)
+    bFeito.setAttribute('aria-pressed', String(feito))
+    bFeito.innerHTML = `${svg(ICONES_APP.check)} ${feito ? 'Feito hoje' : 'Marcar feito'}`
+  }
+  pintarFeito()
+  bFeito.addEventListener('click', () => {
+    const feito = estado.alternarFeito(item.id)
+    pintarFeito()
+    if (feito) mostrarAviso('Feito! O dia de hoje já conta na sua semana.')
   })
-  frag.append(h('div', { cls: 'acao-bar' }, h('div', { cls: 'acao-bar-inner' }, bAnt, bProx)))
+  frag.append(h('div', { cls: 'acao-bar' }, h('div', { cls: 'acao-bar-inner' }, bAnt, bFeito, bProx)))
   return frag
 }

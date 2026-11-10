@@ -132,8 +132,6 @@ function carrosselDoDia(): HTMLElement {
 
 /* ---------- Sequência da semana ---------- */
 
-const ICONE_CHECK = '<polyline points="20 6 9 17 4 12"/>'
-
 /** Dias seguidos com treino até hoje. Se hoje ainda não treinou, a sequência de ontem continua valendo. */
 function diasSeguidos(): number {
   const d = new Date()
@@ -154,7 +152,7 @@ function blocoSemana(): HTMLElement {
     const ehHoje = dataLocal(d) === dataLocal(hoje)
     return h('span', { cls: `semana-dia${ehHoje ? ' hoje' : ''}` },
       h('span', { cls: 'semana-letra' }, letra),
-      h('span', { cls: `semana-marca${feito ? ' feito' : ''}`, html: feito ? svg(ICONE_CHECK) : '' }),
+      h('span', { cls: `semana-marca${feito ? ' feito' : ''}`, html: feito ? svg(ICONES_APP.check) : '' }),
     )
   })
   const n = diasSeguidos()
@@ -164,7 +162,7 @@ function blocoSemana(): HTMLElement {
       h('span', { cls: `semana-seq${n ? '' : ' zerada'}`, html: svg(iconeDaCategoria('Aquecimento')) }, textoDaSequencia(n)),
     ),
     h('div', { cls: 'semana-dias' }, ...dias),
-    n ? null : h('p', { cls: 'semana-dica' }, 'Conclua um exercício para marcar o dia de hoje.'),
+    n ? null : h('p', { cls: 'semana-dica' }, 'Toque em "Marcar feito" em um exercício para marcar o dia de hoje.'),
   )
 }
 
