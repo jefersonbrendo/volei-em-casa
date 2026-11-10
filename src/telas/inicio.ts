@@ -13,12 +13,6 @@ import { itensDo } from './treinos'
 const CLASSE_CHIP: Record<string, string> = { '': 'chip-all', Iniciante: 'chip-ini', 'Intermediário': 'chip-int', 'Avançado': 'chip-ava' }
 const SIGLA_NIVEL: Record<string, string> = { Iniciante: 'ini', 'Intermediário': 'int', 'Avançado': 'ava' }
 
-export const AJUDA_NIVEL: Record<string, string> = {
-  Iniciante: 'Está começando agora. Exercícios simples, devagar e com bastante repetição.',
-  'Intermediário': 'Já joga e controla a bola. Mais velocidade, deslocamento e combinação de movimentos.',
-  'Avançado': 'Joga com frequência. Bola rápida, reação e saltos mais exigentes.',
-}
-
 export function rotaDaCategoria(c: Categoria | ''): string {
   return c ? `cat-${CATEGORIAS.indexOf(c)}` : 'cat-todos'
 }
@@ -38,11 +32,6 @@ export function chipsDeNivel(contar: (nivel: string) => number, aoMudar: () => v
     wrap.append(chip)
   }
   return wrap
-}
-
-export function ajudaDoNivel(): HTMLElement {
-  if (!estado.nivel) return h('div', { style: 'display:none' })
-  return h('div', { cls: 'nivel-ajuda' }, h('span', { cls: 'fs-dot', style: `background:var(--c-${SIGLA_NIVEL[estado.nivel]})` }), h('span', null, AJUDA_NIVEL[estado.nivel]))
 }
 
 /* ---------- Treinos ---------- */
@@ -268,16 +257,14 @@ export function telaInicio(): DocumentFragment {
     h('div', { cls: 'vac-treinos carrossel' }, ...TREINOS.map(cartaoComCapa)),
   )
 
-  let ajuda = ajudaDoNivel()
   let categorias = blocoCategorias()
   const cartoes = cartoesDeNivel(() => {
-    const novaAjuda = ajudaDoNivel(); ajuda.replaceWith(novaAjuda); ajuda = novaAjuda
     const novas = blocoCategorias(); categorias.replaceWith(novas); categorias = novas
   })
   page.append(
     h('h2', { cls: 'bloco-titulo' }, 'Seu nível'),
     h('p', { cls: 'bloco-sub' }, 'Toque para ver só os exercícios do seu nível.'),
-    cartoes, ajuda, categorias,
+    cartoes, categorias,
   )
 
   frag.append(page)

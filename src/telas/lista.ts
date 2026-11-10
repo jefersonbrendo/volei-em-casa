@@ -4,7 +4,7 @@ import { ICONE_MATERIAL } from '../components/treinoCasa/IconesMaterial'
 import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
 import { ICONES_APP, linhaDoItem, vazio } from './comum'
-import { ajudaDoNivel, chipsDeNivel, rotaDaCategoria } from './inicio'
+import { chipsDeNivel, rotaDaCategoria } from './inicio'
 
 export type Material = '' | 'corpo' | 'bola' | 'ate2' | '3mais'
 
@@ -67,14 +67,10 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
     filtros.append(chip)
   }
 
-  let ajuda = ajudaDoNivel()
-  const chips = chipsDeNivel((n) => base.filter((i) => passaMaterial(i) && (!n || i.nivel === n)).length, () => {
-    const nova = ajudaDoNivel(); ajuda.replaceWith(nova); ajuda = nova
-    desenhar()
-  })
+  const chips = chipsDeNivel((n) => base.filter((i) => passaMaterial(i) && (!n || i.nivel === n)).length, desenhar)
 
   desenhar()
-  page.append(filtros, chips, ajuda, lista)
+  page.append(filtros, chips, lista)
   frag.append(page)
   return frag
 }
