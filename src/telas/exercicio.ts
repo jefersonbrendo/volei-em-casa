@@ -74,6 +74,9 @@ interface ControleDemo {
   el: HTMLElement
 }
 
+/** Velocidade padrão do boneco: um pouco mais lenta que o tempo real, para dar tempo de ler a legenda. */
+const VELOCIDADE_NORMAL = 0.75
+
 function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLElement; controle: ControleDemo | null } {
   const ex = item.ex
   const parte = (rotulo: string, ...filhos: Array<HTMLElement | null>) => h('div', { cls: 'cda-visual-parte' }, h('p', { cls: 'cda-visual-rotulo' }, rotulo), ...filhos)
@@ -97,7 +100,7 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
       lento.setAttribute('aria-pressed', String(on))
       lentoPeloBotao = on
       window.clearTimeout(freio)
-      a.velocidade(on ? 0.4 : 1)
+      a.velocidade(on ? 0.4 : VELOCIDADE_NORMAL)
     })
     // Legenda da etapa dentro da animação: a pessoa entende o movimento sem precisar ler a lista.
     const etapas = PASSOS[ex.numero]?.etapas ?? []
@@ -120,9 +123,9 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
       legenda.classList.remove('entra'); void legenda.offsetWidth; legenda.classList.add('entra')
       // desacelera um pouco ao trocar de etapa, para dar tempo de ler
       if (!lentoPeloBotao) {
-        a.velocidade(0.45)
+        a.velocidade(0.35)
         window.clearTimeout(freio)
-        freio = window.setTimeout(() => { if (!lentoPeloBotao) a.velocidade(1) }, 1400)
+        freio = window.setTimeout(() => { if (!lentoPeloBotao) a.velocidade(VELOCIDADE_NORMAL) }, 1800)
       }
     }
     mostrarEtapa(0) // já abre com a primeira etapa, antes do primeiro quadro
