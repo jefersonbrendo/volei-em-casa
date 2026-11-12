@@ -125,6 +125,7 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
         freio = window.setTimeout(() => { if (!lentoPeloBotao) a.velocidade(1) }, 1400)
       }
     }
+    mostrarEtapa(0) // já abre com a primeira etapa, antes do primeiro quadro
     const aviso = h('button', { cls: 'vac-pausa', type: 'button', hidden: '' })
     aviso.addEventListener('click', () => ctrl.continuar())
     demo = h('div', { cls: 'vac-demo' },
