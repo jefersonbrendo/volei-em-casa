@@ -88,19 +88,48 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
     const a = criarBonecoV2(mov, {
       regioes: ex.regioes,
       aoRepetir: (r) => { if (total) contador.textContent = String((r % total) + 1) },
-      aoAtualizar: (t) => ctrl.aoAtualizar?.(t),
+      aoAtualizar: (t) => { mostrarEtapa(t); ctrl.aoAtualizar?.(t) },
     })
     registrarAnimacao(a.destruir)
     const lento = h('button', { cls: 'vac-lento', 'aria-pressed': 'false', type: 'button' }, '🐢 Câmera lenta')
     lento.addEventListener('click', () => {
       const on = lento.getAttribute('aria-pressed') !== 'true'
       lento.setAttribute('aria-pressed', String(on))
+      lentoPeloBotao = on
+      window.clearTimeout(freio)
       a.velocidade(on ? 0.4 : 1)
     })
+    // Legenda da etapa dentro da animação: a pessoa entende o movimento sem precisar ler a lista.
+    const etapas = PASSOS[ex.numero]?.etapas ?? []
+    const legNum = h('span', { cls: 'vac-leg-num' })
+    const legTitulo = h('strong', { cls: 'vac-leg-titulo' })
+    const legTexto = h('span', { cls: 'vac-leg-texto' })
+    const legenda = h('div', { cls: 'vac-leg', 'aria-live': 'polite', hidden: etapas.length ? null : '' }, h('div', { cls: 'vac-leg-topo' }, legNum, legTitulo), legTexto)
+    let etapaLeg = -1
+    let lentoPeloBotao = false
+    let freio = 0
+    const mostrarEtapa = (t: number): void => {
+      if (!etapas.length) return
+      const i = etapaNoInstante(etapas, t)
+      if (i === etapaLeg) return
+      etapaLeg = i
+      const et = etapas[i]!
+      legNum.textContent = `${i + 1}/${etapas.length}`
+      legTitulo.textContent = et.titulo
+      legTexto.textContent = et.texto
+      legenda.classList.remove('entra'); void legenda.offsetWidth; legenda.classList.add('entra')
+      // desacelera um pouco ao trocar de etapa, para dar tempo de ler
+      if (!lentoPeloBotao) {
+        a.velocidade(0.45)
+        window.clearTimeout(freio)
+        freio = window.setTimeout(() => { if (!lentoPeloBotao) a.velocidade(1) }, 1400)
+      }
+    }
     const aviso = h('button', { cls: 'vac-pausa', type: 'button', hidden: '' })
     aviso.addEventListener('click', () => ctrl.continuar())
     demo = h('div', { cls: 'vac-demo' },
       h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'),
+      legenda,
       h('div', { cls: 'vac-demo-palco' }, a.el as unknown as HTMLElement, aviso),
       h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
       h('div', { cls: 'vac-demo-ctrl' }, reps, lento),

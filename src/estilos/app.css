@@ -108,6 +108,14 @@
 
 /* ---------- Passo a passo ligado à animação ---------- */
 .vac-demo-palco { position: relative; }
+.vac-leg { margin: 8px 10px 0; padding: 8px 12px; border-radius: 12px; min-height: 84px; background: color-mix(in srgb, #14110B 82%, transparent); color: #fff; backdrop-filter: blur(4px); pointer-events: none; }
+.vac-leg.entra { animation: vac-leg-entra .35s ease-out; }
+@keyframes vac-leg-entra { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.vac-leg-topo { display: flex; align-items: center; gap: 8px; }
+.vac-leg-num { flex-shrink: 0; padding: 1px 7px; border-radius: 999px; background: #FFC60B; color: #14110B; font-size: 11px; font-weight: 800; }
+.vac-leg-titulo { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; color: #FFC60B; }
+.vac-leg-texto { display: block; margin-top: 3px; font-size: 12px; line-height: 1.35; color: rgba(255,255,255,.88); }
+@media (prefers-reduced-motion: reduce) { .vac-leg.entra { animation: none; } }
 .vac-pausa { position: absolute; left: 10px; right: 10px; bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-radius: 12px; background: color-mix(in srgb, var(--bg-card) 88%, transparent); border: 1px solid var(--laranja); color: var(--text); font-size: 12.5px; font-weight: 600; text-align: left; backdrop-filter: blur(4px); }
 .vac-pausa b { color: var(--laranja); white-space: nowrap; font-size: 13px; }
 .vac-pausa span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
