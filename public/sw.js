@@ -1,4 +1,4 @@
-const CACHE_NAME = 'volei-casa-v3';
+const CACHE_NAME = 'volei-casa-v4';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -7,7 +7,8 @@ const PRECACHE_ASSETS = [
   '/pwa-512x512.png',
   '/pwa-maskable-512x512.png',
   '/apple-touch-icon.png',
-  '/icon.svg'
+  '/icon.svg',
+  '/favicon.png'
 ];
 
 self.addEventListener('install', (event) => {
