@@ -192,6 +192,8 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
   const pos = seq.itens.findIndex((i) => i.id === item.id)
 
   const topo = cabecalho(destinoVoltar)
+  // No exercício o topo tem o salvar; o instalar fica nas outras telas para não apertar a marca.
+  topo.querySelector('.hdr-actions-group')?.remove()
   topo.append(h('div', { cls: 'hdr-actions-group' }, botaoSalvar(item)))
   frag.append(topo)
 

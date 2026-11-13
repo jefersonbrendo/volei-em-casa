@@ -1,3 +1,4 @@
+import { iniciarInstalacao } from './ui/instalar'
 import './estilos/base.css'
 import './estilos/acesso.css'
 import './estilos/treino-casa.css'
@@ -63,6 +64,7 @@ document.querySelectorAll<HTMLElement>('.nav-item').forEach((b) => {
   })
 })
 
+iniciarInstalacao()
 aplicarTema()
 window.addEventListener('hashchange', desenhar)
 desenhar()

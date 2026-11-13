@@ -1,3 +1,4 @@
+import { botaoInstalar } from '../ui/instalar'
 import { ChipVolume } from '../components/treinoCasa/ChipVolume'
 import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
@@ -71,7 +72,7 @@ export function topoDaMarca(): HTMLElement {
   pintar()
   btnTema.addEventListener('click', () => { alternarTema(); pintar() })
   const logo = h('img', { cls: 'hdr-brand-logo', src: '/logo.webp', alt: '' })
-  return h('header', { cls: 'top-bar top-bar-home' }, logo, marca, h('div', { cls: 'hdr-actions-group' }, btnTema))
+  return h('header', { cls: 'top-bar top-bar-home' }, logo, marca, h('div', { cls: 'hdr-actions-group' }, botaoInstalar(), btnTema))
 }
 
 /** Topo das abas (Buscar, Treinos, Salvos, Como usar): header da marca e o título grande da página. */

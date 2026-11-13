@@ -1,4 +1,5 @@
 import { h, svg, ICONES } from './dom'
+import { botaoInstalar } from './instalar'
 
 /** Barra de topo das telas internas: voltar à esquerda e a marca no centro, como na tela inicial. */
 export function cabecalho(voltarPara: string): HTMLElement {
@@ -8,7 +9,8 @@ export function cabecalho(voltarPara: string): HTMLElement {
     h('img', { cls: 'hdr-brand-logo-mini', src: '/logo.webp', alt: '' }),
     h('span', { cls: 'hdr-brand-title' }, 'Código da ', h('span', { cls: 'hdr-brand-destaque' }, 'Areia')),
   )
-  return h('header', { cls: 'top-bar top-bar-home' }, voltar, marca)
+  const instalar = botaoInstalar()
+  return h('header', { cls: 'top-bar top-bar-home' }, voltar, marca, instalar ? h('div', { cls: 'hdr-actions-group' }, instalar) : null)
 }
 
 /** Rede de vôlei em diagonal no canto do título, sumindo para a esquerda. */

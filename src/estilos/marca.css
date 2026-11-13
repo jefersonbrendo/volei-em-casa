@@ -216,3 +216,30 @@
 .ex-row-feito svg { width: 12px; height: 12px; stroke-width: 3; }
 .acao-bar .btn-pri, .cda-btn.pri, .cda-anim-btn[data-acao="tocar"] { background: var(--cta); color: var(--on-cta); box-shadow: none; }
 .vac-lento[aria-pressed="true"], .chip.cda-filtro-corpo.active, .vac-etapa.ativa .step-num { background: var(--sol); border-color: var(--sol); color: var(--tinta); }
+
+/* ---------- Instalar o app (botão do topo) ---------- */
+.install-caixa { position: relative; display: flex; }
+/* Com dois botões à direita, a marca anda um pouco para a esquerda para não encostar neles. */
+.top-bar-home:has(.install-btn):has(.theme-btn) .hdr-brand-box { margin-right: 40px; }
+.hdr-btn.install-btn { background: #FFC60B; border-color: #FFC60B; color: #14110B; border-radius: 999px; }
+.hdr-btn.install-btn:hover { background: #FFD43B; border-color: #FFD43B; }
+.install-aviso { position: absolute; top: calc(100% + 10px); right: -4px; z-index: 60; white-space: nowrap; padding: 8px 12px; border: 0; border-radius: 10px; background: #14110B; color: #fff; font: 700 12.5px/1.2 'Inter', system-ui, sans-serif; box-shadow: 0 6px 16px rgba(0,0,0,.25); cursor: pointer; animation: install-entra .35s ease-out; transition: opacity .35s; }
+.install-aviso::before { content: ''; position: absolute; top: -6px; right: 17px; border: 6px solid transparent; border-top: 0; border-bottom-color: #14110B; }
+.install-aviso.saindo { opacity: 0; }
+@keyframes install-entra { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.install-painel-fundo { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; background: rgba(20,17,11,.5); }
+.install-painel { width: 100%; max-width: 560px; margin: 0 auto; padding: 12px max(18px, env(safe-area-inset-right, 0px)) calc(22px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px)); border-radius: 22px 22px 0 0; background: var(--bg-card, #F6F0E1); color: var(--text, #14110B); box-shadow: 0 -8px 24px rgba(0,0,0,.2); animation: install-sobe .25s ease-out; }
+@keyframes install-sobe { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+.install-painel-alca { display: block; width: 40px; height: 4px; margin: 0 auto 14px; border-radius: 9px; background: var(--border, #E6DCC4); }
+.install-painel-titulo { margin: 0; font-size: 20px; font-weight: 900; }
+.install-painel-sub { margin: 6px 0 0; font-size: 14px; line-height: 1.4; color: var(--text-muted, #5b5446); }
+.install-painel-passos { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.install-painel-passos li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.4; }
+.install-painel-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #FFC60B; color: #14110B; font-size: 12px; font-weight: 800; }
+.install-painel-ok { margin-top: 18px; width: 100%; padding: 14px; border: 0; border-bottom: 4px solid #C99A00; border-radius: 14px; background: #FFC60B; color: #14110B; font-size: 15px; font-weight: 800; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .install-aviso, .install-painel { animation: none; } }
+@media (max-width: 380px) {
+  .top-bar-home:has(.install-btn):has(.theme-btn) .hdr-actions-group { gap: 2px; right: 8px; }
+  .top-bar-home:has(.theme-btn) .hdr-btn.install-btn { width: 32px; height: 32px; }
+  .top-bar-home:has(.install-btn) .theme-btn { width: 32px; }
+}
