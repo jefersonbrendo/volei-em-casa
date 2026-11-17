@@ -208,10 +208,17 @@ function barraDeNiveis(categoria: Categoria): string {
   return `<div class="nivel-barra"><i class="nb-ini" style="width:${(c('Iniciante') / t) * 100}%"></i><i class="nb-int" style="width:${(c('Intermediário') / t) * 100}%"></i><i class="nb-ava" style="width:${(c('Avançado') / t) * 100}%"></i></div>`
 }
 
+/** Seção de quadra tem ilustração própria de ginásio (g1 a g13, pelo número da seção); as outras usam o primeiro exercício. */
+function imagemDaCategoria(c: Categoria): HTMLElement | null {
+  const secao = SECOES_QUADRA.find((s) => s.nome === c)
+  if (secao) return h('img', { src: `/previa/g${secao.n}.webp`, alt: '', loading: 'lazy', decoding: 'async' })
+  return imagem(ITENS.find((i) => i.categoria === c), false)
+}
+
 function tileDaCategoria(c: Categoria): HTMLElement {
   const qtd = ITENS.filter((i) => i.categoria === c && (!estado.nivel || i.nivel === estado.nivel)).length
   const tile = h('button', { cls: `cat-tile${qtd ? '' : ' vazio'}` },
-    h('span', { cls: 'cat-tile-img' }, imagem(ITENS.find((i) => i.categoria === c), false), h('span', { cls: 'cat-tile-ico', html: svg(iconeDaCategoria(c)) })),
+    h('span', { cls: 'cat-tile-img' }, imagemDaCategoria(c), h('span', { cls: 'cat-tile-ico', html: svg(iconeDaCategoria(c)) })),
     h('span', { cls: 'cat-tile-corpo', html: barraDeNiveis(c) }),
   )
   tile.querySelector('.cat-tile-corpo')!.prepend(h('span', { cls: 'cat-tile-nome' }, c))
