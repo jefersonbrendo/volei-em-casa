@@ -11,6 +11,8 @@ import { movimentoDoExercicio } from '../animacao/movimentos'
 import { PASSOS, type Etapa } from '../data/passos'
 import { registrarAnimacao } from '../animacao/registro'
 import { cabecalho } from '../ui/cabecalho'
+import { DIAGRAMAS_QUADRA } from '../data/quadraDiagramas'
+import { cenaDaQuadra, urlDaCena } from '../lib/quadra/cena'
 import { h, svg, ICONES } from '../ui/dom'
 import { ICONES_APP } from './comum'
 
@@ -163,18 +165,21 @@ function etapaNoInstante(etapas: Etapa[], t: number): number {
   return maior
 }
 
-function blocoVisualAreia(item: Extract<Item, { tipo: 'areia' }>): HTMLElement {
+function blocoVisualAreia(item: Extract<Item, { tipo: 'areia' | 'quadra' }>): HTMLElement {
   const ex = item.ex
   const num = String(ex.numero).padStart(3, '0')
+  const desenho = item.tipo === 'quadra' ? DIAGRAMAS_QUADRA[ex.numero] : undefined
   const wrap = h('div', null)
   wrap.innerHTML = `
-    <div class="ex-hero"><figure class="diag-hero"><img src="/gem/diagrams/${num}.webp" alt=""><figcaption>${svg('<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>')} Montagem na quadra</figcaption></figure></div>
+    <div class="ex-hero"><figure class="diag-hero"><img src="${item.tipo === 'areia' ? `/gem/diagrams/${num}.webp` : ''}" alt=""><figcaption>${svg('<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/>')} Montagem na quadra</figcaption></figure></div>
     <div class="info-grid">
       <div class="info-tile">${svg(ICONES.relogio)}<div><small>Tempo</small><strong></strong></div></div>
       <div class="info-tile">${svg('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>')}<div><small>Jogadores</small><strong></strong></div></div>
       <div class="info-tile full">${svg(ICONES.caixa)}<div><small>Material</small><strong></strong></div></div>
     </div>`
-  wrap.querySelector('img')!.setAttribute('alt', `Diagrama da quadra: ${ex.nome}`)
+  const img = wrap.querySelector('img')!
+  img.setAttribute('alt', `Diagrama da quadra: ${ex.nome}`)
+  if (item.tipo === 'quadra') img.setAttribute('src', desenho ? urlDaCena(cenaDaQuadra(desenho.cena)) : '')
   const fortes = wrap.querySelectorAll('.info-tile strong')
   fortes[0]!.textContent = ex.tempo.split(' (')[0]
   fortes[1]!.textContent = ex.jogadores.split(' (')[0] || '—'
@@ -207,7 +212,7 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
     h('div', { cls: 'ex-sub' }, h('span', { cls: `pill pill-${CLASSE_NIVEL[item.nivel]}` }, item.nivel)),
   )
   const visualCasa = item.tipo === 'casa' ? blocoVisualCasa(item) : null
-  page.append(visualCasa ? visualCasa.el : blocoVisualAreia(item as Extract<Item, { tipo: 'areia' }>))
+  page.append(visualCasa ? visualCasa.el : blocoVisualAreia(item as Extract<Item, { tipo: 'areia' | 'quadra' }>))
   const demo = visualCasa?.controle ?? null
   const detalhado = item.tipo === 'casa' ? PASSOS[item.ex.numero] : undefined
 
@@ -274,13 +279,13 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
     conteudo.replaceChildren()
     if (aba === 'fazer') {
       conteudo.append(bloco(ICONES.alvo, 'Objetivo', caixa('caixa-objetivo', ex.objetivo)))
-      if (item.tipo === 'areia' && item.ex.comoMontar) conteudo.append(bloco(ICONES.ferramenta, 'Como montar', h('p', null, item.ex.comoMontar)))
+      if (item.tipo !== 'casa' && item.ex.comoMontar) conteudo.append(bloco(ICONES.ferramenta, 'Como montar', h('p', null, item.ex.comoMontar)))
       if (detalhado) {
         conteudo.append(bloco(ICONES.lista, 'Passo a passo', listaEtapas(detalhado.etapas)))
         if (demo) conteudo.append(h('p', { cls: 'vac-etapa-dica' }, 'Toque em uma etapa para ver o boneco parado naquele momento.'))
         if (detalhado.ritmo) conteudo.append(h('div', { cls: 'vac-ritmo' }, h('span', { cls: 'vac-ritmo-ico', html: svg(ICONES.relogio) }), h('div', null, h('strong', null, 'Ritmo'), h('span', null, detalhado.ritmo))))
       } else conteudo.append(bloco(ICONES.lista, 'Passo a passo', passos(ex.passoAPasso)))
-      if (item.tipo === 'areia' && item.ex.meta) conteudo.append(bloco(ICONES.alvo, 'Meta para avançar', caixa('caixa-objetivo', item.ex.meta)))
+      if (item.tipo !== 'casa' && item.ex.meta) conteudo.append(bloco(ICONES.alvo, 'Meta para avançar', caixa('caixa-objetivo', item.ex.meta)))
     } else if (aba === 'corrigir') {
       if (ex.pontosAtencao?.length) {
         conteudo.append(bloco(ICONES.alerta, 'Pontos de atenção', h('ul', { cls: 'bullet-list' }, ...ex.pontosAtencao.map((p) => h('li', { cls: 'bullet-item' }, h('span', { cls: 'bullet-dot' }), h('span', null, p))))))

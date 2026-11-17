@@ -13,7 +13,7 @@ import { telaBuscar, telaComoUsar, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
 import { telaComparar, telaDemo, telaRevisao } from './telas/demo'
 import { pararBonecos } from './animacao/registro'
-import { animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
+import { animarDiagramaDaQuadra, animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
 
 /** Endereços: #home, #cat-N[~corpo|~bola], #ex-ID[~voltar], #treinos, #treino-ID, #buscar[~termo], #salvos, #como-usar */
 function abaDaRota(rota: string): string {
@@ -54,6 +54,8 @@ function desenhar(): void {
 
   // Exercícios na areia: o diagrama da quadra ganha animação (mesmo motor do Código da Areia).
   if (rota.startsWith('ex-a')) void animarDiagramaDoExercicio(main, Number(rota.slice(4)))
+  // Vôlei de quadra: a cena é montada no app, com o mesmo motor.
+  if (rota.startsWith('ex-q')) animarDiagramaDaQuadra(main, Number(rota.slice(4).split('~')[0]))
 }
 
 document.querySelectorAll<HTMLElement>('.nav-item').forEach((b) => {

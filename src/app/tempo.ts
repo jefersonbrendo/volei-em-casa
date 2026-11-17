@@ -22,7 +22,7 @@ function segundosDoVolume(v: VolumeCasa): number {
 
 /** Estimativa do tempo de um exercício, em segundos. */
 export function duracaoDoItem(item: Item): number {
-  return item.tipo === 'areia' ? segundosDoTexto(item.ex.tempo) : segundosDoVolume(item.ex.volume)
+  return item.tipo === 'casa' ? segundosDoVolume(item.ex.volume) : segundosDoTexto(item.ex.tempo)
 }
 
 /** Estimativa de um treino inteiro, arredondada para múltiplos de 5 minutos. */

@@ -3,7 +3,7 @@ import { ChipVolume } from '../components/treinoCasa/ChipVolume'
 import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { estado } from '../app/estado'
-import type { Item } from '../app/itens'
+import { SECOES_QUADRA, type Item } from '../app/itens'
 import { tituloDaPagina } from '../ui/cabecalho'
 import { h, svg, ICONES, ICONES_CATEGORIA } from '../ui/dom'
 import { miniaturaDoItem } from './miniatura'
@@ -45,7 +45,8 @@ const ICONES_SECAO: Record<string, string> = {
 }
 
 export function iconeDaCategoria(categoria: string): string {
-  return ICONES_SECAO[categoria] ?? ICONES_CATEGORIA[categoria] ?? ICONES_APP.bola
+  const daQuadra = SECOES_QUADRA.find((s) => s.nome === categoria)?.icone
+  return ICONES_SECAO[daQuadra ?? categoria] ?? ICONES_CATEGORIA[categoria] ?? ICONES_APP.bola
 }
 
 /* ---------- TEMA ---------- */

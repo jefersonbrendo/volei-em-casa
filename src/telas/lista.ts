@@ -1,5 +1,5 @@
 import { estado } from '../app/estado'
-import { CATEGORIAS, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
+import { CATEGORIAS, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, ehCategoriaQuadra, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
 import { ICONE_MATERIAL } from '../components/treinoCasa/IconesMaterial'
 import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
@@ -50,7 +50,7 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
 
   // Filtro de material
   const filtros = h('div', { cls: 'level-chips vac-filtro-material' })
-  const naQuadra = !!categoria && ehCategoriaAreia(categoria)
+  const naQuadra = !!categoria && (ehCategoriaAreia(categoria) || ehCategoriaQuadra(categoria))
   const opcoes: Array<[Material, string, string]> = naQuadra
     ? [['', 'Qualquer nº de pessoas', ''], ['ate2', 'Sozinho ou dupla', ICONE_PESSOA], ['3mais', '3 pessoas ou mais', ICONE_PESSOAS]]
     : [['', 'Qualquer material', ''], ['corpo', 'Só o corpo', ICONE_MATERIAL.corpo], ['bola', 'Com bola', ICONES_APP.bola]]

@@ -243,3 +243,6 @@
   .top-bar-home:has(.theme-btn) .hdr-btn.install-btn { width: 32px; height: 32px; }
   .top-bar-home:has(.install-btn) .theme-btn { width: 32px; }
 }
+
+/* Exercício de quadra sem ilustração própria: o desenho da quadra aparece inteiro. */
+img[src^="data:image/svg+xml"] { object-fit: contain !important; background: #f8dcae; }

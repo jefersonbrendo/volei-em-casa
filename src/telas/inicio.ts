@@ -1,5 +1,5 @@
 import { dataLocal, estado } from '../app/estado'
-import { CATEGORIAS, GRUPOS_AREIA, ITENS, NIVEIS, SECOES_AREIA, type Categoria, type Item } from '../app/itens'
+import { CATEGORIAS, GRUPOS_AREIA, GRUPOS_QUADRA, ITENS, NIVEIS, SECOES_AREIA, SECOES_QUADRA, type Categoria, type Item } from '../app/itens'
 import { minutosDoTreino } from '../app/tempo'
 import { CATEGORIAS_CASA } from '../data/treinoCasa'
 import { TREINOS, type TreinoPronto } from '../data/treinos'
@@ -236,6 +236,21 @@ function blocoCategorias(): HTMLElement {
       h('h3', { cls: 'bloco-titulo vac-grupo-titulo' }, g.titulo),
       h('p', { cls: 'bloco-sub' }, g.sub),
       h('div', { cls: 'cat-tiles' }, ...g.secoes.map((n) => tileDaCategoria(SECOES_AREIA[n - 1]!.nome))),
+    )
+  }
+  wrap.append(
+    h('h2', { cls: 'bloco-titulo vac-na-quadra' }, 'Vôlei de quadra'),
+    h('p', { cls: 'bloco-sub' }, 'Para o ginásio ou a quadra poliesportiva, com o desenho e a animação de cada exercício.'),
+  )
+  // só aparecem as seções de quadra que já têm exercícios
+  const temExercicios = (c: Categoria): boolean => ITENS.some((i) => i.categoria === c)
+  for (const g of GRUPOS_QUADRA) {
+    const secoes = g.secoes.map((n) => SECOES_QUADRA[n - 1]!.nome).filter(temExercicios)
+    if (!secoes.length) continue
+    wrap.append(
+      h('h3', { cls: 'bloco-titulo vac-grupo-titulo' }, g.titulo),
+      h('p', { cls: 'bloco-sub' }, g.sub),
+      h('div', { cls: 'cat-tiles' }, ...secoes.map(tileDaCategoria)),
     )
   }
   return wrap

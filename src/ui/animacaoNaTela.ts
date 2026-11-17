@@ -1,5 +1,7 @@
 import { criarDiagramaAnimado, type DiagramaAnimado } from '../components/diagramaAnimado/DiagramaAnimado'
 import { ANIMACOES } from '../data/animacoes'
+import { DIAGRAMAS_QUADRA } from '../data/quadraDiagramas'
+import { cenaDaQuadra } from '../lib/quadra/cena'
 import type { Cena } from '../lib/animacao/tipos'
 
 /** Anima o diagrama do exercício da tela, se ele tiver linha do tempo. Senão, fica a imagem estática. */
@@ -36,6 +38,28 @@ export async function animarDiagramaDoExercicio(main: ParentNode, numero: number
     atual = diagrama
   } catch (erro) {
     console.warn('Animação indisponível para o exercício', numero, erro)
+  }
+}
+
+/** Mesmo que o de cima, para o vôlei de quadra: a cena é montada no próprio app a partir da descrição em metros. */
+export function animarDiagramaDaQuadra(main: ParentNode, numero: number): void {
+  atual?.destruir()
+  atual = null
+
+  const diagrama = DIAGRAMAS_QUADRA[numero]
+  if (!diagrama?.animacao || reduzirMovimento()) return
+  const figura = main.querySelector('.diag-hero')
+  const imagem = figura?.querySelector('img')
+  if (!figura || !imagem) return
+
+  const totalPassos = (figura.closest('.ex-page') ?? main).querySelectorAll('.step-list .step-item').length || undefined
+  try {
+    // o número da animação (prefixo dos ids do SVG) não pode bater com o de um exercício da areia
+    const animado = criarDiagramaAnimado({ numero: 10_000 + numero, cena: cenaDaQuadra(diagrama.cena), animacao: diagrama.animacao, totalPassos })
+    imagem.replaceWith(animado.el)
+    atual = animado
+  } catch (erro) {
+    console.warn('Animação indisponível para o exercício de quadra', numero, erro)
   }
 }
 
