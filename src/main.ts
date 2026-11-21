@@ -9,13 +9,13 @@ import { aplicarTema } from './telas/comum'
 import { atualizarSeloSalvos, telaExercicio } from './telas/exercicio'
 import { telaInicio } from './telas/inicio'
 import { telaLista, type Material } from './telas/lista'
-import { telaBuscar, telaComoUsar, telaSalvos } from './telas/outras'
+import { telaBuscar, telaComoUsar, telaConfig, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
 import { telaComparar, telaDemo, telaRevisao } from './telas/demo'
 import { pararBonecos } from './animacao/registro'
 import { animarDiagramaDaQuadra, animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
 
-/** Endereços: #home, #cat-N[~corpo|~bola], #ex-ID[~voltar], #treinos, #treino-ID, #buscar[~termo], #salvos, #como-usar */
+/** Endereços: #home, #cat-N[~corpo|~bola], #ex-ID[~voltar], #treinos, #treino-ID, #buscar[~termo], #salvos, #como-usar, #config */
 function abaDaRota(rota: string): string {
   if (rota.startsWith('treino')) return 'treinos'
   if (rota.startsWith('buscar')) return 'buscar'
@@ -38,6 +38,7 @@ function desenhar(): void {
   else if (rota === 'buscar') tela = telaBuscar(extra)
   else if (rota === 'salvos') tela = telaSalvos()
   else if (rota === 'como-usar') tela = telaComoUsar()
+  else if (rota === 'config') tela = telaConfig()
   else if (rota === 'demo') tela = telaDemo()
   else if (rota === 'comparar') tela = telaComparar(extra)
   else if (rota === 'revisao') tela = telaRevisao(extra)

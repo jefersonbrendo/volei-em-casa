@@ -246,3 +246,12 @@
 
 /* Exercício de quadra sem ilustração própria: o desenho da quadra aparece inteiro. */
 img[src^="data:image/svg+xml"] { object-fit: contain !important; background: #f8dcae; }
+
+/* Configurações */
+.config-linha { display: flex; align-items: center; gap: 12px; padding: 12px; margin: 0 -4px; border-radius: 12px; color: inherit; text-decoration: none; }
+.config-linha:hover { background: rgba(127, 127, 127, .08); }
+.config-ico { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #25D366; color: #fff; }
+.config-ico svg { width: 22px; height: 22px; }
+.config-texto { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.config-texto small { opacity: .7; }
+.config-seta svg { width: 18px; height: 18px; opacity: .5; }

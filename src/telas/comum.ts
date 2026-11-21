@@ -4,7 +4,7 @@ import { IconesMaterial } from '../components/treinoCasa/IconesMaterial'
 import { SilhuetaRegioes } from '../components/treinoCasa/SilhuetaRegioes'
 import { estado } from '../app/estado'
 import { SECOES_QUADRA, type Item } from '../app/itens'
-import { tituloDaPagina } from '../ui/cabecalho'
+import { botaoConfig, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg, ICONES, ICONES_CATEGORIA } from '../ui/dom'
 import { miniaturaDoItem } from './miniatura'
 
@@ -73,7 +73,7 @@ export function topoDaMarca(): HTMLElement {
   pintar()
   btnTema.addEventListener('click', () => { alternarTema(); pintar() })
   const logo = h('img', { cls: 'hdr-brand-logo', src: '/logo.webp', alt: '' })
-  return h('header', { cls: 'top-bar top-bar-home' }, logo, marca, h('div', { cls: 'hdr-actions-group' }, botaoInstalar(), btnTema))
+  return h('header', { cls: 'top-bar top-bar-home' }, logo, marca, h('div', { cls: 'hdr-actions-group' }, botaoInstalar(), btnTema, botaoConfig()))
 }
 
 /** Topo das abas (Buscar, Treinos, Salvos, Como usar): header da marca e o título grande da página. */

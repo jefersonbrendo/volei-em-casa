@@ -1,5 +1,6 @@
 import { estado } from '../app/estado'
 import { ITENS, itemPorId, normalizar, textoDeBusca, type Item } from '../app/itens'
+import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
 import { atualizarSeloSalvos } from './exercicio'
 import { ICONES_APP, linhaDoItem, topoSimples, vazio } from './comum'
@@ -110,5 +111,24 @@ export function telaComoUsar(): DocumentFragment {
     page.append(h('section', { cls: 'bloco vac-card' }, h('h3', null, titulo), h('ul', { cls: 'bullet-list' }, ...linhas.map((l) => h('li', { cls: 'bullet-item' }, h('span', { cls: 'bullet-dot' }), h('span', null, l))))))
   }
   frag.append(page)
+  return frag
+}
+
+/* ---------- Configurações ---------- */
+
+const SUPORTE_WHATSAPP = '5585987200301'
+const ICONE_WHATSAPP = '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>'
+
+/** Tela da engrenagem do header. Por enquanto só tem o contato com o suporte. */
+export function telaConfig(): DocumentFragment {
+  const frag = document.createDocumentFragment()
+  const texto = encodeURIComponent('Olá! Preciso de ajuda com o Código da Areia.')
+  const suporte = h('a', { cls: 'config-linha', href: `https://wa.me/${SUPORTE_WHATSAPP}?text=${texto}`, target: '_blank', rel: 'noopener' },
+    h('span', { cls: 'config-ico', html: svg(ICONE_WHATSAPP) }),
+    h('span', { cls: 'config-texto' }, h('strong', null, 'Falar com o suporte'), h('small', null, 'WhatsApp (85) 98720-0301')),
+    h('span', { cls: 'config-seta', html: svg('<polyline points="9 18 15 12 9 6"/>') }),
+  )
+  frag.append(cabecalho('home'), tituloDaPagina('Configurações', 'Ajuda e preferências do app'),
+    h('div', { cls: 'page vac-uso' }, h('section', { cls: 'bloco vac-card' }, h('h3', null, 'Ajuda'), suporte)))
   return frag
 }

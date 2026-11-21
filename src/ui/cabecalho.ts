@@ -1,6 +1,16 @@
 import { h, svg, ICONES } from './dom'
 import { botaoInstalar } from './instalar'
 
+const ENGRENAGEM = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>'
+
+/** Engrenagem do header: abre as configurações. Na própria tela de configurações não aparece. */
+export function botaoConfig(): HTMLElement | null {
+  if (window.location.hash.startsWith('#config')) return null
+  const b = h('button', { cls: 'hdr-btn', title: 'Configurações', 'aria-label': 'Configurações', onclick: () => { window.location.hash = '#config' } })
+  b.innerHTML = svg(ENGRENAGEM)
+  return b
+}
+
 /** Barra de topo das telas internas: voltar à esquerda e a marca no centro, como na tela inicial. */
 export function cabecalho(voltarPara: string): HTMLElement {
   const voltar = h('button', { cls: 'hdr-btn hdr-voltar', title: 'Voltar', 'aria-label': 'Voltar', onclick: () => { window.location.hash = `#${voltarPara}` } })
@@ -9,8 +19,7 @@ export function cabecalho(voltarPara: string): HTMLElement {
     h('img', { cls: 'hdr-brand-logo-mini', src: '/logo.webp', alt: '' }),
     h('span', { cls: 'hdr-brand-title' }, 'Código da ', h('span', { cls: 'hdr-brand-destaque' }, 'Areia')),
   )
-  const instalar = botaoInstalar()
-  return h('header', { cls: 'top-bar top-bar-home' }, voltar, marca, instalar ? h('div', { cls: 'hdr-actions-group' }, instalar) : null)
+  return h('header', { cls: 'top-bar top-bar-home' }, voltar, marca, h('div', { cls: 'hdr-actions-group' }, botaoInstalar(), botaoConfig()))
 }
 
 /** Rede de vôlei em diagonal no canto do título, sumindo para a esquerda. */
