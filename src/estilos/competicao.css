@@ -1,7 +1,7 @@
 /* ===== Modo Competição (extra) ===== */
 
 /* Cartão na tela inicial */
-.comp-home { display: flex; align-items: center; gap: 12px; width: 100%; margin: 2px 0 12px; padding: 10px 12px; border-radius: 14px; background: var(--tinta); color: #FAF5E8; text-align: left; border: 0; box-shadow: var(--shadow); }
+.comp-home { display: flex; align-items: center; gap: 12px; width: 100%; margin: 18px 0 22px; padding: 10px 12px; border-radius: 14px; background: var(--tinta); color: #FAF5E8; text-align: left; border: 0; box-shadow: var(--shadow); }
 .comp-home:active { transform: scale(0.98); }
 .comp-home-ico { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--sol); color: var(--tinta); }
 .comp-home-ico svg { width: 21px; height: 21px; }
