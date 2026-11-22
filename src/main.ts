@@ -5,6 +5,7 @@ import './estilos/treino-casa.css'
 import './estilos/animacao.css'
 import './estilos/app.css'
 import './estilos/marca.css'
+import './estilos/competicao.css'
 import { aplicarTema } from './telas/comum'
 import { atualizarSeloSalvos, telaExercicio } from './telas/exercicio'
 import { telaInicio } from './telas/inicio'
@@ -12,6 +13,8 @@ import { telaLista, type Material } from './telas/lista'
 import { telaBuscar, telaComoUsar, telaConfig, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
 import { telaComparar, telaDemo, telaRevisao } from './telas/demo'
+import { telaCompeticao, telaJogoCompeticao, telaPlacar, liberarTela } from './telas/competicao'
+import { aplicarSenhaDaUrl } from './app/extras'
 import { pararBonecos } from './animacao/registro'
 import { animarDiagramaDaQuadra, animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
 
@@ -30,6 +33,8 @@ function desenhar(): void {
   const extra = corte >= 0 ? bruto.slice(corte + 1) : ''
 
   pararBonecos()
+  if (rota !== 'placar') liberarTela()
+  document.body.classList.toggle('modo-placar', rota === 'placar')
   let tela: DocumentFragment
   if (rota.startsWith('cat-')) tela = telaLista(rota.slice(4), (['corpo', 'bola', 'ate2', '3mais'].includes(extra) ? extra : '') as Material)
   else if (rota.startsWith('ex-')) tela = telaExercicio(rota.slice(3), extra)
@@ -39,6 +44,9 @@ function desenhar(): void {
   else if (rota === 'salvos') tela = telaSalvos()
   else if (rota === 'como-usar') tela = telaComoUsar()
   else if (rota === 'config') tela = telaConfig()
+  else if (rota === 'comp') tela = telaCompeticao(extra)
+  else if (rota.startsWith('jogo-')) tela = telaJogoCompeticao(rota.slice(5))
+  else if (rota === 'placar') tela = telaPlacar(extra)
   else if (rota === 'demo') tela = telaDemo()
   else if (rota === 'comparar') tela = telaComparar(extra)
   else if (rota === 'revisao') tela = telaRevisao(extra)
@@ -67,6 +75,7 @@ document.querySelectorAll<HTMLElement>('.nav-item').forEach((b) => {
   })
 })
 
+aplicarSenhaDaUrl()
 iniciarInstalacao()
 aplicarTema()
 window.addEventListener('hashchange', desenhar)

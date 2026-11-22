@@ -1,3 +1,4 @@
+import { cartaoModoCompeticao } from './competicao'
 import { dataLocal, estado } from '../app/estado'
 import { CATEGORIAS, GRUPOS_AREIA, GRUPOS_QUADRA, ITENS, NIVEIS, SECOES_AREIA, SECOES_QUADRA, type Categoria, type Item } from '../app/itens'
 import { minutosDoTreino } from '../app/tempo'
@@ -277,6 +278,7 @@ export function telaInicio(): DocumentFragment {
   page.append(
     h('div', { cls: 'bloco-topo' }, h('h2', { cls: 'bloco-titulo' }, 'Treinos prontos'), verTodos),
     h('div', { cls: 'vac-treinos carrossel' }, ...TREINOS.map(cartaoComCapa)),
+    cartaoModoCompeticao(),
   )
 
   let categorias = blocoCategorias()

@@ -116,7 +116,7 @@ export function telaComoUsar(): DocumentFragment {
 
 /* ---------- Configurações ---------- */
 
-const SUPORTE_WHATSAPP = '5585987200301'
+export const SUPORTE_WHATSAPP = '5585987200301'
 const ICONE_WHATSAPP = '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>'
 
 /** Tela da engrenagem do header. Por enquanto só tem o contato com o suporte. */
