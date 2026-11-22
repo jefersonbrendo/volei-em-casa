@@ -22,7 +22,7 @@ export const EXTRA_COMPETICAO: Extra = {
   resumo: 'Placar inteligente + 17 jogos de competição para o racha, em casa, na quadra e na areia.',
   preco: '',
   checkoutUrl: '',
-  hashes: ['15af01cac4b8af324153012b48ebc334a5dc51405f195cc4fed9c75948423648'],
+  hashes: ['2e213949f1053ba27e6f1610aafeb03d522b2c3a9543b57426b94744e9dcefe5'],
 }
 
 export const EXTRAS: Extra[] = [EXTRA_COMPETICAO]

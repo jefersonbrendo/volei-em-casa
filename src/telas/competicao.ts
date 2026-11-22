@@ -40,7 +40,7 @@ export function cartaoModoCompeticao(): HTMLElement {
 function telaBloqueada(): DocumentFragment {
   const frag = document.createDocumentFragment()
   const erro = h('p', { cls: 'comp-erro', role: 'alert' })
-  const campo = h('input', { cls: 'comp-senha', type: 'text', placeholder: 'Digite a senha', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', 'aria-label': 'Senha de desbloqueio' })
+  const campo = h('input', { cls: 'comp-senha', type: 'text', inputmode: 'numeric', pattern: '[0-9]*', maxlength: '12', placeholder: 'Digite a senha', autocomplete: 'off', spellcheck: 'false', 'aria-label': 'Senha de desbloqueio' })
   const enviar = (): void => {
     if (tentarSenha(campo.value).some((e) => e.id === EXTRA_COMPETICAO.id)) {
       window.location.hash = '#comp'
