@@ -14,12 +14,13 @@ import { telaBuscar, telaComoUsar, telaConfig, telaSalvos } from './telas/outras
 import { telaTreino, telaTreinos } from './telas/treinos'
 import { telaComparar, telaDemo, telaRevisao } from './telas/demo'
 import { telaCompeticao, telaJogoCompeticao, telaPlacar, liberarTela } from './telas/competicao'
-import { aplicarSenhaDaUrl } from './app/extras'
+import { aplicarSenhaDaUrl, estaLiberado, EXTRA_COMPETICAO } from './app/extras'
 import { pararBonecos } from './animacao/registro'
 import { animarDiagramaDaQuadra, animarDiagramaDoExercicio, pararAnimacao } from './ui/animacaoNaTela'
 
 /** Endereços: #home, #cat-N[~corpo|~bola], #ex-ID[~voltar], #treinos, #treino-ID, #buscar[~termo], #salvos, #como-usar, #config */
 function abaDaRota(rota: string): string {
+  if (rota === 'comp' || rota.startsWith('jogo-') || rota === 'placar') return 'comp'
   if (rota.startsWith('treino')) return 'treinos'
   if (rota.startsWith('buscar')) return 'buscar'
   if (rota === 'salvos' || rota === 'como-usar') return rota
@@ -56,6 +57,8 @@ function desenhar(): void {
   const main = document.getElementById('main')!
   main.replaceChildren(tela)
 
+  const abaComp = document.querySelector<HTMLElement>('.nav-item[data-route="comp"]')
+  if (abaComp) abaComp.hidden = !estaLiberado(EXTRA_COMPETICAO.id)
   const aba = abaDaRota(rota)
   document.querySelectorAll<HTMLElement>('.nav-item').forEach((b) => b.classList.toggle('active', b.dataset.route === aba))
   atualizarSeloSalvos()

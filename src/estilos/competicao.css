@@ -150,3 +150,4 @@ span.plc-topo-btn { visibility: hidden; }
 :root[data-theme="dark"] .plc { --pl-b: #2B7FC4; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .plc-mais2, :root:not([data-theme="light"]) .plc-regra b { background: var(--sol); color: var(--tinta); border-color: var(--sol); } }
 :root[data-theme="dark"] .plc-mais2, :root[data-theme="dark"] .plc-regra b { background: var(--sol); color: var(--tinta); border-color: var(--sol); }
+.nav-item[hidden] { display: none; }
