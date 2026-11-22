@@ -25,14 +25,13 @@ export function cartaoModoCompeticao(): HTMLElement {
   const cartao = h('button', { cls: `comp-home${liberado ? ' liberado' : ''}` },
     h('span', { cls: 'comp-home-ico', html: svg(ICO.trofeu) }),
     h('span', { cls: 'comp-home-texto' },
-      h('span', { cls: 'comp-home-etiqueta' }, liberado ? 'Liberado' : 'Extra'),
-      h('strong', null, EXTRA_COMPETICAO.nome),
-      h('small', null, 'Placar inteligente + jogos de competição para o racha'),
+      h('strong', null, EXTRA_COMPETICAO.nome, h('span', { cls: 'comp-home-etiqueta' }, liberado ? 'Liberado' : 'Novo')),
+      h('small', null, liberado ? 'Jogos para o racha e placar' : 'Placar inteligente + 17 jogos para o racha'),
     ),
     h('span', { cls: 'comp-home-seta', html: svg(liberado ? ICONES.avancar : ICONES.cadeado) }),
   )
   cartao.addEventListener('click', () => { window.location.hash = '#comp' })
-  return h('div', null, h('h2', { cls: 'bloco-titulo' }, 'Extras'), cartao)
+  return cartao
 }
 
 /* ================== TELA BLOQUEADA ================== */

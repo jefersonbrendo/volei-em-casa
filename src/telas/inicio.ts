@@ -271,14 +271,13 @@ export function telaInicio(): DocumentFragment {
 
   const busca = h('button', { cls: 'busca-atalho', html: `${svg(ICONES_APP.busca)}<span>O que você quer treinar hoje?</span>` })
   busca.addEventListener('click', abrirBuscaComFoco)
-  page.append(busca, carrosselDoDia(), blocoSemana())
+  page.append(busca, cartaoModoCompeticao(), carrosselDoDia(), blocoSemana())
 
   const verTodos = h('button', { cls: 'bloco-link' }, 'Ver todos')
   verTodos.addEventListener('click', () => { window.location.hash = '#treinos' })
   page.append(
     h('div', { cls: 'bloco-topo' }, h('h2', { cls: 'bloco-titulo' }, 'Treinos prontos'), verTodos),
     h('div', { cls: 'vac-treinos carrossel' }, ...TREINOS.map(cartaoComCapa)),
-    cartaoModoCompeticao(),
   )
 
   let categorias = blocoCategorias()

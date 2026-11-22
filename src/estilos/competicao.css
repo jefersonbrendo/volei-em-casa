@@ -1,17 +1,17 @@
 /* ===== Modo Competição (extra) ===== */
 
 /* Cartão na tela inicial */
-.comp-home { display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 8px; padding: 14px; border-radius: 16px; background: var(--tinta); color: #FAF5E8; text-align: left; border: 2px solid var(--tinta); box-shadow: 4px 4px 0 var(--sol); }
+.comp-home { display: flex; align-items: center; gap: 12px; width: 100%; margin: 2px 0 12px; padding: 10px 12px; border-radius: 14px; background: var(--tinta); color: #FAF5E8; text-align: left; border: 0; box-shadow: var(--shadow); }
 .comp-home:active { transform: scale(0.98); }
-.comp-home-ico { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 12px; background: var(--sol); color: var(--tinta); }
-.comp-home-ico svg { width: 26px; height: 26px; }
-.comp-home-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.comp-home-texto strong { font-size: 1.02rem; font-weight: 800; }
-.comp-home-texto small { font-size: 0.8rem; color: #CFC6B2; line-height: 1.35; }
-.comp-home-etiqueta { align-self: flex-start; font-size: 10px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; background: var(--coral); color: #fff; }
+.comp-home-ico { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--sol); color: var(--tinta); }
+.comp-home-ico svg { width: 21px; height: 21px; }
+.comp-home-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.comp-home-texto strong { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; font-weight: 800; }
+.comp-home-texto small { font-size: 0.78rem; color: #CFC6B2; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.comp-home-etiqueta { font-size: 9px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; background: var(--coral); color: #fff; }
 .comp-home.liberado .comp-home-etiqueta { background: var(--c-ini); }
 .comp-home-seta { flex: none; color: var(--sol); }
-.comp-home-seta svg { width: 20px; height: 20px; }
+.comp-home-seta svg { width: 18px; height: 18px; }
 
 /* Botões */
 .comp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; background: var(--bg-chip); color: var(--text); border: 0; text-decoration: none; }
