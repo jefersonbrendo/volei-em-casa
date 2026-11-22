@@ -148,3 +148,5 @@ span.plc-topo-btn { visibility: hidden; }
 .plc-link { background: none; border: 0; color: var(--link); font-weight: 700; font-size: 0.85rem; padding: 4px; }
 
 :root[data-theme="dark"] .plc { --pl-b: #2B7FC4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .plc-mais2, :root:not([data-theme="light"]) .plc-regra b { background: var(--sol); color: var(--tinta); border-color: var(--sol); } }
+:root[data-theme="dark"] .plc-mais2, :root[data-theme="dark"] .plc-regra b { background: var(--sol); color: var(--tinta); border-color: var(--sol); }
