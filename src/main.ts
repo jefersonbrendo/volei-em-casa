@@ -13,7 +13,6 @@ import { telaLista, type Material } from './telas/lista'
 import { telaBuscar, telaComoUsar, telaConfig, telaSalvos } from './telas/outras'
 import { telaTreino, telaTreinos } from './telas/treinos'
 import { telaComparar, telaDemo, telaFluidez, telaRevisao } from './telas/demo'
-import { telaDemo3d } from './telas/demo3d'
 import { telaCompeticao, telaJogoCompeticao, telaPlacar, liberarTela } from './telas/competicao'
 import { aplicarSenhaDaUrl, estaLiberado, EXTRA_COMPETICAO } from './app/extras'
 import { pararBonecos } from './animacao/registro'
@@ -50,7 +49,6 @@ function desenhar(): void {
   else if (rota.startsWith('jogo-')) tela = telaJogoCompeticao(rota.slice(5))
   else if (rota === 'placar') tela = telaPlacar(extra)
   else if (rota === 'demo') tela = telaDemo()
-  else if (rota === 'demo3d') tela = telaDemo3d(extra)
   else if (rota === 'fluidez') tela = telaFluidez(extra)
   else if (rota === 'comparar') tela = telaComparar(extra)
   else if (rota === 'revisao') tela = telaRevisao(extra)

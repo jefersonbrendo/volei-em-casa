@@ -101,7 +101,7 @@ export function telaFluidez(param: string): DocumentFragment {
   const m = MOVIMENTOS[nome]!
   const frag = document.createDocumentFragment()
   frag.append(topoSimples('Antes × agora', 'Compare a fluidez do movimento'))
-  const escolha = h('select', { cls: 'demo3d-select' }, ...nomes.map((n) => {
+  const escolha = h('select', { cls: 'demo-select' }, ...nomes.map((n) => {
     const o = h('option', { value: n }, n) as HTMLOptionElement
     if (n === nome) o.selected = true
     return o

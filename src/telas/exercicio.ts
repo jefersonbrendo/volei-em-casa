@@ -8,7 +8,6 @@ import { ROTULO_REGIAO } from '../lib/treinoCasaTextos'
 import { mostrarAviso } from '../ui/aviso'
 import { criarBonecoV2 } from '../animacao/bonecoV2'
 import { movimentoDoExercicio } from '../animacao/movimentos'
-import { criarDemoDoExercicio } from '../animacao/demoDoExercicio'
 import { PASSOS, type Etapa } from '../data/passos'
 import { registrarAnimacao } from '../animacao/registro'
 import { cabecalho } from '../ui/cabecalho'
@@ -88,7 +87,7 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
     const contador = h('b', null, '1')
     const reps = total ? h('span', { cls: 'vac-demo-reps' }, 'Repetição ', contador, ` de ${total}`) : h('span', { cls: 'vac-demo-reps' }, ex.volume.tempo ? `${ex.volume.series ? `${ex.volume.series} × ` : ''}${ex.volume.tempo}` : 'Em loop')
     const ctrl: ControleDemo = { irPara: () => undefined, continuar: () => undefined, aoAtualizar: null, marcarPausa: () => undefined, aoContinuar: null, el: h('div') }
-    const a = criarDemoDoExercicio(mov, {
+    const a = criarBonecoV2(mov, {
       regioes: ex.regioes,
       aoRepetir: (r) => { if (total) contador.textContent = String((r % total) + 1) },
       aoAtualizar: (t) => { mostrarEtapa(t); ctrl.aoAtualizar?.(t) },
@@ -134,8 +133,8 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
     demo = h('div', { cls: 'vac-demo' },
       h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'),
       legenda,
-      h('div', { cls: 'vac-demo-palco' }, a.el, aviso),
-      a.em3d ? null : h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
+      h('div', { cls: 'vac-demo-palco' }, a.el as unknown as HTMLElement, aviso),
+      h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
       h('div', { cls: 'vac-demo-ctrl' }, reps, lento),
     )
     ctrl.el = demo
