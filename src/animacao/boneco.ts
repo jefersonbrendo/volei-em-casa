@@ -158,21 +158,64 @@ export function esqueleto(p: Pose, vista: 'lado' | 'frente' = 'lado', ancora: Mo
 }
 
 const CAMPOS = Object.keys(POSE_LADO) as Array<keyof Pose>
-function misturar(a: Pose, b: Pose, k: number): Pose {
-  const r = { ...a }
-  for (const c of CAMPOS) r[c] = a[c] + (b[c] - a[c]) * k
+/**
+ * Curva de cada ângulo ao longo do ciclo: cúbica monótona (Fritsch–Carlson) passando pelas poses-chave.
+ * O corpo atravessa as poses sem frear (antes cada trecho começava e terminava parado, o que deixava o
+ * movimento "picotado"), não passa do ponto (sem joelho dobrando além do desenhado) e fica parado só onde
+ * duas poses seguidas são iguais (as pausas de propósito). O ciclo fecha suave: a última pose emenda na primeira.
+ */
+interface Curva { ts: number[]; vs: number[]; ms: number[] }
+const CURVAS = new WeakMap<Movimento, Record<string, Curva>>()
+
+function curvaMonotona(ts: number[], vs: number[]): Curva {
+  const n = ts.length
+  const h: number[] = [], d: number[] = []
+  for (let k = 0; k < n - 1; k++) { h.push(ts[k + 1]! - ts[k]!); d.push((vs[k + 1]! - vs[k]!) / (h[k]! || 1)) }
+  const ms = new Array<number>(n).fill(0)
+  for (let k = 1; k < n - 1; k++) {
+    const d0 = d[k - 1]!, d1 = d[k]!
+    if (d0 * d1 <= 0) continue
+    const w1 = 2 * h[k]! + h[k - 1]!, w2 = h[k]! + 2 * h[k - 1]!
+    ms[k] = (w1 + w2) / (w1 / d0 + w2 / d1)
+  }
+  return { ts, vs, ms }
+}
+
+function curvasDo(m: Movimento): Record<string, Curva> {
+  const pronto = CURVAS.get(m)
+  if (pronto) return pronto
+  // tira tempos repetidos e fecha o ciclo com uma pose antes de 0 e uma depois de 1
+  const quadros = m.poses.map((q) => ({ t: q.t, p: { ...POSE_LADO, ...q.p } as Pose }))
+    .filter((q, i, arr) => i === 0 || q.t > arr[i - 1]!.t)
+  const n = quadros.length
+  const ciclo = n >= 3 && quadros[0]!.t === 0 && quadros[n - 1]!.t === 1
+  const ext = ciclo
+    ? [{ t: quadros[n - 2]!.t - 1, p: quadros[n - 2]!.p }, ...quadros, { t: quadros[1]!.t + 1, p: quadros[1]!.p }]
+    : quadros
+  const r: Record<string, Curva> = {}
+  for (const c of CAMPOS) r[c] = curvaMonotona(ext.map((q) => q.t), ext.map((q) => q.p[c]))
+  CURVAS.set(m, r)
   return r
 }
-const suave = (k: number): number => k * k * (3 - 2 * k)
+
+function valorEm(c: Curva, t: number): number {
+  const { ts, vs, ms } = c
+  if (t <= ts[0]!) return vs[0]!
+  const n = ts.length
+  if (t >= ts[n - 1]!) return vs[n - 1]!
+  let k = 0
+  while (k < n - 2 && t > ts[k + 1]!) k++
+  const hh = ts[k + 1]! - ts[k]!
+  const u = (t - ts[k]!) / hh, u2 = u * u, u3 = u2 * u
+  return (2 * u3 - 3 * u2 + 1) * vs[k]! + (u3 - 2 * u2 + u) * hh * ms[k]! + (-2 * u3 + 3 * u2) * vs[k + 1]! + (u3 - u2) * hh * ms[k + 1]!
+}
 
 export function poseEm(m: Movimento, t: number): Pose {
-  const quadros = m.poses.map((q) => ({ t: q.t, p: { ...POSE_LADO, ...q.p } as Pose }))
-  if (quadros.length === 1 || t <= quadros[0]!.t) return quadros[0]!.p
-  for (let i = 0; i < quadros.length - 1; i++) {
-    const a = quadros[i]!, b = quadros[i + 1]!
-    if (t >= a.t && t <= b.t) return misturar(a.p, b.p, suave((t - a.t) / (b.t - a.t || 1)))
-  }
-  return quadros[quadros.length - 1]!.p
+  if (m.poses.length === 1) return { ...POSE_LADO, ...m.poses[0]!.p } as Pose
+  const curvas = curvasDo(m)
+  const r = { ...POSE_LADO }
+  for (const c of CAMPOS) r[c] = valorEm(curvas[c]!, t)
+  return r
 }
 
 export function esqueletoEm(m: Movimento, t: number): Esqueleto {

@@ -255,3 +255,14 @@ img[src^="data:image/svg+xml"] { object-fit: contain !important; background: #f8
 .config-texto { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .config-texto small { opacity: .7; }
 .config-seta svg { width: 18px; height: 18px; opacity: .5; }
+
+/* Prévia 3D (tela interna #demo3d) */
+.demo3d-select { width: 100%; padding: 10px; margin: 8px 0 12px; border-radius: 10px; font: inherit; }
+.demo3d-palco { width: 100%; aspect-ratio: 1; border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
+.demo3d-palco canvas.boneco3d { display: block; width: 100%; height: 100%; }
+
+/* Boneco 3D na tela do exercício */
+.vac-3d { position: relative; width: 100%; aspect-ratio: 1; background: #EFE6D6; }
+.vac-3d canvas.boneco3d { display: block; width: 100%; height: 100%; }
+.vac-3d.carregando::after { content: ''; position: absolute; inset: 0; margin: auto; width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(20,17,11,.15); border-top-color: #FFC60B; animation: vac-gira .8s linear infinite; }
+@keyframes vac-gira { to { transform: rotate(360deg); } }
