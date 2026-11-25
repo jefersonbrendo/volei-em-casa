@@ -26,7 +26,7 @@ export const PREVIAS: Record<string, string> = {
   c24: 'c5',
   c25: 'c4',
   c26: 'i4',
-  c27: 'i8',
+  c27: 'v-c27',
   c28: 'i3',
   c29: 'i9',
   c30: 'i11',
