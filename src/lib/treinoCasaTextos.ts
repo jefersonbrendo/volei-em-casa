@@ -19,6 +19,11 @@ export const ROTULO_MATERIAL: Record<MaterialCasa, string> = {
   toalha: 'Toalha',
   garrafa: 'Garrafa',
   elastico: 'Elástico',
+  barra: 'Barra',
+  halter: 'Halteres',
+  kettlebell: 'Kettlebell',
+  caixa: 'Caixote',
+  banco: 'Banco',
 }
 
 export const ROTULO_REGIAO: Record<RegiaoCasa, string> = {

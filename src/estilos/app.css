@@ -66,6 +66,11 @@
 .bn-toalha { fill: none; stroke: #4aa3df; stroke-width: 5; stroke-linecap: round; }
 .bn-garrafa { fill: #4aa3df; stroke: color-mix(in srgb, #4aa3df 60%, #000); stroke-width: 1; }
 .bn-elastico { stroke: #e2554a; stroke-width: 2.5; stroke-linecap: round; }
+.bn-anilha circle, .bn-halter circle { fill: #2b2f36; stroke: #6b7280; stroke-width: 1.5; }
+.bn-anilha .bn-anilha-centro, .bn-halter .bn-anilha-centro { fill: #c9ced6; stroke: none; }
+.bn-kettlebell { fill: #2b2f36; stroke: #6b7280; stroke-width: 1.5; stroke-linejoin: round; }
+.bn-banco rect { fill: #3a3f47; stroke: var(--text-muted); stroke-width: 1.2; }
+.bn-banco path { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-linecap: round; }
 .bn-olhos { stroke: var(--bg-card); stroke-width: 1.6; stroke-linecap: round; }
 .vac-rev { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
 .vac-rev-item h4 { font-size: 12px; margin: 0 0 4px; color: var(--text); }

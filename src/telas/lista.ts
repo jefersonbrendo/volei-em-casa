@@ -1,12 +1,12 @@
 import { estado } from '../app/estado'
-import { CATEGORIAS, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, ehCategoriaQuadra, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
+import { CATEGORIAS, DESCRICAO_CATEGORIA, ITENS, ehCategoriaAreia, ehCategoriaQuadra, naAcademia, pessoasMinimas, soCorpo, usaBola, type Categoria, type Item } from '../app/itens'
 import { ICONE_MATERIAL } from '../components/treinoCasa/IconesMaterial'
 import { cabecalho, tituloDaPagina } from '../ui/cabecalho'
 import { h, svg } from '../ui/dom'
 import { ICONES_APP, linhaDoItem, vazio } from './comum'
 import { chipsDeNivel, rotaDaCategoria } from './inicio'
 
-export type Material = '' | 'corpo' | 'bola' | 'ate2' | '3mais'
+export type Material = '' | 'corpo' | 'bola' | 'academia' | 'ate2' | '3mais'
 
 const ICONE_PESSOAS = '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
 const ICONE_PESSOA = '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'
@@ -14,6 +14,7 @@ const ICONE_PESSOA = '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circ
 function passaFiltro(i: Item, f: Material): boolean {
   if (f === 'corpo') return soCorpo(i)
   if (f === 'bola') return usaBola(i)
+  if (f === 'academia') return naAcademia(i)
   if (f === 'ate2') return pessoasMinimas(i) <= 2
   if (f === '3mais') return pessoasMinimas(i) >= 3
   return true
@@ -53,9 +54,10 @@ export function telaLista(chave: string, materialInicial: Material): DocumentFra
   const naQuadra = !!categoria && (ehCategoriaAreia(categoria) || ehCategoriaQuadra(categoria))
   const opcoes: Array<[Material, string, string]> = naQuadra
     ? [['', 'Qualquer nº de pessoas', ''], ['ate2', 'Sozinho ou dupla', ICONE_PESSOA], ['3mais', '3 pessoas ou mais', ICONE_PESSOAS]]
-    : [['', 'Qualquer material', ''], ['corpo', 'Só o corpo', ICONE_MATERIAL.corpo], ['bola', 'Com bola', ICONES_APP.bola]]
+    : [['', 'Qualquer material', ''], ['corpo', 'Só o corpo', ICONE_MATERIAL.corpo], ['bola', 'Com bola', ICONES_APP.bola], ['academia', 'Na academia', ICONE_MATERIAL.halter]]
   for (const [valor, rotulo, icone] of opcoes) {
     const qtd = base.filter((i) => passaFiltro(i, valor)).length
+    if (valor === 'academia' && qtd === 0) continue // só aparece onde há exercícios de academia
     const chip = h('button', { cls: `chip chip-all${material === valor ? ' active' : ''}`, 'data-val': valor, html: `${icone ? svg(icone) : ''}${rotulo}` })
     if (qtd === 0) chip.setAttribute('disabled', '')
     chip.addEventListener('click', () => {

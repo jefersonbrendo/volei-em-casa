@@ -37,7 +37,7 @@ function desenhar(): void {
   if (rota !== 'placar') liberarTela()
   document.body.classList.toggle('modo-placar', rota === 'placar')
   let tela: DocumentFragment
-  if (rota.startsWith('cat-')) tela = telaLista(rota.slice(4), (['corpo', 'bola', 'ate2', '3mais'].includes(extra) ? extra : '') as Material)
+  if (rota.startsWith('cat-')) tela = telaLista(rota.slice(4), (['corpo', 'bola', 'academia', 'ate2', '3mais'].includes(extra) ? extra : '') as Material)
   else if (rota.startsWith('ex-')) tela = telaExercicio(rota.slice(3), extra)
   else if (rota === 'treinos') tela = telaTreinos()
   else if (rota.startsWith('treino-')) tela = telaTreino(rota.slice(7))

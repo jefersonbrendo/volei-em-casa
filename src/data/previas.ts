@@ -144,6 +144,9 @@ export const PREVIAS: Record<string, string> = {
   c142: 'c10',
   c143: 'i39',
   c144: 'i39',
+  // academia (imagens provisórias, de exercícios parecidos)
+  c196: 'c44', c197: 'c44', c198: 'i20', c199: 'c44', c200: 'i12', c201: 'i39',
+  c202: 'i39', c203: 'i8', c204: 'i13', c205: 'i7', c206: 'c44', c207: 'i39',
   c145: 'i9',
   c146: 'i10',
   c147: 'i8',

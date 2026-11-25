@@ -64,6 +64,11 @@ export interface Movimento {
   parede?: boolean | 'esq'
   cadeira?: { x: number; virada?: boolean }
   degrau?: number // x do degrau
+  degrauAltura?: number // altura do degrau ou caixote (padrão 18)
+  banco?: { x: number; largura: number; altura: number } // banco de academia (x = canto esquerdo)
+  halteres?: boolean // um halter em cada mão
+  barra?: boolean // barra com anilhas, presa entre as mãos (de lado aparece a anilha)
+  kettlebell?: boolean // kettlebell segurado com as duas mãos
   marcas?: number[] // chinelos/cones no chão
   linha?: boolean
   tapete?: boolean
@@ -246,7 +251,13 @@ export function cenario(svg: SVGSVGElement, m: Movimento): void {
     g.append(el('path', { d: `M${x} ${CHAO} L${x} ${CHAO - 46} L${x + 30 * s} ${CHAO - 46} L${x + 30 * s} ${CHAO} M${x} ${CHAO - 46} L${x} ${CHAO - 94}` }))
     svg.append(g)
   }
-  if (m.degrau !== undefined) svg.append(el('rect', { x: m.degrau, y: CHAO - 18, width: 46, height: 18, rx: 2, class: 'bn-degrau' }))
+  if (m.degrau !== undefined) { const alt = m.degrauAltura ?? 18; svg.append(el('rect', { x: m.degrau, y: CHAO - alt, width: 46, height: alt, rx: 2, class: 'bn-degrau' })) }
+  if (m.banco) {
+    const { x, largura, altura } = m.banco
+    const g = el('g', { class: 'bn-banco' })
+    g.append(el('rect', { x, y: CHAO - altura, width: largura, height: 6, rx: 3 }), el('path', { d: `M${x + 8} ${CHAO - altura + 6} V${CHAO} M${x + largura - 8} ${CHAO - altura + 6} V${CHAO}` }))
+    svg.append(g)
+  }
   for (const cx of m.marcas ?? []) svg.append(el('rect', { x: cx - 8, y: CHAO - 3, width: 16, height: 5, rx: 2.5, class: 'bn-marca' }))
 }
 

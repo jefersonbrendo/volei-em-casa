@@ -64,6 +64,14 @@ export const TREINOS: readonly TreinoPronto[] = [
     itens: ['c95', 'c96', 'c31', 'c39', 'c38', 'c37', 'c41'],
   },
   {
+    id: 'impulsao-academia',
+    nome: 'Impulsão na academia',
+    nivel: 'Intermediário',
+    resumo: 'Salto no caixote, força de pernas e quadril e panturrilha para saltar mais alto.',
+    onde: 'Na academia · barra, halteres e caixote',
+    itens: ['c104', 'c202', 'c196', 'c197', 'c199', 'c204'],
+  },
+  {
     id: 'defesa',
     nome: 'Agilidade de defesa',
     nivel: 'Intermediário',

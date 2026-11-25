@@ -11,6 +11,11 @@ export const ICONE_MATERIAL: Record<MaterialCasa, string> = {
   toalha: '<path d="M4 6c3-2 5 2 8 0s5 2 8 0v12c-3 2-5-2-8 0s-5-2-8 0z"/><path d="M4 12c3-2 5 2 8 0s5 2 8 0"/>',
   garrafa: '<path d="M10 2h4v3l1.5 2.5V21a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V7.5L10 5z"/><path d="M8.5 13h7"/>',
   elastico: '<rect x="2.5" y="7" width="19" height="10" rx="5"/><rect x="6.5" y="10" width="11" height="4" rx="2"/>',
+  barra: '<path d="M2 12h20"/><rect x="5" y="6" width="3" height="12" rx="1"/><rect x="16" y="6" width="3" height="12" rx="1"/>',
+  halter: '<path d="M7 12h10"/><rect x="3" y="8" width="4" height="8" rx="1"/><rect x="17" y="8" width="4" height="8" rx="1"/>',
+  kettlebell: '<path d="M8.5 9V7a3.5 3.5 0 0 1 7 0v2"/><path d="M6.5 13a5.5 5.5 0 1 1 11 0c0 3-1.5 6-5.5 6s-5.5-3-5.5-6z"/>',
+  caixa: '<path d="M4 8l8-4 8 4v9l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v9"/>',
+  banco: '<path d="M3 10h18"/><path d="M5 10v8M19 10v8M3 14h18"/>',
 }
 
 interface Opcoes {

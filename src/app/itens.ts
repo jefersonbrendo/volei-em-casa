@@ -1,6 +1,6 @@
 import { NA_AREIA, type ExercicioAreia } from '../data/areia'
 import { NA_QUADRA, type ExercicioQuadra } from '../data/quadra'
-import { CATEGORIAS_CASA, TREINO_CASA, type CategoriaCasa, type ExercicioCasa, type NivelCasa } from '../data/treinoCasa'
+import { CATEGORIAS_CASA, MATERIAIS_ACADEMIA, TREINO_CASA, type CategoriaCasa, type ExercicioCasa, type NivelCasa } from '../data/treinoCasa'
 import { ehSoCorpo } from '../lib/treinoCasaTextos'
 
 /**
@@ -90,6 +90,11 @@ export function itemPorId(id: string): Item | undefined {
 
 export function usaBola(item: Item): boolean {
   return item.tipo === 'casa' ? item.ex.material.includes('bola') : /bola/i.test(item.ex.material)
+}
+
+/** Exercício que usa equipamento de academia (barra, halter, kettlebell, caixote ou banco). */
+export function naAcademia(item: Item): boolean {
+  return item.tipo === 'casa' && item.ex.material.some((m) => MATERIAIS_ACADEMIA.includes(m))
 }
 
 export function soCorpo(item: Item): boolean {

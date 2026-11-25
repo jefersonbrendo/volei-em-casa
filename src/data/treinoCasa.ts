@@ -6,7 +6,7 @@
  *
  * COMO ADICIONAR EXERCÍCIOS
  * 1. Copie um objeto do array TREINO_CASA e cole no fim da lista (antes do `]`).
- * 2. Dê um `numero` novo e único (continue de 196 em diante). O número vira o endereço do
+ * 2. Dê um `numero` novo e único (continue de 208 em diante). O número vira o endereço do
  *    exercício (#casa-113), então não reaproveite nem mude números já publicados.
  * 3. Rode `npm test`: o teste confere números repetidos, valores inválidos e campos vazios.
  *
@@ -17,7 +17,7 @@
  *  nivel ......... 'Iniciante' | 'Intermediário' | 'Avançado'.
  *  material ...... LISTA com um ou mais destes valores (cada um vira um ícone):
  *                    'corpo' (só o peso do corpo), 'bola', 'parede', 'cadeira', 'toalha',
- *                    'garrafa', 'elastico'.
+ *                    'garrafa', 'elastico'. Academia: 'barra', 'halter', 'kettlebell', 'caixa', 'banco'.
  *                  Use 'corpo' SOZINHO quando não precisa de nada. Se precisa de algo, não coloque
  *                  'corpo': escreva só o que precisa. É isso que alimenta o filtro "Só o corpo".
  *  materialNota .. (opcional) texto livre para o que não tem ícone: 'Dois chinelos como marcas'.
@@ -42,6 +42,7 @@
 
 import { NOVOS_BOLA_IMPULSAO } from './treinoCasaNovosBola'
 import { NOVOS_CORPO } from './treinoCasaNovosCorpo'
+import { NOVOS_ACADEMIA } from './treinoCasaAcademia'
 
 export const CATEGORIAS_CASA = ['Com bola', 'Impulsão', 'Força', 'Agilidade', 'Coordenação', 'Mobilidade'] as const
 export type CategoriaCasa = (typeof CATEGORIAS_CASA)[number]
@@ -49,7 +50,9 @@ export type CategoriaCasa = (typeof CATEGORIAS_CASA)[number]
 export const NIVEIS_CASA = ['Iniciante', 'Intermediário', 'Avançado'] as const
 export type NivelCasa = (typeof NIVEIS_CASA)[number]
 
-export const MATERIAIS_CASA = ['corpo', 'bola', 'parede', 'cadeira', 'toalha', 'garrafa', 'elastico'] as const
+export const MATERIAIS_CASA = ['corpo', 'bola', 'parede', 'cadeira', 'toalha', 'garrafa', 'elastico', 'barra', 'halter', 'kettlebell', 'caixa', 'banco'] as const
+/** Materiais de academia: alimentam o filtro "Na academia". */
+export const MATERIAIS_ACADEMIA: readonly MaterialCasa[] = ['barra', 'halter', 'kettlebell', 'caixa', 'banco']
 export type MaterialCasa = (typeof MATERIAIS_CASA)[number]
 
 export const REGIOES_CASA = ['pernas', 'gluteos', 'core', 'bracos', 'ombros', 'costas', 'corpo_inteiro'] as const
@@ -2143,4 +2146,4 @@ const TREINO_CASA_BASE: ExercicioCasa[] = [
 ]
 
 /** Todos os exercícios: os 112 originais + os novos (113–195). */
-export const TREINO_CASA: ExercicioCasa[] = [...TREINO_CASA_BASE, ...NOVOS_BOLA_IMPULSAO, ...NOVOS_CORPO]
+export const TREINO_CASA: ExercicioCasa[] = [...TREINO_CASA_BASE, ...NOVOS_BOLA_IMPULSAO, ...NOVOS_CORPO, ...NOVOS_ACADEMIA]

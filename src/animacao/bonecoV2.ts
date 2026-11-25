@@ -148,6 +148,13 @@ export function criarBonecoV2(m: Movimento, opcoes: OpcoesV2 = {}): AnimacaoV2 {
   if (elastico) svg.insertBefore(elastico, tras)
   if (toalha) svg.append(toalha)
   if (garrafas) svg.append(...garrafas)
+  // academia: anilha da barra (entre o corpo e o braço da frente), halteres e kettlebell nas mãos
+  const anilha = m.barra ? el('g', { class: 'bn-anilha' }) : null
+  if (anilha) { anilha.append(el('circle', { r: 13 }), el('circle', { r: 3, class: 'bn-anilha-centro' })); svg.insertBefore(anilha, frente) }
+  const halteres = m.halteres ? [0, 1].map(() => { const g = el('g', { class: 'bn-halter' }); g.append(el('circle', { r: 6 }), el('circle', { r: 2, class: 'bn-anilha-centro' })); return g }) : null
+  if (halteres) { svg.insertBefore(halteres[1]!, tras.nextSibling); svg.append(halteres[0]!) }
+  const kettlebell = m.kettlebell ? el('path', { class: 'bn-kettlebell', d: 'M-4 -2 V-7 A4 4 0 0 1 4 -7 V-2 M-8 5 A8 8 0 1 0 8 5 A8 8 0 0 0 -8 5 Z' }) : null
+  if (kettlebell) svg.append(kettlebell)
   svg.append(bola)
 
   // rastro: caminho completo do ponto que mais se move
@@ -211,6 +218,9 @@ export function criarBonecoV2(m: Movimento, opcoes: OpcoesV2 = {}): AnimacaoV2 {
 
     if (toalha) { const mm = { x: (s.maoT.x + s.maoF.x) / 2, y: (s.maoT.y + s.maoF.y) / 2 }; toalha.setAttribute('d', `M${f(s.maoT.x)} ${f(s.maoT.y)} Q${f(mm.x)} ${f(mm.y + 6)} ${f(s.maoF.x)} ${f(s.maoF.y)}`) }
     if (garrafas) { [s.maoF, s.maoT].forEach((mao, i) => { garrafas[i]!.setAttribute('x', f(mao.x - 3.5)); garrafas[i]!.setAttribute('y', f(mao.y - 8)) }) }
+    if (anilha) anilha.setAttribute('transform', `translate(${f(s.maos.x)} ${f(s.maos.y)})`)
+    if (halteres) [s.maoF, s.maoT].forEach((mao, i) => halteres[i]!.setAttribute('transform', `translate(${f(mao.x)} ${f(mao.y)})`))
+    if (kettlebell) kettlebell.setAttribute('transform', `translate(${f(s.maos.x)} ${f(s.maos.y + 4)})`)
     if (elastico && m.elastico) { elastico.setAttribute('x1', f(m.elastico.x)); elastico.setAttribute('y1', f(m.elastico.y)); elastico.setAttribute('x2', f(s.maoF.x)); elastico.setAttribute('y2', f(s.maoF.y)) }
     const altura = CHAO - 4.5 - Math.max(s.tornF.y, s.tornT.y)
     sombra.setAttribute('cx', f(s.quadril.x)); sombra.setAttribute('rx', f(Math.max(12, 26 - Math.max(0, altura) * 0.25)))

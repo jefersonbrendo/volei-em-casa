@@ -188,6 +188,20 @@ function isometria(duracao: number, a: P, b: P, extra: Partial<Movimento> = {}):
 /* =====================================================================
  * MOVIMENTOS
  * ===================================================================== */
+/* ---------- Academia ---------- */
+const BRACOS_SOLTOS: P = { bracoF: 4, antebracoF: 4, bracoT: 0, antebracoT: 0 } // braços esticados ao lado do corpo (halter ou barra na mão)
+const BARRA_COSTAS: P = { bracoF: -50, antebracoF: 144, bracoT: -54, antebracoT: 140 } // mãos segurando a barra no alto das costas
+const DOBRA_QUADRIL: P = { tronco: 72, coxaF: 14, canelaF: -6, coxaT: 12, canelaT: -8 } // terra romeno: quadril para trás, joelhos quase retos
+const TERRA_BAIXO: P = { tronco: 50, coxaF: 76, canelaF: -22, coxaT: 72, canelaT: -24 }
+// elevação de quadril com as costas no banco (pé da frente preso no chão)
+const QUADRIL_BAIXO: P = { tronco: -61, coxaF: 128, canelaF: 23, coxaT: 126, canelaT: 22, peF: -23, peT: -22, bracoF: 61, antebracoF: 61, bracoT: 63, antebracoT: 63 }
+const QUADRIL_ALTO: P = { tronco: -90, coxaF: 90, canelaF: 0, coxaT: 88, canelaT: -2, bracoF: 90, antebracoF: 90, bracoT: 92, antebracoT: 92 }
+const BULGARO_CIMA: P = { tronco: 4, coxaF: 10, canelaF: -4, coxaT: -30, canelaT: -100, peT: -60 }
+const BULGARO_BAIXO: P = { tronco: 12, coxaF: 74, canelaF: -14, coxaT: 10, canelaT: -100, peT: -60 }
+const PONTA_PES: P = { y: 8, canelaF: -10, canelaT: -12, peF: -30, peT: -30 }
+const KB_TOPO: P = { tronco: 0, coxaF: 4, canelaF: -4, coxaT: 2, canelaT: -6, bracoF: 88, antebracoF: 90, bracoT: 86, antebracoT: 88 }
+const KB_FUNDO: P = { tronco: 58, coxaF: 34, canelaF: -14, coxaT: 30, canelaT: -16, bracoF: -24, antebracoF: -30, bracoT: -26, antebracoT: -32 }
+
 export const MOVIMENTOS: Record<string, Movimento> = {
   /* ------------------------------ COM BOLA ------------------------------ */
   toqueParede: toqueParede(),
@@ -523,6 +537,29 @@ export const MOVIMENTOS: Record<string, Movimento> = {
   gluteoDeitado: mov(3, [[0, com(COSTAS_JOELHOS, { coxaT: 170, canelaT: 80, peT: -80 })], [0.5, com(COSTAS_JOELHOS, { tronco: -84, coxaF: 165, canelaF: 70, coxaT: 185, canelaT: 95, peT: -95, peF: -70, bracoF: 150, antebracoF: 120, bracoT: 150, antebracoT: 120 })], [1, com(COSTAS_JOELHOS, { coxaT: 170, canelaT: 80, peT: -80 })]], { tapete: true, ancora: 'quadril' }),
   cachorro: mov(3, [[0, QUATRO_APOIOS], [0.4, { tronco: 135, coxaF: -40, canelaF: -40, coxaT: -41, canelaT: -41, bracoF: 45, antebracoF: 45, bracoT: 46, antebracoT: 46, peF: 40, peT: 40 }], [0.7, { tronco: 135, coxaF: -40, canelaF: -40, coxaT: -41, canelaT: -41, bracoF: 45, antebracoF: 45, bracoT: 46, antebracoT: 46, peF: 40, peT: 40 }], [1, QUATRO_APOIOS]], { deslocar: 40, tapete: true, ancora: 'maos' }),
   balancoPerna: mov(1.6, [[0, { x: -50, bracoT: -90, antebracoT: -100, coxaF: -30, canelaF: -40 }], [0.5, { x: -50, bracoT: -90, antebracoT: -100, coxaF: 70, canelaF: 60 }], [1, { x: -50, bracoT: -90, antebracoT: -100, coxaF: -30, canelaF: -40 }]], { parede: 'esq', ancora: 'peT' }),
+  // ---------- ACADEMIA (impulsão) ----------
+  agachamentoBarra: mov(3, [[0, BARRA_COSTAS], [0.45, com(AGACHA, BARRA_COSTAS)], [0.55, com(AGACHA, BARRA_COSTAS)], [1, BARRA_COSTAS]], { barra: true }),
+  terraRomeno: mov(3, [[0, BRACOS_SOLTOS], [0.45, com(DOBRA_QUADRIL, BRACOS_SOLTOS)], [0.55, com(DOBRA_QUADRIL, BRACOS_SOLTOS)], [1, BRACOS_SOLTOS]], { barra: true }),
+  elevacaoQuadrilBarra: mov(2.6, [[0, QUADRIL_BAIXO], [0.4, QUADRIL_ALTO], [0.55, QUADRIL_ALTO], [1, QUADRIL_BAIXO]], { ancora: 'peF', deslocar: 40, barra: true, banco: { x: 26, largura: 50, altura: 34 } }),
+  bulgaroHalteres: mov(2.6, [[0, com(BULGARO_CIMA, BRACOS_SOLTOS)], [0.5, com(BULGARO_BAIXO, BRACOS_SOLTOS)], [1, com(BULGARO_CIMA, BRACOS_SOLTOS)]], { ancora: 'peF', halteres: true, banco: { x: 40, largura: 46, altura: 46 } }),
+  afundoTrasHalteres: mov(2.4, [[0, BRACOS_SOLTOS], [0.45, com(AFUNDO, BRACOS_SOLTOS)], [0.6, com(AFUNDO, BRACOS_SOLTOS)], [1, BRACOS_SOLTOS]], { ancora: 'peF', halteres: true }),
+  subidaCaixoteHalteres: mov(2.6, [
+    [0, com(BRACOS_SOLTOS, { x: 0 })], [0.25, com(BRACOS_SOLTOS, { x: 6, coxaF: 60, canelaF: -10 })], [0.5, com(BRACOS_SOLTOS, { x: 30, y: 18 })],
+    [0.75, com(BRACOS_SOLTOS, { x: 24, y: 10, coxaT: -20, canelaT: -10 })], [1, com(BRACOS_SOLTOS, { x: 0 })],
+  ], { degrau: CENTRO_X + 12, halteres: true }),
+  saltoCaixote: mov(3, [
+    [0, { x: -30 }], [0.16, com(PRE_SALTO, { x: -30 })],
+    [0.3, com(NO_AR, { x: -6, y: 52, tronco: 14, coxaF: 70, canelaF: -30, coxaT: 66, canelaT: -34, bracoF: 125, antebracoF: 130, bracoT: 120, antebracoT: 126 })],
+    [0.42, com(ATERRISSA, { x: 16, y: 40 })], [0.58, { x: 16, y: 40 }],
+    [0.68, { x: -8, y: 40 }], [0.8, { x: -26, y: 0, coxaF: 20, canelaF: -10 }], [0.9, { x: -30 }], [1, { x: -30 }],
+  ], { degrau: CENTRO_X - 7, degrauAltura: 40 }),
+  agachamentoSaltoHalteres: mov(2.2, [
+    [0, BRACOS_SOLTOS], [0.35, com(MEIO_AGACHA, BRACOS_SOLTOS)], [0.5, com(NO_AR, { y: 18 }, BRACOS_SOLTOS)], [0.6, com(NO_AR, { y: 18 }, BRACOS_SOLTOS)],
+    [0.75, com(ATERRISSA, BRACOS_SOLTOS)], [1, BRACOS_SOLTOS],
+  ], { halteres: true }),
+  panturrilhaHalteres: mov(1.8, [[0, BRACOS_SOLTOS], [0.45, com(PONTA_PES, BRACOS_SOLTOS)], [0.6, com(PONTA_PES, BRACOS_SOLTOS)], [1, BRACOS_SOLTOS]], { halteres: true }),
+  kettlebellSwing: mov(1.6, [[0, KB_TOPO], [0.45, KB_FUNDO], [0.8, KB_TOPO], [1, KB_TOPO]], { kettlebell: true }),
+  terraBarra: mov(3, [[0, com(TERRA_BAIXO, BRACOS_SOLTOS)], [0.4, BRACOS_SOLTOS], [0.55, BRACOS_SOLTOS], [1, com(TERRA_BAIXO, BRACOS_SOLTOS)]], { barra: true }),
 }
 
 /** Qual movimento cada exercício de casa mostra (número do exercício → movimento). */
@@ -566,6 +603,9 @@ export const MOVIMENTO_DO_EXERCICIO: Record<number, string> = {
   109: 'extensaoColuna', 110: 'passadaAlcance', 111: 'crianca', 112: 'gatoCamelo',
   186: 'punhos', 187: 'antebraco', 188: 'ombroCruzado', 189: 'triceps', 190: 'portao', 191: 'livroAberto', 192: 'gluteoDeitado', 193: 'lateralEmPe',
   194: 'cachorro', 195: 'balancoPerna',
+  // Academia (impulsão)
+  196: 'agachamentoBarra', 197: 'terraRomeno', 198: 'elevacaoQuadrilBarra', 199: 'bulgaroHalteres', 200: 'afundoTrasHalteres', 201: 'subidaCaixoteHalteres',
+  202: 'saltoCaixote', 203: 'agachamentoSaltoHalteres', 204: 'panturrilhaHalteres', 205: 'kettlebellSwing', 206: 'terraBarra', 207: 'quedaDegrau',
 }
 
 /** Movimento de um exercício de casa (todo exercício tem um). */
