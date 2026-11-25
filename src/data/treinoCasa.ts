@@ -810,7 +810,7 @@ const TREINO_CASA_BASE: ExercicioCasa[] = [
     regioes: ['pernas'],
     objetivo: 'Fortalecer a panturrilha, que ajuda no impulso do salto.',
     passoAPasso: [
-      'Fique em pé, com uma mão apoiada na parede para manter o equilíbrio.',
+      'Fique em pé, de frente para a parede, com as mãos apoiadas nela para manter o equilíbrio.',
       'Suba na ponta dos pés o máximo que conseguir.',
       'Desça devagar e repita.',
     ],

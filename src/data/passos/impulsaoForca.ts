@@ -91,7 +91,7 @@ export const PASSOS_IMPULSAO_FORCA: Record<number, PassoDetalhado> = {
     e('Aterrissar parado', 'Caia na mesma perna, dobrando o joelho, e fique parado 2 segundos.', 0.7),
   ], ritmo: 'Faça todas as repetições de uma perna e depois troque.' },
   41: { etapas: [
-    e('Posição inicial', 'Fique em pé, perto da parede, com uma mão apoiada nela.', 0),
+    e('Posição inicial', 'Fique em pé, de frente para a parede, com as mãos apoiadas nela.', 0),
     e('Subir', 'Suba na ponta dos pés o máximo que conseguir.', 0.5),
     e('Descer', 'Desça devagar até os calcanhares encostarem no chão.', 1),
   ], ritmo: 'Suba em 1 segundo e desça em 2 segundos.' },
