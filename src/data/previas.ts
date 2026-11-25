@@ -1,7 +1,7 @@
 /** Qual imagem de public/previa cada exercício usa. Vários exercícios parecidos dividem a mesma imagem. */
 export const PREVIAS: Record<string, string> = {
   c1: 'c1',
-  c2: 'i7',
+  c2: 'v-c2',
   c3: 'i26',
   c4: 'c4',
   c5: 'c5',

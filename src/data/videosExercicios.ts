@@ -14,5 +14,6 @@ const video = (nome: string, etapas: number[], periodo: number): VideoExercicio 
 })
 
 export const VIDEOS_EXERCICIO: Record<number, VideoExercicio> = {
+  2: video('agachamento-com-salto', [0.8, 1.1, 1.6, 2.0], 1.3), // Agachamento com salto
   33: video('afundo-com-salto', [4.8, 5.0, 5.2, 5.5], 1.2), // Afundo com salto
 }
