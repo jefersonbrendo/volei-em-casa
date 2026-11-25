@@ -18,6 +18,9 @@ export const VIDEOS_EXERCICIO: Record<number, VideoExercicio> = {
   27: video('saltos-no-lugar', [0.73, 0.8, 1.05, 1.4], 0.72), // Saltos no lugar
   30: video('elevacao-de-joelho', [0.03, 1.25, 1.48], 0.47), // Elevação de joelho no lugar (só a parte "Correto" do vídeo)
   31: video('salto-vertical-bracos', [0.05, 1.9, 2.35, 3.2], 5.8), // Salto vertical com braços (uma repetição por volta do vídeo)
+  32: video('salto-lateral', [0.0, 0.2, 0.5, 0.75], 1.07), // Salto lateral (side to side pogos)
   33: video('afundo-com-salto', [4.8, 5.0, 5.2, 5.5], 1.2), // Afundo com salto
+  34: video('saltinhos-de-tornozelo', [0.0, 0.5, 0.7], 0.53), // Saltinhos de tornozelo (pogo hops)
   143: video('queda-do-degrau', [3.8, 4.6, 4.9, 5.75], 6.6), // Queda do degrau e salto (uma repetição por volta do vídeo)
+  145: video('saltos-laterais-uma-perna', [0.0, 0.2, 0.5, 0.75], 1.03), // Saltos laterais em uma perna (single leg side to side pogos)
 }
