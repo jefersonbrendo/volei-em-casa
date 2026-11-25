@@ -7,6 +7,8 @@ import { TREINOS } from '../data/treinos'
 import { ROTULO_REGIAO } from '../lib/treinoCasaTextos'
 import { mostrarAviso } from '../ui/aviso'
 import { criarBonecoV2 } from '../animacao/bonecoV2'
+import { criarDemoVideo } from '../animacao/demoVideo'
+import { VIDEOS_EXERCICIO } from '../data/videosExercicios'
 import { movimentoDoExercicio } from '../animacao/movimentos'
 import { PASSOS, type Etapa } from '../data/passos'
 import { registrarAnimacao } from '../animacao/registro'
@@ -87,11 +89,12 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
     const contador = h('b', null, '1')
     const reps = total ? h('span', { cls: 'vac-demo-reps' }, 'Repetição ', contador, ` de ${total}`) : h('span', { cls: 'vac-demo-reps' }, ex.volume.tempo ? `${ex.volume.series ? `${ex.volume.series} × ` : ''}${ex.volume.tempo}` : 'Em loop')
     const ctrl: ControleDemo = { irPara: () => undefined, continuar: () => undefined, aoAtualizar: null, marcarPausa: () => undefined, aoContinuar: null, el: h('div') }
-    const a = criarBonecoV2(mov, {
-      regioes: ex.regioes,
-      aoRepetir: (r) => { if (total) contador.textContent = String((r % total) + 1) },
-      aoAtualizar: (t) => { mostrarEtapa(t); ctrl.aoAtualizar?.(t) },
-    })
+    const video = VIDEOS_EXERCICIO[ex.numero]
+    const aoRepetir = (r: number): void => { if (total) contador.textContent = String((r % total) + 1) }
+    const aoAtualizar = (t: number): void => { mostrarEtapa(t); ctrl.aoAtualizar?.(t) }
+    const a = video
+      ? criarDemoVideo(video, { etapasT: (PASSOS[ex.numero]?.etapas ?? []).map((e) => e.t), aoRepetir, aoAtualizar })
+      : criarBonecoV2(mov, { regioes: ex.regioes, aoRepetir, aoAtualizar })
     registrarAnimacao(a.destruir)
     const lento = h('button', { cls: 'vac-lento', 'aria-pressed': 'false', type: 'button' }, '🐢 Câmera lenta')
     lento.addEventListener('click', () => {
@@ -133,8 +136,8 @@ function blocoVisualCasa(item: Extract<Item, { tipo: 'casa' }>): { el: HTMLEleme
     demo = h('div', { cls: 'vac-demo' },
       h('p', { cls: 'vac-demo-rotulo' }, 'Veja o movimento'),
       legenda,
-      h('div', { cls: 'vac-demo-palco' }, a.el as unknown as HTMLElement, aviso),
-      h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
+      h('div', { cls: 'vac-demo-palco' + (video ? ' com-video' : '') }, a.el as unknown as HTMLElement, aviso),
+      video ? null : h('div', { cls: 'vac-demo-legenda' }, h('span', null, h('i', { cls: 'lg-halo' }), 'Região que trabalha'), a.temRastro ? h('span', null, h('i', { cls: 'lg-rastro' }), 'Trajetória') : null),
       h('div', { cls: 'vac-demo-ctrl' }, reps, lento),
     )
     ctrl.el = demo
@@ -231,6 +234,7 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
 
   // Etapas ligadas à animação (cada etapa mostra a pose daquele momento)
   const movEtapas = item.tipo === 'casa' ? movimentoDoExercicio(item.ex.numero) : undefined
+  const fotosVideo = item.tipo === 'casa' ? VIDEOS_EXERCICIO[item.ex.numero] : undefined
   let itensEtapa: HTMLElement[] = []
   let fixada: number | null = null
   let atual = -1
@@ -244,7 +248,7 @@ export function telaExercicio(id: string, voltar: string): DocumentFragment {
       const li = h('li', { cls: 'vac-etapa' + (demo ? ' clicavel' : '') },
         h('span', { cls: 'step-num' }, String(i + 1)),
         h('div', { cls: 'vac-etapa-corpo' }, h('strong', { cls: 'vac-etapa-titulo' }, et.titulo), h('span', { cls: 'vac-etapa-texto' }, et.texto)),
-        movEtapas ? h('figure', { cls: 'vac-etapa-pose' }, criarBonecoV2(movEtapas, { parado: true, t: et.t, recorte: true, regioes: item.tipo === 'casa' ? item.ex.regioes : [] }).el as unknown as HTMLElement) : null,
+        fotosVideo ? h('figure', { cls: 'vac-etapa-pose' }, h('img', { src: fotosVideo.fotoEtapa(i), alt: `Etapa ${i + 1}: ${et.titulo}`, loading: 'lazy', width: '240', height: '240' })) : movEtapas ? h('figure', { cls: 'vac-etapa-pose' }, criarBonecoV2(movEtapas, { parado: true, t: et.t, recorte: true, regioes: item.tipo === 'casa' ? item.ex.regioes : [] }).el as unknown as HTMLElement) : null,
       )
       if (demo) {
         li.setAttribute('role', 'button'); li.setAttribute('tabindex', '0')
