@@ -15,6 +15,7 @@ const video = (nome: string, etapas: number[], periodo: number): VideoExercicio 
 
 export const VIDEOS_EXERCICIO: Record<number, VideoExercicio> = {
   2: video('agachamento-com-salto', [0.8, 1.1, 1.6, 2.0], 1.3), // Agachamento com salto
+  29: video('salto-a-frente', [0.0, 1.45, 2.15, 2.8], 3.6), // Salto à frente (horizontal jump, uma repetição por volta do vídeo)
   27: video('saltos-no-lugar', [0.73, 0.8, 1.05, 1.4], 0.72), // Saltos no lugar
   30: video('elevacao-de-joelho', [0.03, 1.25, 1.48], 0.47), // Elevação de joelho no lugar (só a parte "Correto" do vídeo)
   31: video('salto-vertical-bracos', [0.05, 1.9, 2.35, 3.2], 5.8), // Salto vertical com braços (uma repetição por volta do vídeo)
