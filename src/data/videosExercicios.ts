@@ -28,4 +28,5 @@ export const VIDEOS_EXERCICIO: Record<number, VideoExercicio> = {
   145: video('saltos-laterais-uma-perna', [0.0, 0.2, 0.5, 0.75], 1.03), // Saltos laterais em uma perna (single leg side to side pogos)
   200: video('afundo-para-tras', [0.05, 1.5, 2.3], 2.8), // Afundo para trás com halteres (vídeo sem halteres, uma repetição por volta)
   201: video('subida-no-caixote', [0.0, 0.5, 2.37, 3.3], 4.55), // Subida no caixote com halteres (vídeo sem halteres, uma repetição por volta)
+  204: video('panturrilha-com-halteres', [0.3, 1.4, 1.8, 2.6], 2.15), // Panturrilha em pé com halteres
 }
