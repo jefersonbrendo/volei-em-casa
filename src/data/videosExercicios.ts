@@ -24,6 +24,7 @@ export const VIDEOS_EXERCICIO: Record<number, VideoExercicio> = {
   35: video('salto-agrupado', [0.2, 0.8, 1.55, 1.9], 3.0), // Salto agrupado (tuck jump, uma repetição a cada 3 s)
   36: video('salto-meia-volta', [0.5, 0.85, 1.4, 1.85], 1.6), // Salto com meia-volta (180 jump, um giro para cada lado)
   34: video('saltinhos-de-tornozelo', [0.0, 0.5, 0.7], 0.53), // Saltinhos de tornozelo (pogo hops)
+  37: video('salto-de-bloqueio', [0.0, 0.2, 0.55, 0.95], 1.3), // Salto de bloqueio (standing block jump na parede)
   40: video('salto-uma-perna', [0.1, 0.75, 1.25, 1.8], 2.05), // Salto em uma perna (só o salto perto da câmera, uma repetição por volta)
   41: video('elevacao-de-calcanhar', [1.5, 2.4, 3.3], 1.9), // Elevação de calcanhar (wall-supported calf raise)
   140: video('tres-saltos-seguidos', [0.0, 0.3, 1.3, 2.15], 2.63), // Três saltos seguidos (continuous jumps, os 3 saltos em cada volta do vídeo)
@@ -31,6 +32,7 @@ export const VIDEOS_EXERCICIO: Record<number, VideoExercicio> = {
   143: video('queda-do-degrau', [3.8, 4.6, 4.9, 5.75], 6.6), // Queda do degrau e salto (uma repetição por volta do vídeo)
   144: video('subida-no-degrau', [0.05, 0.6, 1.0, 1.5], 2.0), // Subida no degrau alternada (duas repetições, uma com cada perna)
   145: video('saltos-laterais-uma-perna', [0.0, 0.2, 0.5, 0.75], 1.03), // Saltos laterais em uma perna (single leg side to side pogos)
+  148: video('bloqueio-com-deslocamento', [0.0, 0.3, 0.55, 1.0, 1.6], 4.2), // Bloqueio com deslocamento (side step block jumps, um bloqueio para cada lado por volta)
   200: video('afundo-para-tras', [0.05, 1.5, 2.3], 2.8), // Afundo para trás com halteres (vídeo sem halteres, uma repetição por volta)
   201: video('subida-no-caixote', [0.0, 0.5, 2.37, 3.3], 4.55), // Subida no caixote com halteres (vídeo sem halteres, uma repetição por volta)
   204: video('panturrilha-com-halteres', [0.3, 1.4, 1.8, 2.6], 2.15), // Panturrilha em pé com halteres
